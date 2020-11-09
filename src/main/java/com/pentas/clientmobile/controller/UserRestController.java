@@ -16,6 +16,11 @@ public class UserRestController {
 
     private final UserService userService;
 
+    @PostMapping("/ssocheck")
+    public boolean ssocheck(@RequestBody DevMap param){
+        return userService.isSocialUserById(param.getString("email"));
+    }
+
     @PostMapping("/registered")
     public Boolean registered(@RequestBody DevMap param) {
         return userService.isRegisteredUser(param.getString("email"));
@@ -32,6 +37,11 @@ public class UserRestController {
         DevMap rslt = new DevMap();
         rslt.put("rsltStat", rsltStat);
         return rslt;
+    }
+
+    @PostMapping("/signin")
+    public DevMap signin(@RequestBody DevMap param) {
+        return null;
     }
 
 }

@@ -1,33 +1,65 @@
 <template>
   <q-page class="flex column flex-center">
-    <h5 class="no-margin no-padding">Login</h5>
+    <h5>로그인</h5>
 
-    <q-input v-model="userId" placeholder="E-Mail" dense class="q-px-xl q-py-sm fit" />
-    <q-input
-      v-model="userPw"
-      placeholder="Password"
-      :type="isPwd ? 'password' : 'text'"
-      class="q-px-xl q-py-sm fit"
-    >
-      <template v-slot:append>
-        <q-icon
-          :name="isPwd ? 'visibility_off' : 'visibility'"
-          class="cursor-pointer"
-          @click="isPwd = !isPwd"
-        />
-      </template>
-    </q-input>
-    <div class="flex column q-px-xl q-py-lg q-gutter-y-md fit">
-      <q-btn color="black" label="로그인" />
+    <q-form class="flex column fit" @submit.prevent="onLogin">
+      <q-input
+        v-model="userId"
+        placeholder="아이디 (이메일)"
+        dense
+        class="q-px-lg q-py-sm fit"
+        :rules="[
+          $rules.required('아이디를 입력해주세요.'),
+          $rules.email('올바른 이메일이 아닙니다.')
+        ]"
+      />
+      <q-input
+        v-model="userPw"
+        placeholder="비밀번호"
+        :type="isPwd ? 'password' : 'text'"
+        class="q-px-lg q-py-sm fit"
+        :rules="[$rules.required('비밀번호를 입력해주세요.')]"
+      >
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+      </q-input>
+      <div class="flex column q-px-lg q-py-lg q-gutter-y-md fit">
+        <q-btn color="black" label="로그인" type="submit" />
+      </div>
+    </q-form>
+    <q-separator />
+    <div class="flex column q-px-lg q-py-lg q-gutter-y-md fit">
       <q-btn color="white" text-color="black" label="회원가입" to="/signup" />
-      <q-btn color="primary" label="구글 로그인" type="a" :href="oAuthUrl('google')" />
-      <q-btn color="positive" label="네이버 로그인" type="a" :href="oAuthUrl('naver')" />
-      <q-btn color="amber" text-color="black" label="카카오 로그인" type="a" :href="oAuthUrl('kakao')" />
+      <q-btn
+        color="primary"
+        label="구글 로그인"
+        type="a"
+        :href="oAuthUrl('google')"
+      />
+      <q-btn
+        color="positive"
+        label="네이버 로그인"
+        type="a"
+        :href="oAuthUrl('naver')"
+      />
+      <q-btn
+        color="amber"
+        text-color="black"
+        label="카카오 로그인"
+        type="a"
+        :href="oAuthUrl('kakao')"
+      />
     </div>
   </q-page>
 </template>
 
 <script>
+import sha256 from "sha256";
 import { openURL } from "quasar";
 
 export default {
@@ -36,7 +68,7 @@ export default {
     return {
       isPwd: true,
       userId: "",
-      userPw: "",
+      userPw: ""
     };
   },
   mounted() {
@@ -59,21 +91,33 @@ export default {
   },
   methods: {
     /** 로그인 이전 상태에 따라 notify */
-    loginNotify: function (clr, txtClr, msg, cpt) {
+    loginNotify: function(clr, txtClr, msg, cpt) {
       this.$q.notify({
         group: false,
         color: clr,
         textColor: txtClr,
         message: msg,
-        caption: cpt,
+        caption: cpt
       });
     },
-    /** 서비스별 oAuth 처리 Url */
-    oAuthUrl: function (service) {
-      let apiRoot = "";
-      if (process.env.DEV) apiRoot = "http://localhost:8080";
-      return apiRoot + "/oauth2/authorization/" + service;
+    /** 로그인 버튼 클릭 이벤트 */
+    onLogin: function() {
+      let self = this;
+      if (self.userId !== "") {
+        self.$axios
+          .post("/api/user/ssocheck", {
+            email: self.userId
+          })
+          .then(function(response) {
+            console.log(response.data);
+          });
+      }
+      console.log(sha256(this.userPw));
     },
-  },
+    /** 서비스별 oAuth 처리 Url */
+    oAuthUrl: function(service) {
+      return process.env.API + "/oauth2/authorization/" + service;
+    }
+  }
 };
 </script>

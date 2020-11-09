@@ -3,19 +3,20 @@
     <h5>회원가입</h5>
     <q-form
       class="flex column flex-center q-px-sm q-py-none fit"
-      ref="joinForm"
       @submit.prevent="onSubmit"
     >
-      <div class="q-px-lg q-py-none fit">
+      <div class="q-px-md q-py-none fit">
         <span class="text-subtitle1">아이디</span>
-        <span v-if="!isSocialId" class="q-ml-sm text-subtitle2 text-red-14">*필수</span>
+        <span v-if="!isSocialId" class="q-ml-sm text-subtitle2 text-red-14"
+          >*필수</span
+        >
       </div>
       <q-input
         v-model="userId"
         type="email"
         placeholder="이메일"
         dense
-        class="q-px-lg q-py-sm fit"
+        class="q-px-md q-py-sm fit"
         :readonly="isSocialId"
         :rules="[
           $rules.required('필수 항목입니다.'),
@@ -24,11 +25,17 @@
         @keyup="onIdKeyup"
       >
         <template v-slot:append v-if="!isSocialId">
-          <q-btn dense :color="idChkColor" :icon="idChkIcon" label="중복확인" @click="onIdChkClick" />
+          <q-btn
+            dense
+            :color="idChkColor"
+            :icon="idChkIcon"
+            label="중복확인"
+            @click="onIdChkClick"
+          />
         </template>
       </q-input>
       <div class="flex column flex-center fit" v-if="!isSocialUser">
-        <div class="q-px-lg q-pt-md q-pb-none fit">
+        <div class="q-px-md q-pt-md q-pb-none fit">
           <span class="text-subtitle1">비밀번호</span>
           <span class="q-ml-sm text-subtitle2 text-red-14">*필수</span>
         </div>
@@ -36,7 +43,7 @@
           v-model="userPw"
           placeholder="비밀번호"
           :type="isPwd ? 'password' : 'text'"
-          class="q-px-lg q-py-sm fit"
+          class="q-px-md q-py-sm fit"
           :rules="[
             $rules.required('필수 항목입니다.'),
             $rules.alphaNum('영어 대문자, 소문자, 숫자 입력만 가능합니다.'),
@@ -56,7 +63,7 @@
           v-model="userPwChk"
           placeholder="비밀번호 확인"
           :type="isPwdChk ? 'password' : 'text'"
-          class="q-px-lg q-py-sm fit"
+          class="q-px-md q-py-sm fit"
           :rules="[
             $rules.required('필수 항목입니다.'),
             $rules.sameAs(userPw, '입력하신 비밀번호와 일치하지 않습니다.')
@@ -71,7 +78,7 @@
           </template>
         </q-input>
       </div>
-      <div class="q-px-lg q-pt-md q-pb-none fit">
+      <div class="q-px-md q-pt-md q-pb-none fit">
         <span class="text-subtitle1">닉네임</span>
         <span class="q-ml-sm text-subtitle2 text-red-14">*필수</span>
       </div>
@@ -79,7 +86,7 @@
         v-model="userNm"
         placeholder="닉네임"
         dense
-        class="q-px-lg q-py-sm fit"
+        class="q-px-md q-py-sm fit"
         :rules="[
           $rules.required('필수 항목입니다.'),
           $rules.minLength(3, '3자리 이상 입력해주세요.'),
@@ -87,7 +94,7 @@
         ]"
       />
 
-      <div class="q-px-lg q-pt-md q-pb-none fit">
+      <div class="q-px-md q-pt-md q-pb-none fit">
         <p class="text-subtitle1 no-padding no-margin">선호지역</p>
       </div>
       <div class="flex row flex-center q-gutter-x-md fit">
@@ -107,10 +114,18 @@
 
       <div class="flex column flex-center q-py-lg fit">
         <span>
-          <q-checkbox v-model="trmAgree" label="서비스 이용약관 동의" color="primary" />
+          <q-checkbox
+            v-model="trmAgree"
+            label="서비스 이용약관 동의"
+            color="primary"
+          />
           <span class="q-ml-sm text-subtitle2 text-red-14">*필수</span>
         </span>
-        <q-checkbox v-model="mktAgree" label="마케팅 정보제공 동의" color="primary" />
+        <q-checkbox
+          v-model="mktAgree"
+          label="마케팅 정보제공 동의"
+          color="primary"
+        />
       </div>
       <div class="q-pb-xl">
         <q-btn color="primary" label="가입" type="submit" />
@@ -144,7 +159,7 @@ export default {
       isPwdChk: true,
       /** 화면 출력 데이터 */
       sidoList: ["서울시", "경기도", "부산시"],
-      siggList: ["중구", "노원구", "서대문구", "마포구", "용산구"],
+      siggList: ["중구", "노원구", "서대문구", "마포구", "용산구"]
     };
   },
   mounted() {
@@ -169,7 +184,7 @@ export default {
         group: false,
         color: clr,
         message: msg,
-        caption: cpt,
+        caption: cpt
       });
     },
     /** id값 변경 시 중복확인 완료된 email값과 대조 */
@@ -186,9 +201,9 @@ export default {
       if (self.userId !== "") {
         self.$axios
           .post("/api/user/registered", {
-            email: self.userId,
+            email: self.userId
           })
-          .then(function (response) {
+          .then(function(response) {
             self.isIdChk = !response.data;
             if (!response.data) {
               self.idChkIcon = "check";
@@ -208,7 +223,7 @@ export default {
             }
             self.checkedId = self.userId;
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log(error);
             self.signupNotify(
               "negative",
@@ -238,7 +253,7 @@ export default {
         memberNickname: self.userNm,
         memberLocationSido: self.userSido,
         memberLocationSigg: self.userSigg,
-        isMarketingAgreed: self.mktAgree ? "Y" : "N",
+        isMarketingAgreed: self.mktAgree ? "Y" : "N"
       };
 
       /** 일반, 소셜 가입 구분 */
@@ -257,7 +272,7 @@ export default {
 
       self.$axios
         .post("/api/user/signup", param)
-        .then(function (response) {
+        .then(function(response) {
           console.log(response.data);
           let msgPrefix = "";
           let cptPrefix = "";
@@ -273,7 +288,7 @@ export default {
             cptPrefix + "다시 로그인 해주세요."
           );
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
           self.signupNotify(
             "negative",
@@ -281,14 +296,14 @@ export default {
             "관리자에게 문의하세요."
           );
         });
-    },
+    }
   },
   computed: {
     newSocialUser: {
       get() {
         return this.$store.getters.newSocialUser;
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>

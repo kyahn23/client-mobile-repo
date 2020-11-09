@@ -1,4 +1,3 @@
-
 <template>
   <q-layout view="hHh lpR fFf">
     <q-header class="bg-primary text-white" height-hint="98">
@@ -44,6 +43,30 @@
         </q-tabs>
       </div>
     </q-footer>
+
+    <q-dialog
+      v-model="dialogLogin"
+      persistent
+      maximized
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <q-card class="bg-white text-black">
+        <q-bar class="bg-white">
+          <q-space />
+
+          <q-btn dense flat icon="close" v-close-popup>
+            <q-tooltip content-class="bg-white text-black">Close</q-tooltip>
+          </q-btn>
+        </q-bar>
+
+        <q-card-section class="q-pt-none">
+          <q-page-container class="no-padding">
+            <router-view name="dialog" />
+          </q-page-container>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-layout>
 </template>
 
@@ -53,10 +76,20 @@ export default {
   data() {
     return {
       loginLabel: "",
+      dialogLogin: false
     };
   },
   mounted() {
     this.setLoginLabel();
+  },
+  watch: {
+    $route(to, from) {
+      if (to.path.includes("/login") || to.path.includes("/signup")) {
+        this.dialogLogin = true;
+      } else {
+        this.dialogLogin = false;
+      }
+    }
   },
   methods: {
     /** 로그인 라벨 셋팅 */
@@ -68,33 +101,34 @@ export default {
     },
     /** 로그인 테스트 용 토글 */
     loginToggle() {
-      this.$store.commit("setAuth");
+      this.$router.push({ path: "login" });
+      // this.$store.commit("setAuth");
 
-      let msg = "";
-      let clr = "";
-      if (this.isLogin) {
-        msg = "로그인 되었습니다.";
-        clr = "positive";
-      } else {
-        msg = "로그아웃 되었습니다.";
-        clr = "negative";
-        this.$router.push({ path: "main" });
-      }
+      // let msg = "";
+      // let clr = "";
+      // if (this.isLogin) {
+      //   msg = "로그인 되었습니다.";
+      //   clr = "positive";
+      // } else {
+      //   msg = "로그아웃 되었습니다.";
+      //   clr = "negative";
+      //   this.$router.push({ path: "main" });
+      // }
 
-      this.$q.notify({
-        group: false,
-        color: clr,
-        message: msg,
-      });
-      this.setLoginLabel();
-    },
+      // this.$q.notify({
+      //   group: false,
+      //   color: clr,
+      //   message: msg,
+      // });
+      // this.setLoginLabel();
+    }
   },
   computed: {
     isLogin: {
       get() {
         return this.$store.getters.isAuth;
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>

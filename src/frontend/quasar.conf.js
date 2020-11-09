@@ -6,7 +6,7 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-module.exports = function ( /* ctx */ ) {
+module.exports = function ( ctx ) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
@@ -42,6 +42,9 @@ module.exports = function ( /* ctx */ ) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      env: {
+        API: ctx.dev ? 'http://localhost:8080' : ''
+      },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
       // transpile: false,

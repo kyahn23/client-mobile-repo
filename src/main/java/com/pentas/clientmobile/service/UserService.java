@@ -13,8 +13,16 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Boolean isRegisteredUser (String memberId) {
-        return userRepository.findById(memberId).isPresent();
+    public Boolean isRegisteredUser (String memberId) { return userRepository.findById(memberId).isPresent(); }
+
+    public Boolean isSocialUserById (String memberId) {
+        char isSocialUserYn = 'N';
+        Optional<User> user = userRepository.findById(memberId);
+        if (user.isPresent()) {
+            isSocialUserYn = user.get().getIsSocialLogin();
+        }
+
+        return isSocialUserYn == 'Y';
     }
 
     public Boolean isSocialUser (String socialId) {
