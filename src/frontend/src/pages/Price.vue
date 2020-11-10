@@ -1,7 +1,11 @@
 <template>
   <q-layout>
     <q-header class="bg-primary text-white" height-hint="98">
-      <q-tabs dense class="bg-white text-black fixed full-width">
+      <q-tabs
+        dense
+        align="justify"
+        class="bg-white text-black fixed full-width"
+      >
         <q-route-tab label="SKT" to="/price/SKT" />
         <q-route-tab label="KT" to="/price/KT" />
         <q-route-tab label="LGU+" to="/price/LGU" />
@@ -15,7 +19,7 @@
 
 <script>
 export default {
-  name: "Price",
+  name: "Price"
 };
 </script>
 <style src="src/css/styles.css"></style>
