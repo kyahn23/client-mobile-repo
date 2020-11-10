@@ -38,6 +38,23 @@ const routes = [
         // ]
       },
       {
+        path: "price",
+        component: () => import("pages/Price.vue"),
+        children: [{
+            path: 'SKT',
+            component: () => import('pages/price/SKT.vue')
+          },
+          {
+            path: 'KT',
+            component: () => import('pages/price/KT.vue')
+          },
+          {
+            path: 'LGU',
+            component: () => import('pages/price/LGU.vue')
+          }
+        ]
+      },
+      {
         path: "login",
         components: {
           default: () => import("pages/Main.vue"),

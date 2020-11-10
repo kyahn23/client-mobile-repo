@@ -16,7 +16,7 @@
 
       <q-tabs indicator-color="transparent" dense align="left">
         <q-route-tab to="/main" label="홈" />
-        <q-route-tab to="/login" label="최저가 조회" />
+        <q-route-tab to="/price" label="최저가 조회" />
         <q-route-tab to="/after" label="상담등록" />
         <q-route-tab to="/after" label="고객센터" />
         <q-route-tab to="/after" label="마이페이지" />
@@ -37,7 +37,7 @@
           active-color="primary"
         >
           <q-route-tab to="/main" icon="home" label="홈" />
-          <q-route-tab to="/after" icon="monetization_on" label="최저가 조회" />
+          <q-route-tab to="/price" icon="monetization_on" label="최저가 조회" />
           <q-route-tab to="/after" icon="post_add" label="상담등록" />
           <q-route-tab to="/after" icon="person" label="마이페이지" />
         </q-tabs>
