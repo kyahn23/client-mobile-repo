@@ -8,36 +8,72 @@
             <div class="pentas-layout__price-search-row">
               <span class="pentas-layout__price-search-label">가입유형</span>
               <span class="pentas-layout__price-search-radio">
-                <q-option-group v-model="signType"
-                                :options="signOpts"
-                                color="primary"
-                                inline
-                                dense>
+                <q-option-group
+                  v-model="signType"
+                  :options="signOpts"
+                  color="primary"
+                  inline
+                  dense
+                >
                 </q-option-group>
               </span>
             </div>
             <div class="pentas-layout__price-search-row">
               <span class="pentas-layout__price-search-label">제조사</span>
-              <q-select class="pentas-layout__price-search-select" outlined v-model="pnMkr" :options="pnMkrList" dense emit-value map-options>
+              <q-select
+                class="pentas-layout__price-search-select"
+                outlined
+                v-model="pnMkr"
+                :options="pnMkrList"
+                dense
+                emit-value
+                map-options
+              >
               </q-select>
             </div>
             <div class="pentas-layout__price-search-row">
               <span class="pentas-layout__price-search-label">모델선택</span>
-              <q-select class="pentas-layout__price-search-select" outlined v-model="pnMkr" :options="pnMkrList" dense emit-value map-options>
+              <q-select
+                class="pentas-layout__price-search-select"
+                outlined
+                v-model="pnMkr"
+                :options="pnMkrList"
+                dense
+                emit-value
+                map-options
+              >
               </q-select>
             </div>
             <div class="pentas-layout__price-search-row">
               <span class="pentas-layout__price-search-label">요금제</span>
-              <q-select class="pentas-layout__price-search-select" outlined v-model="pnMkr" :options="pnMkrList" dense emit-value map-options>
+              <q-select
+                class="pentas-layout__price-search-select"
+                outlined
+                v-model="pnMkr"
+                :options="pnMkrList"
+                dense
+                emit-value
+                map-options
+              >
               </q-select>
             </div>
             <div class="pentas-layout__price-search-row">
               <span class="pentas-layout__price-search-label">기간입력</span>
-              <q-select class="pentas-layout__price-search-select" outlined v-model="pnMkr" :options="pnMkrList" dense emit-value map-options>
+              <q-select
+                class="pentas-layout__price-search-select"
+                outlined
+                v-model="pnMkr"
+                :options="pnMkrList"
+                dense
+                emit-value
+                map-options
+              >
               </q-select>
             </div>
             <div class="pentas-layout__price-search-row">
-              <button class="mdl-button mdl-js-button mdl-js-ripple-effect pentas-button__search">
+              <button
+                class="mdl-button mdl-js-button mdl-js-ripple-effect pentas-button__search"
+              >
                 검색
               </button>
             </div>
@@ -51,68 +87,72 @@
             </span>
           </div>
           <div class="pentas-layout__price-table-box q-pa-md">
-            <q-table :data="priceList"
-                     :columns="columns"
-                     :hide-bottom="true">
+            <q-table :data="priceList" :columns="columns" :hide-bottom="true">
             </q-table>
-<!--            <table class="mdl-data-table mdl-js-data-table pentas-layout__price-table-self">-->
-<!--              <thead>-->
-<!--              <tr>-->
-<!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">일자</th>-->
-<!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">공시지원금</th>-->
-<!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">요금할인</th>-->
-<!--              </tr>-->
-<!--              </thead>-->
-<!--              <tbody>-->
-<!--              <tr>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.10</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-<!--              </tr>-->
-<!--              <tr>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.09</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-<!--              </tr>-->
-<!--              <tr>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.08</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-<!--              </tr>-->
-<!--              <tr>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.07</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-<!--              </tr>-->
-<!--              <tr>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.06</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-<!--              </tr>-->
-<!--              <tr>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.05</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-<!--              </tr>-->
-<!--              <tr>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.04</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-<!--              </tr>-->
-<!--              <tr>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.03</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-<!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-<!--              </tr>-->
-<!--              </tbody>-->
-<!--            </table>-->
+            <!--            <table class="mdl-data-table mdl-js-data-table pentas-layout__price-table-self">-->
+            <!--              <thead>-->
+            <!--              <tr>-->
+            <!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">일자</th>-->
+            <!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">공시지원금</th>-->
+            <!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">요금할인</th>-->
+            <!--              </tr>-->
+            <!--              </thead>-->
+            <!--              <tbody>-->
+            <!--              <tr>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.10</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.09</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.08</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.07</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.06</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.05</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.04</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.03</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
+            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
+            <!--              </tr>-->
+            <!--              </tbody>-->
+            <!--            </table>-->
           </div>
           <div class="pentas-layout__price-see-more">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect pentas-button__see-more">
+            <button
+              class="mdl-button mdl-js-button mdl-js-ripple-effect pentas-button__see-more"
+            >
               더보기 +
             </button>
           </div>
-          <div id="scroll-top" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" @click="scrollTop">
+          <div
+            id="scroll-top"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
+            @click="scrollTop"
+          >
             <i class="material-icons">arrow_upward</i>
           </div>
         </div>
@@ -122,89 +162,95 @@
 </template>
 
 <script>
+import { scroll } from "quasar";
+const { getScrollTarget, setScrollPosition } = scroll;
+
 export default {
   name: "LGU",
-  data(){
-    return{
+  data() {
+    return {
       signType: null,
       signOpts: [
-      {
-        label:'신규가입',
-        value:'newSign'
-      },
-      {
-        label:'번호이동',
-        value:'moveCarr'
-      },
-      {
-        label:'기기변경',
-        value:'chgDev'
-      }
-    ],
-      pnMkr: 'all',
-      pnMkrList: [
         {
-          label:'선택',
-          value:'all'
+          label: "신규가입",
+          value: "newSign"
         },
         {
-        label:'삼성전자',
-        value:'SAM'
-      },
-        {
-          label:'LG전자',
-          value:'LGE'
+          label: "번호이동",
+          value: "moveCarr"
         },
         {
-          label:'APPLE',
-          value:'APP'
-        },
-        {
-          label:'샤오미',
-          value:'XIA'
+          label: "기기변경",
+          value: "chgDev"
         }
       ],
-      selectedMdl : 'all',
-      mdlList : [],
-      columns:[
-        { name:'priceDate',
-          required:true,
-          label:'일자',
-          align:'center',
-          field: row=> row.priceDate,
-          format: val => `${val}`,
-          headerClasses:'tbl-header-bg-color'
+      pnMkr: "all",
+      pnMkrList: [
+        {
+          label: "선택",
+          value: "all"
         },
-        { name: 'ofclDv', align:'center', label: '공시지원금', field: 'ofclDv', headerClasses:'tbl-header-bg-color'},
-        { name: 'ofclRt', align:'center', label: '요금할인', field: 'ofclRt', headerClasses:'tbl-header-bg-color'}
+        {
+          label: "삼성전자",
+          value: "SAM"
+        },
+        {
+          label: "LG전자",
+          value: "LGE"
+        },
+        {
+          label: "APPLE",
+          value: "APP"
+        },
+        {
+          label: "샤오미",
+          value: "XIA"
+        }
       ],
-      priceList:[
-        {priceDate:'20.11.01',
-        ofclDv:'370000원',
-        ofclRt:'670000원'},
-        {priceDate:'20.11.02',
-          ofclDv:'370000원',
-          ofclRt:'670000원'},
-        {priceDate:'20.11.03',
-          ofclDv:'370000원',
-          ofclRt:'670000원'},
-        {priceDate:'20.11.04',
-          ofclDv:'370000원',
-          ofclRt:'670000원'},
-        {priceDate:'20.11.05',
-          ofclDv:'370000원',
-          ofclRt:'670000원'},
-        {priceDate:'20.11.06',
-          ofclDv:'370000원',
-          ofclRt:'670000원'},
+      selectedMdl: "all",
+      mdlList: [],
+      columns: [
+        {
+          name: "priceDate",
+          required: true,
+          label: "일자",
+          align: "center",
+          field: row => row.priceDate,
+          format: val => `${val}`,
+          headerClasses: "tbl-header-bg-color"
+        },
+        {
+          name: "ofclDv",
+          align: "center",
+          label: "공시지원금",
+          field: "ofclDv",
+          headerClasses: "tbl-header-bg-color"
+        },
+        {
+          name: "ofclRt",
+          align: "center",
+          label: "요금할인",
+          field: "ofclRt",
+          headerClasses: "tbl-header-bg-color"
+        }
+      ],
+      priceList: [
+        { priceDate: "20.11.01", ofclDv: "370000원", ofclRt: "670000원" },
+        { priceDate: "20.11.02", ofclDv: "370000원", ofclRt: "670000원" },
+        { priceDate: "20.11.03", ofclDv: "370000원", ofclRt: "670000원" },
+        { priceDate: "20.11.04", ofclDv: "370000원", ofclRt: "670000원" },
+        { priceDate: "20.11.05", ofclDv: "370000원", ofclRt: "670000원" },
+        { priceDate: "20.11.06", ofclDv: "370000원", ofclRt: "670000원" }
       ]
-  }
+    };
   },
-  methods:{
-    scrollTop(){
-      document.querySelector('#top').scrollIntoView({
-        behavior: 'smooth'
-      });
+  methods: {
+    scrollTop() {
+      const ele = document.getElementById("top");
+      const target = getScrollTarget(ele);
+      const offset = ele.offsetTop - 40;
+      const duration = 100;
+      setScrollPosition(target, offset, duration);
     }
   }
 };
@@ -318,7 +364,7 @@ export default {
 }
 
 th.mdl-data-table__cell--non-numeric {
-  background-color: #E9E9EA;
+  background-color: #e9e9ea;
   color: #000000;
 }
 
@@ -333,7 +379,7 @@ th.mdl-data-table__cell--non-numeric {
 }
 
 .pentas-button__see-more {
-  background-color: #E9F0F8;
+  background-color: #e9f0f8;
   color: #2d90f5;
   font-size: 3.2rem;
   font-weight: bold;
@@ -345,11 +391,12 @@ th.mdl-data-table__cell--non-numeric {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 th.tbl-header-bg-color {
-  color: rgba(0,0,0,.54);
+  color: rgba(0, 0, 0, 0.54);
   background-color: #eaf0f7;
 }
 
-.q-table thead tr, .q-table tbody td {
+.q-table thead tr,
+.q-table tbody td {
   height: 10rem;
 }
 </style>
