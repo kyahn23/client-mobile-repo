@@ -2,11 +2,12 @@
   <q-page class="flex column flex-center">
     <h5>로그인</h5>
 
-    <q-form class="flex column fit" @submit.prevent="onLogin">
+    <q-form class="flex column fit" ref="loginForm" @submit.prevent="onLogin">
       <q-input
         v-model="userId"
         placeholder="아이디 (이메일)"
-        dense
+        rounded
+        outlined
         class="q-px-lg q-py-sm fit"
         :rules="[
           $rules.required('아이디를 입력해주세요.'),
@@ -16,6 +17,8 @@
       <q-input
         v-model="userPw"
         placeholder="비밀번호"
+        rounded
+        outlined
         :type="isPwd ? 'password' : 'text'"
         class="q-px-lg q-py-sm fit"
         :rules="[$rules.required('비밀번호를 입력해주세요.')]"
@@ -29,25 +32,37 @@
         </template>
       </q-input>
       <div class="flex column q-px-lg q-py-lg q-gutter-y-md fit">
-        <q-btn color="black" label="로그인" type="submit" />
+        <q-btn
+          unelevated
+          rounded
+          color="primary"
+          label="로그인"
+          type="submit"
+        />
       </div>
     </q-form>
     <q-separator />
     <div class="flex column q-px-lg q-py-lg q-gutter-y-md fit">
-      <q-btn color="white" text-color="black" label="회원가입" to="/signup" />
+      <q-btn unelevated rounded color="black" label="회원가입" to="/signup" />
       <q-btn
+        unelevated
+        rounded
         color="primary"
         label="구글 로그인"
         type="a"
         :href="oAuthUrl('google')"
       />
       <q-btn
+        unelevated
+        rounded
         color="positive"
         label="네이버 로그인"
         type="a"
         :href="oAuthUrl('naver')"
       />
       <q-btn
+        unelevated
+        rounded
         color="amber"
         text-color="black"
         label="카카오 로그인"
@@ -61,6 +76,7 @@
 <script>
 import sha256 from "sha256";
 import { openURL } from "quasar";
+import { fabGoogle } from "@quasar/extras/fontawesome-v5";
 
 export default {
   name: "PageLogin",
@@ -84,7 +100,7 @@ export default {
       this.loginNotify(
         "warning",
         "dark",
-        "이미 가입된 이메일 계정입니다.",
+        "이미 이메일로 가입된 계정입니다.",
         "이메일 로그인으로 진행해주세요."
       );
     }
@@ -105,11 +121,32 @@ export default {
       let self = this;
       if (self.userId !== "") {
         self.$axios
-          .post("/api/user/ssocheck", {
+          .post("/api/auth/signin", {
             email: self.userId
           })
           .then(function(response) {
-            console.log(response.data);
+            if (response.data.rsltStat === "SSO") {
+              self.loginNotify(
+                "warning",
+                "dark",
+                "이미 소셜로그인으로 가입된 계정입니다.",
+                "소셜로그인으로 진행해주세요."
+              );
+              self.isPwd = true;
+              self.userId = "";
+              self.userPw = "";
+              return false;
+            } else {
+            }
+            self.$refs.loginForm.resetValidation();
+          })
+          .catch(function(error) {
+            console.log(error);
+            self.loginNotify(
+              "negative",
+              "오류가 발생했습니다.",
+              "관리자에게 문의하세요."
+            );
           });
       }
       console.log(sha256(this.userPw));
