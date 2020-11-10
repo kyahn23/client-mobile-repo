@@ -26,6 +26,7 @@
       >
         <template v-slot:append v-if="!isSocialId">
           <q-btn
+            unelevated
             dense
             :color="idChkColor"
             :icon="idChkIcon"
@@ -99,12 +100,14 @@
       </div>
       <div class="flex row flex-center q-gutter-x-md fit">
         <q-select
+          outlined
           v-model="userSido"
           :options="sidoList"
           label="특별시도"
           class="q-mt-none q-pt-none col-5"
         />
         <q-select
+          outlined
           v-model="userSigg"
           :options="siggList"
           label="시군구"
@@ -127,8 +130,15 @@
           color="primary"
         />
       </div>
-      <div class="q-pb-xl">
-        <q-btn color="primary" label="가입" type="submit" />
+      <div class="q-px-md q-pb-xl full-width">
+        <q-btn
+          rounded
+          unelevated
+          class="full-width"
+          color="primary"
+          label="가입"
+          type="submit"
+        />
       </div>
     </q-form>
   </q-page>
@@ -200,7 +210,7 @@ export default {
       let self = this;
       if (self.userId !== "") {
         self.$axios
-          .post("/api/user/registered", {
+          .post("/api/auth/registered", {
             email: self.userId
           })
           .then(function(response) {
@@ -271,7 +281,7 @@ export default {
       console.log(param);
 
       self.$axios
-        .post("/api/user/signup", param)
+        .post("/api/auth/signup", param)
         .then(function(response) {
           console.log(response.data);
           let msgPrefix = "";
