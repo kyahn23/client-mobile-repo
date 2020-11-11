@@ -1,20 +1,21 @@
 <template>
-  <q-layout>
-    <q-header class="bg-primary text-white" height-hint="98">
-      <q-tabs
-        dense
-        align="justify"
-        class="bg-white text-black fixed full-width"
-      >
+  <div>
+    <q-page-sticky
+      position="top"
+      expand
+      class="bg-primary text-white z-top"
+      height-hint="98"
+    >
+      <q-tabs dense align="justify" class="bg-white text-black full-width">
         <q-route-tab label="SKT" to="/price/SKT" />
         <q-route-tab label="KT" to="/price/KT" />
         <q-route-tab label="LGU+" to="/price/LGU" />
       </q-tabs>
-    </q-header>
+    </q-page-sticky>
     <q-page-container>
       <router-view />
     </q-page-container>
-  </q-layout>
+  </div>
 </template>
 
 <script>
