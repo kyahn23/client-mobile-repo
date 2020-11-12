@@ -89,57 +89,6 @@
           <div class="pentas-layout__price-table-box q-pa-md">
             <q-table :data="priceList" :columns="columns" :hide-bottom="true">
             </q-table>
-            <!--            <table class="mdl-data-table mdl-js-data-table pentas-layout__price-table-self">-->
-            <!--              <thead>-->
-            <!--              <tr>-->
-            <!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">일자</th>-->
-            <!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">공시지원금</th>-->
-            <!--                <th class="mdl-data-table__cell&#45;&#45;non-numeric">요금할인</th>-->
-            <!--              </tr>-->
-            <!--              </thead>-->
-            <!--              <tbody>-->
-            <!--              <tr>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.10</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-            <!--              </tr>-->
-            <!--              <tr>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.09</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-            <!--              </tr>-->
-            <!--              <tr>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.08</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-            <!--              </tr>-->
-            <!--              <tr>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.07</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-            <!--              </tr>-->
-            <!--              <tr>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.06</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-            <!--              </tr>-->
-            <!--              <tr>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.05</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-            <!--              </tr>-->
-            <!--              <tr>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.04</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-            <!--              </tr>-->
-            <!--              <tr>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric">20.09.03</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">30,000원</td>-->
-            <!--                <td class="mdl-data-table__cell&#45;&#45;non-numeric pentas-layout__price-table-num-col">10,000원</td>-->
-            <!--              </tr>-->
-            <!--              </tbody>-->
-            <!--            </table>-->
           </div>
           <div class="pentas-layout__price-see-more">
             <button
@@ -255,6 +204,7 @@ export default {
   }
 };
 </script>
+<style src="src/css/styles.css"></style>
 <style>
 .pentas-layout__header-back-btn .material-icons {
   vertical-align: middle;
