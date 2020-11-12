@@ -13,46 +13,62 @@ const routes = [
       },
       {
         path: "main",
-        component: () => import("pages/Main.vue")
+        component: () => import("pages/Main.vue"),
         /** for research */
-        // children: [{
-        //     path: '1',
-        //     component: () => import('pages/main/Page1.vue')
-        //   },
-        //   {
-        //     path: '2',
-        //     component: () => import('pages/main/Page2.vue')
-        //   },
-        //   {
-        //     path: '3',
-        //     component: () => import('pages/main/Page3.vue')
-        //   },
-        //   {
-        //     path: '4',
-        //     component: () => import('pages/main/Page4.vue')
-        //   },
-        //   {
-        //     path: '5',
-        //     component: () => import('pages/main/Page5.vue')
-        //   }
-        // ]
+        children: [
+          {
+            path: "1",
+            component: () => import("pages/main/Page1.vue")
+          },
+          {
+            path: "2",
+            component: () => import("pages/main/Page2.vue")
+          },
+          {
+            path: "3",
+            component: () => import("pages/main/Page3.vue")
+          },
+          {
+            path: "4",
+            component: () => import("pages/main/Page4.vue")
+          },
+          {
+            path: "5",
+            component: () => import("pages/main/Page5.vue")
+          }
+        ]
       },
       {
         path: "price",
         component: () => import("pages/Price.vue"),
-        children: [{
-            path: 'SKT',
-            component: () => import('pages/price/SKT.vue')
+        children: [
+          {
+            path: "SKT",
+            component: () => import("pages/price/SKT.vue")
           },
           {
-            path: 'KT',
-            component: () => import('pages/price/KT.vue')
+            path: "KT",
+            component: () => import("pages/price/KT.vue")
           },
           {
-            path: 'LGU',
-            component: () => import('pages/price/LGU.vue')
+            path: "LGU",
+            component: () => import("pages/price/LGU.vue")
           }
         ]
+      },
+      {
+        path: "status",
+        component: () => import("pages/Status.vue")
+      },
+      {
+        path: "ongoing/:dealno",
+        component: () => import("pages/status/Ongoing.vue"),
+        props: true
+      },
+      {
+        path: "waiting/:dealno",
+        component: () => import("pages/status/Waiting.vue"),
+        props: true
       },
       {
         path: "login",

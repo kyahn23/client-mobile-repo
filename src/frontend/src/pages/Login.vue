@@ -118,38 +118,30 @@ export default {
     },
     /** 로그인 버튼 클릭 이벤트 */
     onLogin: function() {
-      let self = this;
-      if (self.userId !== "") {
-        self.$axios
-          .post("/api/auth/signin", {
-            email: self.userId
-          })
-          .then(function(response) {
-            if (response.data.rsltStat === "SSO") {
-              self.loginNotify(
-                "warning",
-                "dark",
-                "이미 소셜로그인으로 가입된 계정입니다.",
-                "소셜로그인으로 진행해주세요."
-              );
-              self.isPwd = true;
-              self.userId = "";
-              self.userPw = "";
-              return false;
-            } else {
-            }
-            self.$refs.loginForm.resetValidation();
-          })
-          .catch(function(error) {
-            console.log(error);
-            self.loginNotify(
-              "negative",
-              "오류가 발생했습니다.",
-              "관리자에게 문의하세요."
-            );
-          });
+      if (!this.$cf.isEmpty(this.userId)) {
+        this.$cf.call(
+          process.env.API + "/api/auth/signin",
+          { email: this.userId },
+          this.afterLogin,
+          {},
+          true
+        );
       }
-      console.log(sha256(this.userPw));
+    },
+    afterLogin(response) {
+      if (response.rsltStat === "SSO") {
+        this.loginNotify(
+          "warning",
+          "dark",
+          "이미 소셜로그인으로 가입된 계정입니다.",
+          "소셜로그인으로 진행해주세요."
+        );
+        this.isPwd = true;
+        this.userId = "";
+        this.userPw = "";
+        this.$refs.loginForm.reset();
+        return false;
+      }
     },
     /** 서비스별 oAuth 처리 Url */
     oAuthUrl: function(service) {

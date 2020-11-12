@@ -67,6 +67,10 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+
+    <q-inner-loading :showing="isLoading" class="z-max">
+      <q-spinner color="primary" size="3em" />
+    </q-inner-loading>
   </q-layout>
 </template>
 
@@ -101,7 +105,7 @@ export default {
     },
     /** 로그인 테스트 용 토글 */
     loginToggle() {
-      this.$router.push({ path: "login" });
+      this.$router.push({ path: "/login" });
       // this.$store.commit("setAuth");
 
       // let msg = "";
@@ -127,6 +131,11 @@ export default {
     isLogin: {
       get() {
         return this.$store.getters.isAuth;
+      }
+    },
+    isLoading: {
+      get() {
+        return this.$store.getters.isLoading;
       }
     }
   }
