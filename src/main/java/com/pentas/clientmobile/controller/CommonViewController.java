@@ -2,7 +2,6 @@ package com.pentas.clientmobile.controller;
 
 import com.pentas.clientmobile.common.auth.LoginUser;
 import com.pentas.clientmobile.common.auth.dto.SessionUser;
-import com.pentas.clientmobile.domain.user.UserRepository;
 import com.pentas.clientmobile.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ public class CommonViewController {
     private final UserService userService;
 
     @GetMapping("/ssoproc")
-    public RedirectView ssoProc(@LoginUser SessionUser user) throws UnsupportedEncodingException {
+    public RedirectView ssoproc(@LoginUser SessionUser user) throws UnsupportedEncodingException {
         String redirectUrl = "http://localhost:8081";
         String memberId = "null";
         String memberNickname = "null";
@@ -33,7 +32,7 @@ public class CommonViewController {
             }
 
             if (userService.isRegisteredUser(memberId)) {
-                if (userService.isSocialUser(user.getSocialId())) {
+                if (userService.isSocialUser(memberId)) {
                     redirectUrl += "/#/social/login/" + user.getSocialService()
                             + "/" + user.getSocialId()
                             + "/" + memberId

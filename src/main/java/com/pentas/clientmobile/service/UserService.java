@@ -15,7 +15,7 @@ public class UserService {
 
     public Boolean isRegisteredUser (String memberId) { return userRepository.findById(memberId).isPresent(); }
 
-    public Boolean isSocialUserById (String memberId) {
+    public Boolean isSocialUser (String memberId) {
         char isSocialUserYn = 'N';
         Optional<User> user = userRepository.findById(memberId);
         if (user.isPresent()) {
@@ -23,10 +23,6 @@ public class UserService {
         }
 
         return isSocialUserYn == 'Y';
-    }
-
-    public Boolean isSocialUser (String socialId) {
-        return userRepository.findBySocialId(socialId).isPresent();
     }
 
     public String save(UserSaveRequestDto requestDto) { return userRepository.save(requestDto.toEntity()).getMemberId(); }

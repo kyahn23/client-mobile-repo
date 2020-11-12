@@ -33,12 +33,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
-                    .antMatchers("/api/**").permitAll()
+                    .antMatchers("/api/auth/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .cors()
                     .and()
                 .oauth2Login()
+                    .loginPage("http://localhost:8081/#/login")
                     .defaultSuccessUrl("/ssoproc")
                     .failureUrl("http://localhost:8081/#/login?notify=socialCan")
                     .userInfoEndpoint()
@@ -55,7 +56,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration);
+        source.registerCorsConfiguration("/api/auth/**", configuration);
         return source;
     }
 

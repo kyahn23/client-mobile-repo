@@ -11,15 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/auth")
 public class UserRestController {
 
     private final UserService userService;
-
-    @PostMapping("/ssocheck")
-    public boolean ssocheck(@RequestBody DevMap param){
-        return userService.isSocialUserById(param.getString("email"));
-    }
 
     @PostMapping("/registered")
     public Boolean registered(@RequestBody DevMap param) {
@@ -41,7 +36,17 @@ public class UserRestController {
 
     @PostMapping("/signin")
     public DevMap signin(@RequestBody DevMap param) {
-        return null;
+        String rsltStat = "FAIL";
+        String memberId = param.getString("email");
+        if (userService.isSocialUser(memberId)) {
+            rsltStat = "SSO";
+        } else if (userService.isRegisteredUser(memberId)) {
+            rsltStat = "SUCC";
+        }
+
+        DevMap rslt = new DevMap();
+        rslt.put("rsltStat", rsltStat);
+        return rslt;
     }
 
 }
