@@ -89,33 +89,23 @@ export default {
   },
   mounted() {
     if (this.$route.query.notify === "socialCan") {
-      this.loginNotify(
-        "warning",
-        "dark",
-        "소셜로그인이 취소되었습니다.",
-        "회원가입 절차를 다시 시작해주세요."
-      );
+      this.$store.commit("setNotification", {
+        color: "warning",
+        textColor: "dark",
+        message: "소셜로그인이 취소되었습니다.",
+        caption: "회원가입 절차를 다시 시작해주세요."
+      });
     }
     if (this.$route.query.notify === "emailAcc") {
-      this.loginNotify(
-        "warning",
-        "dark",
-        "이미 이메일로 가입된 계정입니다.",
-        "이메일 로그인으로 진행해주세요."
-      );
+      this.$store.commit("setNotification", {
+        color: "warning",
+        textColor: "dark",
+        message: "이미 이메일로 가입된 계정입니다.",
+        caption: "이메일 로그인으로 진행해주세요."
+      });
     }
   },
   methods: {
-    /** 로그인 이전 상태에 따라 notify */
-    loginNotify: function(clr, txtClr, msg, cpt) {
-      this.$q.notify({
-        group: false,
-        color: clr,
-        textColor: txtClr,
-        message: msg,
-        caption: cpt
-      });
-    },
     /** 로그인 버튼 클릭 이벤트 */
     onLogin: function() {
       if (!this.$cf.isEmpty(this.userId)) {
@@ -130,17 +120,17 @@ export default {
     },
     afterLogin(response) {
       if (response.rsltStat === "SSO") {
-        this.loginNotify(
-          "warning",
-          "dark",
-          "이미 소셜로그인으로 가입된 계정입니다.",
-          "소셜로그인으로 진행해주세요."
-        );
+        this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "이미 소셜로그인으로 가입된 계정입니다.",
+          caption: "소셜로그인으로 진행해주세요."
+        });
         this.isPwd = true;
         this.userId = "";
         this.userPw = "";
         this.$refs.loginForm.reset();
-        return false;
+        return;
       }
     },
     /** 서비스별 oAuth 처리 Url */

@@ -29,10 +29,11 @@ export default {
     if (this.mode === "login") {
       this.$store.commit("setAuth", { isAuth: true });
       this.$store.commit("setCurrentUser", { currentUser: this.email });
-      this.$q.notify({
-        group: false,
+      this.$store.commit("setNotification", {
         color: "positive",
-        message: "로그인 되었습니다."
+        textColor: "white",
+        message: "로그인 되었습니다.",
+        caption: ""
       });
       this.$router.push({ path: "/main" });
     } else if (this.mode === "signup") {
@@ -42,9 +43,9 @@ export default {
         email: this.email,
         name: this.name
       });
-      this.$q.notify({
-        group: false,
+      this.$store.commit("setNotification", {
         color: "primary",
+        textColor: "white",
         message: "소셜계정으로 로그인 되었습니다.",
         caption: "서비스 이용을 위해 회원가입을 진행해주세요."
       });

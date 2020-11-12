@@ -93,6 +93,9 @@ export default {
       } else {
         this.dialogLogin = false;
       }
+    },
+    notification(newNotification) {
+      this.$q.notify(newNotification);
     }
   },
   methods: {
@@ -128,14 +131,19 @@ export default {
     }
   },
   computed: {
-    isLogin: {
-      get() {
-        return this.$store.getters.isAuth;
-      }
-    },
     isLoading: {
       get() {
         return this.$store.getters.isLoading;
+      }
+    },
+    notification: {
+      get() {
+        return this.$store.getters.notification;
+      }
+    },
+    isLogin: {
+      get() {
+        return this.$store.getters.isAuth;
       }
     }
   }

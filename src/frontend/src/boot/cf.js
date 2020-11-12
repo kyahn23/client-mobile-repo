@@ -79,9 +79,19 @@ export default async ({ Vue, store }) => {
               response.data.rsltStat == "dev-error" &&
               !cf_isEmpty(response.data.errMsg)
             ) {
-              alert(response.data.errMsg);
+              store.commit("setNotification", {
+                color: "negative",
+                textColor: "white",
+                message: response.data.errMsg,
+                caption: ""
+              });
             } else {
-              alert("처리 중 오류가 발생했습니다. \n관리자에게 문의하세요.");
+              store.commit("setNotification", {
+                color: "negative",
+                textColor: "white",
+                message: "처리 중 오류가 발생했습니다.",
+                caption: "관리자에게 문의하세요."
+              });
             }
           } else {
             if (callback != null) {
@@ -89,7 +99,12 @@ export default async ({ Vue, store }) => {
                 cf_whatIsIt(response.data) === "string" &&
                 response.data.indexOf("<!DOCTYPE html>") != -1
               ) {
-                alert("처리 중 오류가 발생했습니다. \n관리자에게 문의하세요.");
+                store.commit("setNotification", {
+                  color: "negative",
+                  textColor: "white",
+                  message: "처리 중 오류가 발생했습니다.",
+                  caption: "관리자에게 문의하세요."
+                });
               } else {
                 callback(response.data);
               }
@@ -99,9 +114,19 @@ export default async ({ Vue, store }) => {
         .catch(function(error) {
           store.commit("setLoading", { isLoading: false });
           if (error.message == "Network Error") {
-            alert("네트워크 상태 또는 서버 구동상태를 확인해 주세요.");
+            store.commit("setNotification", {
+              color: "negative",
+              textColor: "white",
+              message: "네트워크 상태 또는 서버 구동상태를 확인해 주세요.",
+              caption: ""
+            });
           } else {
-            alert("처리 중 오류가 발생했습니다. \n관리자에게 문의하세요.");
+            store.commit("setNotification", {
+              color: "negative",
+              textColor: "white",
+              message: "처리 중 오류가 발생했습니다.",
+              caption: "관리자에게 문의하세요."
+            });
           }
           console.log(error);
         });
@@ -136,9 +161,19 @@ export default async ({ Vue, store }) => {
           store.commit("setLoading", { isLoading: false });
           if (rsltFailArr.includes(data.rsltStat)) {
             if (data.rsltStat == "user-error" && !cf_isEmpty(data.errMsg)) {
-              alert(data.errMsg);
+              store.commit("setNotification", {
+                color: "negative",
+                textColor: "white",
+                message: data.errMsg,
+                caption: ""
+              });
             } else {
-              alert("업로드에 실패했습니다. \n관리자에게 문의하세요.");
+              store.commit("setNotification", {
+                color: "negative",
+                textColor: "white",
+                message: "업로드에 실패했습니다.",
+                caption: "관리자에게 문의하세요."
+              });
             }
           } else {
             if (callback != null) {
@@ -148,7 +183,12 @@ export default async ({ Vue, store }) => {
         },
         error: function() {
           store.commit("setLoading", { isLoading: false });
-          alert("업로드에 실패했습니다. \n관리자에게 문의하세요.");
+          store.commit("setNotification", {
+            color: "negative",
+            textColor: "white",
+            message: "업로드에 실패했습니다.",
+            caption: "관리자에게 문의하세요."
+          });
         }
       });
     },

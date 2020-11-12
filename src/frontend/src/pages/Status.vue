@@ -126,12 +126,23 @@ export default {
   },
   methods: {
     /** > 클릭 이벤트 */
-    dealClick(no) {
-      this.$router.push({ path: "/ongoing/" + no });
+    dealClick(dealNo) {
+      this.$router.push({ path: "/ongoing/" + dealNo });
     },
     /** $cf.call 콜백 함수 예제 */
     cbFunction(response) {
-      alert(response);
+      let responseColor = "warning";
+      let responseTextColor = "dark";
+      if (response) {
+        responseColor = "positive";
+        responseTextColor = "white";
+      }
+      this.$store.commit("setNotification", {
+        color: responseColor,
+        textColor: responseTextColor,
+        message: response + "",
+        caption: "정상적인 결과 출력"
+      });
     }
   }
 };

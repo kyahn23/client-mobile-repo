@@ -188,15 +188,6 @@ export default {
     }
   },
   methods: {
-    /** 페이지 공통 notify */
-    signupNotify(clr, msg, cpt) {
-      this.$q.notify({
-        group: false,
-        color: clr,
-        message: msg,
-        caption: cpt
-      });
-    },
     /** id값 변경 시 중복확인 완료된 email값과 대조 */
     onIdKeyup() {
       if (this.userId !== this.checkedId) {
@@ -207,105 +198,104 @@ export default {
     },
     /** email 중복확인 click 이벤트 함수 */
     onIdChkClick() {
-      let self = this;
-      if (self.userId !== "") {
-        self.$axios
-          .post("/api/auth/registered", {
-            email: self.userId
-          })
-          .then(function(response) {
-            self.isIdChk = !response.data;
-            if (!response.data) {
-              self.idChkIcon = "check";
-              self.idChkColor = "positive";
-              self.signupNotify(
-                "positive",
-                "이메일 중복확인이 완료되었습니다."
-              );
-            } else {
-              self.idChkIcon = "error";
-              self.idChkColor = "negative";
-              self.signupNotify(
-                "negative",
-                "이미 가입된 이메일입니다.",
-                "다른 이메일을 입력해주세요."
-              );
-            }
-            self.checkedId = self.userId;
-          })
-          .catch(function(error) {
-            console.log(error);
-            self.signupNotify(
-              "negative",
-              "오류가 발생했습니다.",
-              "관리자에게 문의하세요."
-            );
-          });
+      if (!this.$cf.isEmpty(this.userId)) {
+        this.$cf.call(
+          process.env.API + "/api/auth/registered",
+          { email: this.userId },
+          this.afterIdChk,
+          {},
+          true
+        );
       }
+    },
+    afterIdChk(response) {
+      this.isIdChk = !response;
+      if (!response) {
+        this.idChkIcon = "check";
+        this.idChkColor = "positive";
+        this.$store.commit("setNotification", {
+          color: "positive",
+          textColor: "white",
+          message: "이메일 중복확인이 완료되었습니다.",
+          caption: ""
+        });
+      } else {
+        this.idChkIcon = "error";
+        this.idChkColor = "negative";
+        this.$store.commit("setNotification", {
+          color: "negative",
+          textColor: "white",
+          message: "이미 가입된 이메일입니다.",
+          caption: "다른 이메일을 입력해주세요."
+        });
+      }
+      this.checkedId = this.userId;
     },
     /** form submit 이벤트 함수 */
     onSubmit() {
-      let self = this;
-      let param = {};
-
       /** 아래 외 나머지 항목은 form 자체 validation 이용 */
-      if (!self.isIdChk && !self.isSocialUser) {
-        self.signupNotify("warning", "이메일 중복확인을 완료해주세요.");
+      if (!this.isIdChk && !this.isSocialUser) {
+        this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "이메일 중복확인을 완료해주세요.",
+          caption: ""
+        });
         return;
       }
-      if (!self.trmAgree) {
-        self.signupNotify("warning", "서비스 이용약관에 동의해주세요.");
+      if (!this.trmAgree) {
+        this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "서비스 이용약관에 동의해주세요.",
+          caption: ""
+        });
         return;
       }
 
-      param = {
-        memberId: self.userId,
-        memberNickname: self.userNm,
-        memberLocationSido: self.userSido,
-        memberLocationSigg: self.userSigg,
-        isMarketingAgreed: self.mktAgree ? "Y" : "N"
+      let param = {
+        memberId: this.userId,
+        memberNickname: this.userNm,
+        memberLocationSido: this.userSido,
+        memberLocationSigg: this.userSigg,
+        isMarketingAgreed: this.mktAgree ? "Y" : "N"
       };
 
       /** 일반, 소셜 가입 구분 */
-      if (!self.isSocialUser) {
-        param.passwordPin = self.userPw;
+      if (!this.isSocialUser) {
+        this.passwordPin = this.userPw;
       } else {
-        param.isSocialLogin = "Y";
-        param.socialService = self.newSocialUser.service
+        this.isSocialLogin = "Y";
+        this.socialService = this.newSocialUser.service
           .slice(0, 3)
           .toUpperCase();
-        param.socialId = self.newSocialUser.id;
-        param.isEmailAuthenticated = "Y";
+        this.socialId = this.newSocialUser.id;
+        this.isEmailAuthenticated = "Y";
       }
 
-      console.log(param);
-
-      self.$axios
-        .post("/api/auth/signup", param)
-        .then(function(response) {
-          console.log(response.data);
-          let msgPrefix = "";
-          let cptPrefix = "";
-          if (self.isSocialUser) {
-            msgPrefix = "소셜로그인 ";
-          } else {
-            cptPrefix = "이메일 인증 후 ";
-          }
-          self.$router.push({ path: "main" });
-          self.signupNotify(
-            "positive",
-            msgPrefix + "가입이 완료되었습니다.",
-            cptPrefix + "다시 로그인 해주세요."
-          );
-        })
-        .catch(function(error) {
-          console.log(error);
-          self.signupNotify(
-            "negative",
-            "오류가 발생했습니다.",
-            "관리자에게 문의하세요."
-          );
-        });
+      this.$cf.call(
+        process.env.API + "/api/auth/signup",
+        param,
+        this.afterSubmit,
+        {},
+        true
+      );
+    },
+    afterSubmit(response) {
+      let msgPrefix = "";
+      let cptPrefix = "";
+      if (this.isSocialUser) {
+        msgPrefix = "소셜로그인 ";
+      } else {
+        cptPrefix = "이메일 인증 후 ";
+      }
+      this.$router.push({ path: "main" });
+      this.$store.commit("setNotification", {
+        color: "positive",
+        textColor: "white",
+        message: msgPrefix + "가입이 완료되었습니다.",
+        caption: cptPrefix + "다시 로그인 해주세요."
+      });
     }
   },
   computed: {

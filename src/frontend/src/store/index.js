@@ -7,6 +7,13 @@ export default function() {
   const store = new Vuex.Store({
     state: {
       isLoading: false,
+      notification: {
+        group: false,
+        color: "",
+        textColor: "",
+        message: "",
+        caption: ""
+      },
       isAuth: false,
       currentUser: "",
       newSocialUser: {
@@ -18,6 +25,7 @@ export default function() {
     },
     getters: {
       isLoading: state => state.isLoading,
+      notification: state => state.notification,
       isAuth: state => state.isAuth,
       currentUser: state => state.currentUser,
       newSocialUser: state => state.newSocialUser
@@ -25,6 +33,15 @@ export default function() {
     mutations: {
       setLoading(state, payload) {
         state.isLoading = payload.isLoading;
+      },
+      setNotification(state, payload) {
+        state.notification = {
+          group: false,
+          color: payload.color,
+          textColor: payload.textColor,
+          message: payload.message,
+          caption: payload.caption
+        };
       },
       setAuth(state, payload) {
         state.isAuth = payload ? payload.isAuth : !state.isAuth;
