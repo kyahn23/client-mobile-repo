@@ -1,19 +1,11 @@
 <template>
-  <div class="q-pa-md q-my-lg q-pt-lg">
+  <div class="q-pa-md q-mt-lg q-pt-lg">
     <div id="top">
         <!-- Your content goes here -->
         <div class="full-width">
           <div class="row q-mb-sm">
             <div class="col-3 text-weight-bold self-center"><span>가입유형</span></div>
             <div class="col-9 self-center">
-<!--                <q-option-group-->
-<!--                  size="xs"-->
-<!--                  v-model="signType"-->
-<!--                  :options="signOpts"-->
-<!--                  color="primary"-->
-<!--                  inline-->
-<!--                  dense>-->
-<!--                </q-option-group>-->
               <q-radio class="text-caption q-mr-xs" style="width: 32%" dense size="xs" v-model="signType" val="newSign" label="신규가입"></q-radio>
               <q-radio class="text-caption q-mr-xs" style="width: 32%" dense size="xs" v-model="signType" val="moveCarr" label="번호이동"></q-radio>
               <q-radio class="text-caption" style="width: 32%" dense size="xs" v-model="signType" val="chgDev" label="기기변경"></q-radio>
@@ -80,18 +72,16 @@
           <q-btn outline color="primary" rounded size="sm" class="q-px-xs q-py-xs" label="SKT 최저가"/>
         </div>
         <div class="q-pa-xs q-mb-sm">
-          <q-table class="no-shadow no-outline" :data="priceList" :columns="columns" :hide-bottom="true" bordered>
+          <q-table class="no-shadow no-outline" :data="priceList" :columns="columns" :hide-bottom="true" :pagination.sync="pricePagination">
           </q-table>
         </div>
         <div>
           <q-btn unelevated class="full-width bg-blue-1 no-border text-blue-6 text-weight-bold" label="더보기 +"></q-btn>
         </div>
-        <div
-          id="scroll-top"
-          class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
-          @click="scrollTop"
-        >
-          <i class="material-icons">arrow_upward</i>
+        <div id="scroll-top" @click="scrollTop" class="q-mb-lg q-mr-md" style="position: fixed; display: block; right: 0; bottom: 0;">
+          <q-btn class="bg-grey-1 q-mb-xl" text-color="black" round size="md">
+            <i class="material-icons">arrow_upward</i>
+          </q-btn>
         </div>
     </div>
   </div>
@@ -105,6 +95,13 @@ export default {
   name: "SKT",
   data() {
     return {
+      pricePagination:{
+        sortBy: 'desc',
+        descending: false,
+        page: 1,
+        rowsPerPage: 10
+      },
+      carr:"S",
       signType: null,
       signOpts: [
         {
@@ -193,6 +190,10 @@ export default {
 </script>
 <style>
 .q-radio--dense .q-radio__label {
-  padding-left: .4rem;
+  padding-left: .3rem;
+}
+
+table.q-table {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 </style>

@@ -1,113 +1,90 @@
 <template>
-  <q-page class="flex flex-center">
-    <main class="mdl-layout__content">
-      <div id="top">
-        <div class="page-content">
-          <!-- Your content goes here -->
-          <div class="pentas-layout__price-search-box">
-            <div class="pentas-layout__price-search-row">
-              <span class="pentas-layout__price-search-label">가입유형</span>
-              <span class="pentas-layout__price-search-radio">
-                <q-option-group
-                  v-model="signType"
-                  :options="signOpts"
-                  color="primary"
-                  inline
-                  dense
-                >
-                </q-option-group>
-              </span>
-            </div>
-            <div class="pentas-layout__price-search-row">
-              <span class="pentas-layout__price-search-label">제조사</span>
-              <q-select
-                class="pentas-layout__price-search-select"
-                outlined
-                v-model="pnMkr"
-                :options="pnMkrList"
-                dense
-                emit-value
-                map-options
-              >
-              </q-select>
-            </div>
-            <div class="pentas-layout__price-search-row">
-              <span class="pentas-layout__price-search-label">모델선택</span>
-              <q-select
-                class="pentas-layout__price-search-select"
-                outlined
-                v-model="pnMkr"
-                :options="pnMkrList"
-                dense
-                emit-value
-                map-options
-              >
-              </q-select>
-            </div>
-            <div class="pentas-layout__price-search-row">
-              <span class="pentas-layout__price-search-label">요금제</span>
-              <q-select
-                class="pentas-layout__price-search-select"
-                outlined
-                v-model="pnMkr"
-                :options="pnMkrList"
-                dense
-                emit-value
-                map-options
-              >
-              </q-select>
-            </div>
-            <div class="pentas-layout__price-search-row">
-              <span class="pentas-layout__price-search-label">기간입력</span>
-              <q-select
-                class="pentas-layout__price-search-select"
-                outlined
-                v-model="pnMkr"
-                :options="pnMkrList"
-                dense
-                emit-value
-                map-options
-              >
-              </q-select>
-            </div>
-            <div class="pentas-layout__price-search-row">
-              <button
-                class="mdl-button mdl-js-button mdl-js-ripple-effect pentas-button__search"
-              >
-                검색
-              </button>
-            </div>
-          </div>
-          <div class="pentas-layout__price-chip-box">
-            <span class="mdl-chip pentas-chip-all">
-              <span class="mdl-chip__text">전체</span>
-            </span>
-            <span class="mdl-chip pentas-chip-one q-ml-sm">
-              <span class="mdl-chip__text">SKT 최저가</span>
-            </span>
-          </div>
-          <div class="pentas-layout__price-table-box q-pa-md">
-            <q-table :data="priceList" :columns="columns" :hide-bottom="true">
-            </q-table>
-          </div>
-          <div class="pentas-layout__price-see-more">
-            <button
-              class="mdl-button mdl-js-button mdl-js-ripple-effect pentas-button__see-more"
-            >
-              더보기 +
-            </button>
-          </div>
-          <div
-            id="scroll-top"
-            class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
-            @click="scrollTop"
-          >
-            <i class="material-icons">arrow_upward</i>
+  <div class="q-pa-md q-mt-lg q-pt-lg">
+    <div id="top">
+      <!-- Your content goes here -->
+      <div class="full-width">
+        <div class="row q-mb-sm">
+          <div class="col-3 text-weight-bold self-center"><span>가입유형</span></div>
+          <div class="col-9 self-center">
+            <q-radio class="text-caption q-mr-xs" style="width: 32%" dense size="xs" v-model="signType" val="newSign" label="신규가입"></q-radio>
+            <q-radio class="text-caption q-mr-xs" style="width: 32%" dense size="xs" v-model="signType" val="moveCarr" label="번호이동"></q-radio>
+            <q-radio class="text-caption" style="width: 32%" dense size="xs" v-model="signType" val="chgDev" label="기기변경"></q-radio>
           </div>
         </div>
+        <div class="row q-mb-sm">
+          <span class="col-3 text-weight-bold self-center">제조사</span>
+          <q-select
+            class="col-9 self-center"
+            outlined
+            v-model="pnMkr"
+            :options="pnMkrList"
+            dense
+            emit-value
+            map-options
+          >
+          </q-select>
+        </div>
+        <div class="row q-mb-sm">
+          <span class="col-3 text-weight-bold self-center">모델선택</span>
+          <q-select
+            class="col-9 self-center"
+            outlined
+            v-model="pnMkr"
+            :options="pnMkrList"
+            dense
+            emit-value
+            map-options
+          >
+          </q-select>
+        </div>
+        <div class="row q-mb-sm">
+          <span class="col-3 text-weight-bold self-center">요금제</span>
+          <q-select
+            class="col-9 self-center"
+            outlined
+            v-model="pnMkr"
+            :options="pnMkrList"
+            dense
+            emit-value
+            map-options
+          >
+          </q-select>
+        </div>
+        <div class="row q-mb-sm">
+          <span class="col-3 text-weight-bold self-center">기간입력</span>
+          <q-select
+            class="col-9 self-center"
+            outlined
+            v-model="pnMkr"
+            :options="pnMkrList"
+            dense
+            emit-value
+            map-options
+          >
+          </q-select>
+        </div>
+        <div class="text-center q-mb-md">
+          <q-btn unelevated color="primary" label="검색" size="md" class="q-px-lg q-py-xs"/>
+        </div>
       </div>
-    </main>
-  </q-page>
+      <div class="q-mb-xs">
+        <q-btn outline color="white" text-color="black" rounded size="sm" class="q-px-xs q-mr-xs q-py-xs" label="전체"/>
+        <q-btn outline color="primary" rounded size="sm" class="q-px-xs q-py-xs" label="LGU 최저가"/>
+      </div>
+      <div class="q-pa-xs q-mb-sm">
+        <q-table class="no-shadow no-outline" :data="priceList" :columns="columns" :hide-bottom="true" :pagination.sync="pricePagination">
+        </q-table>
+      </div>
+      <div>
+        <q-btn unelevated class="full-width bg-blue-1 no-border text-blue-6 text-weight-bold" label="더보기 +"></q-btn>
+      </div>
+      <div id="scroll-top" @click="scrollTop" class="q-mb-lg q-mr-md" style="position: fixed; display: block; right: 0; bottom: 0;">
+        <q-btn class="bg-grey-1 q-mb-xl" text-color="black" round size="md">
+          <i class="material-icons">arrow_upward</i>
+        </q-btn>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -118,6 +95,13 @@ export default {
   name: "LGU",
   data() {
     return {
+      pricePagination:{
+        sortBy: 'desc',
+        descending: false,
+        page: 1,
+        rowsPerPage: 10
+      },
+      carr:"L",
       signType: null,
       signOpts: [
         {
@@ -166,187 +150,68 @@ export default {
           align: "center",
           field: row => row.priceDate,
           format: val => `${val}`,
-          headerClasses: "tbl-header-bg-color"
+          headerClasses: "bg-blue-2 text-dark text-weight-bold"
         },
         {
           name: "ofclDv",
           align: "center",
           label: "공시지원금",
           field: "ofclDv",
-          headerClasses: "tbl-header-bg-color"
+          headerClasses: "bg-blue-2 text-dark text-weight-bold"
         },
         {
           name: "ofclRt",
           align: "center",
           label: "요금할인",
           field: "ofclRt",
-          headerClasses: "tbl-header-bg-color"
+          headerClasses: "bg-blue-2 text-dark text-weight-bold"
         }
       ],
       priceList: [
-        { priceDate: "20.11.01", ofclDv: "370000원", ofclRt: "670000원" },
-        { priceDate: "20.11.02", ofclDv: "370000원", ofclRt: "670000원" },
-        { priceDate: "20.11.03", ofclDv: "370000원", ofclRt: "670000원" },
-        { priceDate: "20.11.04", ofclDv: "370000원", ofclRt: "670000원" },
-        { priceDate: "20.11.05", ofclDv: "370000원", ofclRt: "670000원" },
-        { priceDate: "20.11.06", ofclDv: "370000원", ofclRt: "670000원" }
+        { priceDate: "20.11.01", ofclDv: "370000원", ofclRt: "610000원" },
+        { priceDate: "20.11.02", ofclDv: "320000원", ofclRt: "620000원" },
+        { priceDate: "20.11.03", ofclDv: "310000원", ofclRt: "630000원" },
+        { priceDate: "20.11.04", ofclDv: "350000원", ofclRt: "640000원" },
+        { priceDate: "20.11.05", ofclDv: "120000원", ofclRt: "650000원" },
+        { priceDate: "20.11.06", ofclDv: "230000원", ofclRt: "670000원" }
       ]
     };
+  },
+  watch:{
+    pnMkr: function(val){
+      console.log(val)
+      if (val !== 'all'){
+        alert(val)
+      }
+    }
   },
   methods: {
     scrollTop() {
       const ele = document.getElementById("top");
       const target = getScrollTarget(ele);
-      const offset = ele.offsetTop - 40;
+      const offset = ele.offsetTop - 130;
       const duration = 100;
       setScrollPosition(target, offset, duration);
+    },
+    getDevList(val){
+      const pnMkr = val
+      this.$cf.call(
+        process.env.API + "/api/auth/registered",
+        this.paramTrue,
+        this.cbFunction,
+        {},
+        true
+      );
     }
   }
 };
 </script>
-<style src="src/css/styles.css"></style>
 <style>
-.pentas-layout__header-back-btn .material-icons {
-  vertical-align: middle;
+.q-radio--dense .q-radio__label {
+  padding-left: .3rem;
 }
 
-.pentas-layout__price-search-box {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /*background-color: #FDFAFA;*/
-  padding-top: 3.2rem;
-  margin-top: 10rem;
-}
-
-.pentas-layout__price-search-row {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  margin: 0 auto 2.4rem;
-}
-
-.pentas-layout__price-search-label {
-  width: 25%;
-  margin: auto 0;
-  font-size: 3.6rem;
-  font-weight: bold;
-}
-
-.pentas-layout__price-search-radio {
-  width: 75%;
-  margin: auto 0;
-  font-size: 3rem;
-}
-
-.mdl-radio {
-  font-size: 3rem;
-  margin-right: 2.2rem;
-}
-
-.pentas-layout__price-search-select {
-  width: 75%;
-  background-color: #ffffff;
-  /*padding: 1.2rem 2.2rem;*/
-  /*border: 2px solid #858585;*/
-  /*border-radius: 4px;*/
-  margin: auto 0;
-  font-size: 3rem;
-}
-
-.pentas-layout__price-search-select i {
-  float: right;
-  margin: auto 0;
-}
-
-.pentas-button__search {
-  background-color: #2d90f5;
-  color: #ffffff;
-  font-size: 3.2rem;
-  font-weight: bold;
-  width: 40%;
-  vertical-align: middle;
-  margin: 2.4rem auto;
-}
-
-.pentas-layout__price-chip-box {
-  width: 100%;
-  padding: 2.4rem 3.2rem;
-  border-bottom: 1px solid #000000;
-}
-
-.mdl-chip {
-  font-family: "Nanum Gothic", "Roboto", sans-serif !important;
-  height: 6.4rem;
-  line-height: 6.4rem;
-  padding: 0 6rem;
-  border-radius: 10px;
-  background-color: #ffffff;
-}
-
-.pentas-chip-all {
-  border: 1px solid #000000;
-}
-
-.pentas-chip-one {
-  border: 1px solid #2d90f5;
-  color: #2d90f5;
-}
-
-.pentas-layout__price-table-self {
-  border: none;
-  width: 90%;
-  margin: 4.8rem auto;
-}
-
-.pentas-layout__price-table-self thead,
-.pentas-layout__price-table-self tbody tr {
-  line-height: 6rem;
-  height: 6rem;
-}
-
-.mdl-data-table__cell--non-numeric {
-  margin: 0 !important;
-  padding: 0 !important;
-  height: 6rem !important;
-  line-height: 6rem !important;
-  text-align: center !important;
-}
-
-th.mdl-data-table__cell--non-numeric {
-  background-color: #e9e9ea;
-  color: #000000;
-}
-
-.pentas-layout__price-table-num-col {
-  color: #2d90f5;
-}
-
-.pentas-layout__price-see-more {
-  width: 90%;
-  margin: 4.8rem auto;
-  margin-bottom: 10rem;
-}
-
-.pentas-button__see-more {
-  background-color: #e9f0f8;
-  color: #2d90f5;
-  font-size: 3.2rem;
-  font-weight: bold;
-  width: 100%;
-  vertical-align: middle;
-}
-.q-table__card {
-  box-shadow: none;
+table.q-table {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-th.tbl-header-bg-color {
-  color: rgba(0, 0, 0, 0.54);
-  background-color: #eaf0f7;
-}
-
-.q-table thead tr,
-.q-table tbody td {
-  height: 10rem;
 }
 </style>
