@@ -113,7 +113,6 @@ export default {
           process.env.API + "/api/auth/signin",
           { email: this.userId },
           this.afterLogin,
-          {},
           true
         );
       }

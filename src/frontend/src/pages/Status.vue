@@ -120,7 +120,6 @@ export default {
       process.env.API + "/api/auth/registered",
       this.paramTrue,
       this.cbFunction,
-      {},
       true
     );
   },

@@ -203,7 +203,6 @@ export default {
           process.env.API + "/api/auth/registered",
           { email: this.userId },
           this.afterIdChk,
-          {},
           true
         );
       }
@@ -277,7 +276,6 @@ export default {
         process.env.API + "/api/auth/signup",
         param,
         this.afterSubmit,
-        {},
         true
       );
     },

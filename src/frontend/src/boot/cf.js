@@ -59,11 +59,11 @@ export default async ({ Vue, store }) => {
      * @param url
      * @param param
      * @param callback
-     * @param options
      * @param loadingbar
+     * @param options
      * @returns
      */
-    async call(url, param, callback, options, loadingbar) {
+    async call(url, param, callback, loadingbar, options) {
       if (cf_isEmpty(options)) options = {};
 
       if (loadingbar !== false) {
