@@ -7,13 +7,13 @@
         <setting name="callSettersOnNulls" value="true"/>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-<!--    <typeAliases>-->
-<!--        <typeAlias alias="DevMap" type="com.pentas.sellerweb.common.module.util.DevMap"/>-->
+    <typeAliases>
+        <typeAlias alias="DevMap" type="com.pentas.clientmobile.common.module.util.DevMap"/>
 <!--        <typeAlias alias="UserVO" type="com.pentas.sellerweb.vo.UserVO"/>-->
-<!--    </typeAliases>-->
-<!--    <plugins>-->
-<!--        <plugin interceptor="com.pentas.sellerweb.common.module.mybatis.paginator.OffsetLimitInterceptor" >-->
-<!--            <property name="dialectClass" value="com.pentas.sellerweb.common.module.mybatis.paginator.dialect.MySQLDialect"/>-->
-<!--        </plugin>-->
-<!--    </plugins>-->
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.pentas.clientmobile.common.module.mybatis.paginator.OffsetLimitInterceptor" >
+            <property name="dialectClass" value="com.pentas.clientmobile.common.module.mybatis.paginator.dialect.MySQLDialect"/>
+        </plugin>
+    </plugins>
 </configuration>

@@ -105,21 +105,18 @@ export default {
         }
       ],
       /** $cf.call 파라미터 예제 */
-      paramTrue: {
-        email: "clientTest@gmail.com"
-      },
-      paramFalse: {
-        email: "fakeMail@fakeDomain.com"
-      },
-      paramError: {}
+      paramTest: {
+        email: "clientTest@gmail.com",
+        page: "1"
+      }
     };
   },
   mounted() {
     /** $cf.call 예제 */
     this.$cf.call(
-      process.env.API + "/api/auth/registered",
-      this.paramTrue,
-      this.cbFunction,
+      process.env.API + "/api/deal/list",
+      this.paramTest,
+      this.cbTest,
       true
     );
   },
@@ -140,6 +137,15 @@ export default {
         color: responseColor,
         textColor: responseTextColor,
         message: response + "",
+        caption: "정상적인 결과 출력"
+      });
+    },
+    cbTest(response) {
+      console.log(response);
+      this.$store.commit("setNotification", {
+        color: "positive",
+        textColor: "white",
+        message: "SUCC",
         caption: "정상적인 결과 출력"
       });
     }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 public class UserRestController {
-
     private final UserService userService;
 
     @PostMapping("/registered")
@@ -48,5 +47,4 @@ public class UserRestController {
         rslt.put("rsltStat", rsltStat);
         return rslt;
     }
-
 }
