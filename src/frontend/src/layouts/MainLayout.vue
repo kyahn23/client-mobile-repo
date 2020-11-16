@@ -93,6 +93,9 @@ export default {
       } else {
         this.dialogLogin = false;
       }
+      if (to.path.includes("/price") && !to.path.includes("price/")) {
+        this.$router.push({ path: to.path + "/SKT" });
+      }
     },
     notification(newNotification) {
       this.$q.notify(newNotification);
