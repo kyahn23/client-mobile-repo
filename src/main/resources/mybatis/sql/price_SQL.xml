@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="clientmobile.price">
+
+    <select id="phoneList" parameterType="DevMap" resultType="DevMap">
+        SELECT *,
+        CONCAT(t.PN_MDL_NM," ", t.PN_STOR, "GB") as label
+        FROM TBL011 t
+        where t.PN_CARR LIKE CONCAT('%' #{mntCarr}, '%')
+        AND t.PN_MKR = #{pnMkr}
+        group by t.PN_MDL_NO, t.PN_STOR
+        order by t.REL_DT desc, t.PN_MDL_NO, convert(t.PN_STOR, decimal), convert(t.PN_MSRP, decimal) desc
+    </select>
+
+    <select id="mntRtList" parameterType="DevMap" resultType="DevMap">
+        SELECT PN_MNT_RT_NO,
+                PN_MNT_RT_NM,
+                PN_CARR,
+                PN_NET_TYPE,
+                PN_MNT_AMT
+        FROM TBL010
+        where PN_CARR = #{mntCarr} and PN_NET_TYPE = #{pnNetType}
+        order by convert(PN_MNT_AMT, decimal) DESC
+    </select>
+    
+    <select id="priceList" parameterType="DevMap" resultType="DevMap">
+    </select>
+
+</mapper>
