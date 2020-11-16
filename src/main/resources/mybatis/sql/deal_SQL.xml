@@ -5,6 +5,11 @@
     <select id="dealList" parameterType="DevMap" resultType="DevMap">
         SELECT A.DEAL_NO
             , A.DEAL_DT
+            , (SELECT PN_IMG
+            FROM TBL011 B
+            WHERE B.PN_MDL_NO = A.PN_MDL_NO
+            AND B.PN_STOR = A.PN_STOR)
+            AS PN_IMG
             , (SELECT CONCAT(PN_MKR,' ',PN_MDL_NM)
                 FROM TBL011 B
                 WHERE B.PN_MDL_NO = A.PN_MDL_NO
