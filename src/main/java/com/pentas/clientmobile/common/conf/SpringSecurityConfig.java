@@ -33,7 +33,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
-                    .antMatchers("/api/auth/**", "/api/deal/**").permitAll()
+//                    .antMatchers("/api/auth/**").permitAll()
+                    .antMatchers("/api/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .cors()
@@ -56,8 +57,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/auth/**", configuration);
-        source.registerCorsConfiguration("/api/deal/**", configuration);
+        source.registerCorsConfiguration("/api/**", configuration);
         return source;
     }
 
