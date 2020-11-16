@@ -53,10 +53,11 @@ export default {
   name: "PageStatus",
   data() {
     return {
+      /** 페이징 처리 정보 */
       pageInfo: {},
       /** DEAL 리스트 */
       dealList: [],
-      /** $cf.call 파라미터 예제 */
+      /** list 파라미터 */
       listParam: {
         email: "clientTest@gmail.com",
         page: "1"
@@ -105,6 +106,7 @@ export default {
         true
       );
     },
+    /** list 콜백 함수 */
     listCb(response) {
       console.log(response);
       this.pageInfo = response.pageInfo;
