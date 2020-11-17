@@ -85,6 +85,24 @@ const routes = [
         }
       },
       {
+        path: "register",
+        component: () => import("pages/Register.vue"),
+        children: [
+          {
+            path: "SKT",
+            component: () => import("pages/register/SKT.vue")
+          },
+          {
+            path: "KT",
+            component: () => import("pages/register/KT.vue")
+          },
+          {
+            path: "LGU",
+            component: () => import("pages/price/LGU.vue")
+          }
+        ]
+      },
+      {
         path: "after",
         component: () => import("pages/After.vue"),
         meta: {

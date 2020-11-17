@@ -14,15 +14,15 @@
 
     <select id="mntRtList" parameterType="DevMap" resultType="DevMap">
         SELECT PN_MNT_RT_NO,
-                PN_MNT_RT_NM,
-                PN_CARR,
-                PN_NET_TYPE,
-                PN_MNT_AMT
+        PN_MNT_RT_NM,
+        PN_CARR,
+        PN_NET_TYPE,
+        PN_MNT_AMT
         FROM TBL010
         where PN_CARR = #{mntCarr} and PN_NET_TYPE = #{pnNetType}
         order by convert(PN_MNT_AMT, decimal) DESC
     </select>
-    
+
     <select id="priceList" parameterType="DevMap" resultType="DevMap">
     </select>
 
