@@ -2,7 +2,7 @@ export default ({ Vue }) => {
   /** 돈 양식 필터 */
   Vue.filter("showMeTheMoney", value => {
     if (!value) {
-      return "";
+      return "없음";
     }
     return parseInt(value, 10).toLocaleString() + "원";
   });
@@ -20,5 +20,26 @@ export default ({ Vue }) => {
     }
 
     return "미포함";
+  });
+
+  /** 값이 null 일때 (숫자, 소수점 1자리) */
+  Vue.filter("ifNullNumber", value => {
+    if (value) {
+      let parsed = parseInt(value, 10);
+      if (!isNaN(parsed)) {
+        return parsed.toFixed(1);
+      }
+    }
+
+    return "0.0";
+  });
+
+  /** 값이 null 일때 (문자열) */
+  Vue.filter("ifNullString", value => {
+    if (!value) {
+      return "없음";
+    }
+
+    return value;
   });
 };

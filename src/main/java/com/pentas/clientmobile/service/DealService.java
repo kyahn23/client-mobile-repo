@@ -7,6 +7,8 @@ import com.pentas.clientmobile.common.module.util.DevMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DealService {
     @Autowired
@@ -20,4 +22,12 @@ public class DealService {
 
         return cmmnDao.selectListPage("clientmobile.deal.dealList", param, pageBounds);
     }
+
+    public DevMap dealOne(DevMap param) {
+        return cmmnDao.selectOne("clientmobile.deal.dealOne", param);
+    }
+
+    public List<DevMap> consultList(DevMap param) { return cmmnDao.selectList("clientmobile.deal.consultList", param); }
+
+    public List<DevMap> sellingList(DevMap param) { return cmmnDao.selectList("clientmobile.deal.sellingList", param); }
 }
