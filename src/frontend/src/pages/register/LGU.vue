@@ -99,7 +99,7 @@ import {scroll} from "quasar";
 const {getScrollTarget, setScrollPosition} = scroll;
 
 export default {
-  name: "SKT",
+  name: "LGU",
   data() {
     return {
       pricePagination: {

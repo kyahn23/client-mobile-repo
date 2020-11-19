@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="clientmobile.registercs">
+
+    <select id="mntRtList" parameterType="DevMap" resultType="DevMap">
+        SELECT PN_MNT_RT_NO,
+        PN_MNT_RT_NM,
+        PN_CARR,
+        PN_NET_TYPE,
+        PN_MNT_AMT
+        from TBL010 t
+        where PN_CARR = #{mntCarr}
+        and PN_NET_TYPE IN ( '4G', '5G')
+        ORDER BY PN_NET_TYPE DESC, convert(PN_MNT_AMT, decimal) desc
+    </select>
+
+</mapper>
