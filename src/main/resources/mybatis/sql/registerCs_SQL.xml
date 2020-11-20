@@ -7,11 +7,47 @@
         PN_MNT_RT_NM,
         PN_CARR,
         PN_NET_TYPE,
-        PN_MNT_AMT
+        PN_MNT_AMT,
+        PN_MNT_CALL,
+        PN_MNT_DATA,
+        PN_MNT_SMS
         from TBL010 t
         where PN_CARR = #{mntCarr}
         and PN_NET_TYPE IN ( '4G', '5G')
         ORDER BY PN_NET_TYPE DESC, convert(PN_MNT_AMT, decimal) desc
     </select>
+
+    <select id="phoneList" parameterType="DevMap" resultType="DevMap">
+        SELECT *,
+        CONCAT(t.PN_MDL_NM," ", t.PN_STOR, "GB") as label
+        FROM TBL011 t
+        WHERE t.PN_CARR LIKE CONCAT('%' #{mntCarr}, '%')
+        AND t.PN_MKR = #{pnMkr}
+        AND t.PN_NET_TYPE = #{pnNetType}
+        group by t.PN_MDL_NO, t.PN_STOR
+        order by t.REL_DT desc, t.PN_MDL_NO, convert(t.PN_STOR, decimal), convert(t.PN_MSRP, decimal) desc
+    </select>
+
+    <insert id="registerCs" parameterType="DevMap">
+        INSERT into TBL006 values(
+        (SELECT CONCAT(DATE_FORMAT(SYSDATE() , '%Y%m%d'), IFNULL(LPAD(IFNULL(MAX(SUBSTR(DEAL_NO,9)),0)+1,4,0), ''))
+        as DEAL_NO
+        FROM TBL006 as t
+        WHERE DEAL_NO LIKE CONCAT(DATE_FORMAT(SYSDATE(), '%Y%m%d'),'%')),
+        'R', <!--등록: R -->
+        #{dealLoc},
+        #{dealDt},
+        #{pnRegDis},
+        #{saleType},
+        #{dealReq},
+        SYSDATE(),
+        SYSDATE(),
+        #{clMbrId},
+        #{mntCarr},
+        #{pnMntRtNo},
+        #{pnMdlNo},
+        #{pnStor}
+        )
+    </insert>
 
 </mapper>

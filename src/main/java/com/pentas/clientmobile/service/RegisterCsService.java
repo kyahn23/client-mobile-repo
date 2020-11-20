@@ -24,13 +24,22 @@ public class RegisterCsService {
         return cmmnDao.selectList("clientmobile.registercs.mntRtList", param);
     }
 
+    /**
+     * 통신유형과 제조사에 따른 
+     * 스마트폰 리스트
+     * @param param
+     * @return
+     */
+    public List<DevMap> phoneList(DevMap param) {
+        return cmmnDao.selectList("clientmobile.registercs.phoneList", param);
+    }
 
-    public PageList<DevMap> priceList(DevMap param) {
-        int page = Integer.parseInt(param.getString("page"));
-        int pageSize = 10;
 
-        PageBounds pageBounds = new PageBounds(page, pageSize);
-
-        return cmmnDao.selectListPage("clientmobile.price.priceList", param, pageBounds);
+    /**
+     * 상담등록
+     * @param param
+     */
+    public void registerCs(DevMap param) {
+        cmmnDao.insert("clientmobile.registercs.registerCs", param);
     }
 }

@@ -94,9 +94,21 @@
             </div>
             <div>
               <ul>
-                <li><span style="color: lightgray;">데이터 :</span> 무제한</li>
-                <li><span style="color: lightgray;">음성 :</span> 무제한</li>
-                <li><span style="color: lightgray;">문자 :</span> 무제한</li>
+                <li>
+                  <span style="color: lightgray;">데이터 :</span>
+                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs">-</span>
+                  <span v-else class="q-pl-xs">{{ selectedMntRt.pnMntData }}</span>
+                </li>
+                <li>
+                  <span style="color: lightgray;">음성 :</span>
+                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs">-</span>
+                  <span v-else class="q-pl-xs">{{ selectedMntRt.pnMntCall }}</span>
+                </li>
+                <li>
+                  <span style="color: lightgray;">문자 :</span>
+                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs">-</span>
+                  <span v-else class="q-pl-xs">{{ selectedMntRt.pnMntSms }}</span>
+                </li>
               </ul>
             </div>
           </div>
@@ -128,7 +140,7 @@
                 <span class="col-3 text-weight-bold self-center q-pl-sm">모델명</span>
                 <q-select
                   class="col-9 self-center" outlined
-                  v-model="pnMkr" :options="pnMkrList"
+                  v-model="selected" :options="phoneList"
                   dense emit-value map-options>
                 </q-select>
               </div>
@@ -153,18 +165,22 @@
                    class="full-width text-center q-pa-sm">
             </div>
             <div class="q-ma-sm">
-              <div class="row q-mb-sm">
+              <div class="flex row q-mb-sm fit">
                 <span class="col-3 text-weight-bold self-center text-caption text-center">희망 구매지역</span>
                 <q-select
-                  class="col-4 self-center" outlined
-                  v-model="pnMkr" :options="pnMkrList"
-                  label="경상남도"
+                  class="col-5 self-center" outlined
+                  label="시/도"
+                  v-model="sido" :options="sidoOpt"
+                  option-value="cdVal"
+                  option-label="cdNm"
                   dense emit-value map-options>
                 </q-select>
                 <q-select
-                  class="col-5 self-center q-pl-xs" outlined
-                  v-model="pnMkr2" :options="pnMkrList2"
-                  label="경상남도"
+                  class="col-4 self-center q-pl-xs" outlined
+                  label="시/군/구"
+                  v-model="sigg" :options="siggOpt"
+                  option-value="cdVal"
+                  option-label="cdNm"
                   dense emit-value map-options>
                 </q-select>
               </div>
@@ -175,7 +191,7 @@
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer">
                       <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                        <q-date v-model="hopeDt">
+                        <q-date v-model="hopeDt" :options="calendarOpt">
                           <div class="row items-center justify-end">
                             <q-btn v-close-popup label="Close" color="primary" flat/>
                           </div>
@@ -220,45 +236,45 @@
                 <tr style="height: 2.5rem">
                   <th class="bg-blue-1" style="width: 40%; border-top: 2px solid lightgrey;">통신사</th>
                   <td style="width: 60%; border-top: 2px solid lightgrey;;">
-                    <span class="q-pl-md">SKT</span>
+                    <span class="q-pl-md">{{ carrLong }}</span>
                   </td>
                 </tr>
                 <tr style="height: 2.5rem">
                   <th class="bg-blue-1" style="width: 40%;">가입유형</th>
                   <td style="width: 60%;">
-                    <span class="q-pl-md">번호이동</span>
+                    <span class="q-pl-md">{{ signTypeLabel }}</span>
                   </td>
                 </tr>
                 <tr style="height: 2.5rem;">
                   <th class="bg-blue-1" style="width: 40%;">지원구분</th>
                   <td style="width: 60%;">
-                    <span class="q-pl-md">공시지원금</span>
+                    <span class="q-pl-md">{{ saleTypeLabel }}</span>
                   </td>
                 </tr>
                 <tr style="height: 2.5rem;">
                   <th class="bg-blue-1" style="width: 40%;">요금제</th>
                   <td style="width: 60%;">
                     <span class="q-pl-md">
-                      5GX 프리미엄
+                      {{ selectedMntRt.pnMntRtNm }}
                     </span>
                   </td>
                 </tr>
                 <tr style="height: 2.5rem;">
                   <th class="bg-blue-1" style="width: 40%;">선택모델</th>
                   <td style="width: 60%;">
-                    <span class="q-pl-md">갤럭시 S20</span>
+                    <span class="q-pl-md">{{ selected.label }}</span>
                   </td>
                 </tr>
                 <tr style="height: 2.5rem;">
                   <th class="bg-blue-1" style="width: 40%;">희망 구매지역</th>
                   <td style="width: 60%;">
-                    <span class="q-pl-md">서울시 영등포구</span>
+                    <span class="q-pl-md">{{ sidolabel }} {{ sigglabel }}</span>
                   </td>
                 </tr>
                 <tr style="height: 2.5rem;">
-                  <th class="bg-blue-1" style="width: 40%; border-bottom: 2px solid lightgrey;">예상 개통일</th>
+                  <th class="bg-blue-1" style="width: 40%; border-bottom: 2px solid lightgrey;">예상 구매일</th>
                   <td style="width: 60%; border-bottom: 2px solid lightgrey;">
-                    <span class="q-pl-md">2020-11-11</span>
+                    <span class="q-pl-md">{{ hopeDt }}</span>
                   </td>
                 </tr>
               </table>
@@ -281,9 +297,10 @@
                    color="primary"
                    padding="sm"
                    label="SKT 상담등록 시작하기 >>"
-                   class="full-width">
+                   class="full-width no-border-radius">
             </q-btn>
             <q-btn v-if="step === 2"
+                   class="no-border-radius"
                    color="grey"
                    padding="sm"
                    @click="$refs.stepper.previous()"
@@ -291,6 +308,7 @@
                    style="width: 30%">
             </q-btn>
             <q-btn v-if="step > 2"
+                   class="no-border-radius"
                    color="grey"
                    padding="sm"
                    @click="$refs.stepper.previous()"
@@ -298,6 +316,7 @@
                    style="width: 30%">
             </q-btn>
             <q-btn v-if="step < 5 && step !== 1"
+                   class="no-border-radius"
                    @click="nextStep"
                    label="다음"
                    padding="sm"
@@ -305,7 +324,8 @@
                    style="width: 70%">
             </q-btn>
             <q-btn v-if="step === 5"
-                   @click="$refs.stepper.next()"
+                   class="no-border-radius"
+                   @click="registerCs"
                    label="등록하기 >>"
                    padding="sm"
                    color="primary"
@@ -319,16 +339,15 @@
 </template>
 
 <script>
+import {date} from 'quasar'
+
 export default {
   name: "SKT",
   data() {
     return {
       step: 1,
-      carrShort: 'S',
-      carrLong: 'SKT',
-      hopeDt: '2020/11/21',
-      etc: '블랙색상.전화는 오후 3시이후',
       carr: "S",
+      carrLong: 'SKT',
       signType: null,
       signOpts: [
         {label: "신규가입", value: "newSign"},
@@ -343,11 +362,103 @@ export default {
       ],
       selectedMntRt: {label: '선택', pnMntRtNo: 'all'},
       mntRtList: [],
+      pnMkr: "all",
+      pnMkrList: [
+        {label: "선택", value: "all"},
+        {label: "삼성전자", value: "SAM"},
+        {label: "LG전자", value: "LGE"},
+        {label: "애플", value: "APP"},
+        {label: "샤오미", value: "XIA"}
+      ],
+      selected: {label: '선택', pnMdlNo: 'all'},
+      phoneList: [],
+      sido: null,
+      sidoOpt: [],
+      sigg: null,
+      siggOpt: [
+        {cdNm: "선택", cdVal: "all"}
+      ],
+      hopeDt: '',
+      etc: '',
     };
   },
-  watch: {},
+  watch: {
+    pnMkr: function (newValue, oldValue) {
+      // console.log(newValue)
+      if (newValue !== oldValue) {
+        this.selected = {
+          label: '선택',
+          pnMdlNo: 'all'
+        }
+        this.phoneList = []
+        this.getPhoneList()
+      }
+    },
+    step: function (value) {
+      if (value === 3) {
+        this.getSido()
+      }
+    },
+    sido(newSido) {
+      if (this.sido === 'all') {
+        this.sigg = 'all'
+        this.siggOpt = [{cdNm: "선택", cdVal: "all"}]
+      } else {
+        this.getSigg(newSido);
+      }
+    }
+  },
   mounted() {
     this.getMntRtList()
+  },
+  computed: {
+    signTypeLabel() {
+      let signlabel = ''
+      switch (this.signType) {
+        case 'newSign':
+          signlabel = '신규가입'
+          break
+        case 'moveCarr':
+          signlabel = '번호이동'
+          break
+        case 'chgDev':
+          signlabel = '기기변경'
+          break
+      }
+      return signlabel
+    },
+    saleTypeLabel() {
+      let salelabel = ''
+      for (let n in this.saleOpts) {
+        if (this.saleOpts[n].value === this.saleType) {
+          salelabel = this.saleOpts[n].label
+        }
+      }
+      return salelabel
+    },
+    sidolabel() {
+      let sido = ''
+      for (let n in this.sidoOpt) {
+        if (this.sidoOpt[n].cdVal === this.sido) {
+          sido = this.sidoOpt[n].cdNm
+        }
+      }
+      return sido
+    },
+    sigglabel() {
+      let sigg = ''
+      for (let n in this.siggOpt) {
+        if (this.siggOpt[n].cdVal === this.sigg) {
+          sigg = this.siggOpt[n].cdNm
+        }
+      }
+      return sigg
+    },
+    currentUser: {
+      get() {
+        return this.$store.getters.currentUser;
+      }
+    }
   },
   methods: {
     getMntRtList() {
@@ -358,7 +469,7 @@ export default {
         process.env.API + "/api/regCounsel/mntRtList",
         param,
         this.getMntRtListCB,
-        true
+        false
       )
     },
     getMntRtListCB(response) {
@@ -371,11 +482,34 @@ export default {
         response.mntRtList[n].label = response.mntRtList[n].pnMntRtNm.concat(" ", Number(response.mntRtList[n].pnMntAmt).toLocaleString(), "원")
         this.mntRtList.push(response.mntRtList[n])
       }
-      // this.mntRtList =  response.mntRtList
+    },
+    getPhoneList() {
+      let param = {
+        mntCarr: this.carr,
+        pnMkr: this.pnMkr,
+        pnNetType: this.selectedMntRt.pnNetType
+      }
+      this.$cf.call(
+        process.env.API + "/api/regCounsel/phoneList",
+        param,
+        this.getPhoneListCB,
+        false
+      )
+    },
+    getPhoneListCB(response) {
+      const obj = {
+        label: '선택',
+        pnMdlNo: 'all'
+      }
+      this.phoneList.push(obj)
+      for (let n in response.phoneList) {
+        this.phoneList.push(response.phoneList[n])
+      }
     },
     nextStep() {
       // step 1 은 상담 등록 시작화면
       switch (this.step) {
+        case 1 :
         case 2 :
           let step2Chk = false
           if (this.signType === null) {
@@ -400,20 +534,149 @@ export default {
             });
             step2Chk = true
           }
-
           if (!step2Chk) {
-            // alert(t)
             this.$refs.stepper.next();
           }
           break
         case 3 :
+          let step3Chk = false
+          if (this.pnMkr === 'all') {
+            this.$store.commit("setNotification", {
+              color: "grey-8",
+              textColor: "white",
+              message: "제조사를 선택해주세요."
+            });
+            step3Chk = true
+          } else if (this.selected.pnMdlNo === 'all') {
+            this.$store.commit("setNotification", {
+              color: "grey-8",
+              textColor: "white",
+              message: "스마트폰을 선택해주세요."
+            });
+            step3Chk = true
+          }
+          if (!step3Chk) {
+            this.$refs.stepper.next();
+          }
           break
         case 4 :
-          break
-        case 5 :
+          let step4Chk = false
+          if (this.sido === 'all' || this.sido === null) {
+            this.$store.commit("setNotification", {
+              color: "grey-8",
+              textColor: "white",
+              message: "시/도를 선택해주세요."
+            });
+            step4Chk = true
+          } else if (this.sigg === 'all' || this.sigg === null) {
+            this.$store.commit("setNotification", {
+              color: "grey-8",
+              textColor: "white",
+              message: "시/군/구를 선택해주세요."
+            });
+            step4Chk = true
+          } else if (this.hopeDt === '') {
+            this.$store.commit("setNotification", {
+              color: "grey-8",
+              textColor: "white",
+              message: "예상구매일을 선택해주세요."
+            });
+            step4Chk = true
+          } else if (this.etc === '') {
+            this.$store.commit("setNotification", {
+              color: "grey-8",
+              textColor: "white",
+              message: "기타요청사항을 작성해주세요."
+            });
+            step4Chk = true
+          }
+          if (!step4Chk) {
+            this.$refs.stepper.next();
+          }
           break
       }
+    },
+    calendarOpt(dt) {
+      let timeStamp = Date.now()
+      let formattedString = date.formatDate(timeStamp, 'YYYY/MM/DD')
+      return dt >= formattedString
+    },
+    getSido() {
+      this.$cf.call(
+        process.env.API + "/api/common/sido",
+        {},
+        this.sidoCb,
+        false
+      );
+    },
+    sidoCb(response) {
+      const obj = {
+        cdNm: '선택',
+        cdVal: 'all'
+      }
+      this.sidoOpt.push(obj)
+      for (let n in response.sidoList) {
+        this.sidoOpt.push(response.sidoList[n])
+      }
+    },
+    /** 시군구 list 호출 함수 */
+    getSigg(sidoCd) {
+      this.$cf.call(
+        process.env.API + "/api/common/sigg",
+        {sidoCd: sidoCd},
+        this.siggCb,
+        false
+      );
+    },
+    /** 시군구 list 콜백 함수 */
+    siggCb(response) {
+      this.siggOpt = []
+      const obj = {
+        cdNm: '선택',
+        cdVal: 'all'
+      }
+      this.siggOpt.push(obj)
+      for (let n in response.siggList) {
+        this.siggOpt.push(response.siggList[n])
+      }
+    },
+    registerCs() {
+      let param = {
+        mntCarr: this.carrLong,
+        pnRegDis: this.signType,
+        saleType: this.saleType,
+        pnMntRtNo: this.selectedMntRt.pnMntRtNo,
+        pnMdlNo: this.selected.pnMdlNo,
+        pnStor: this.selected.pnStor,
+        dealLoc: this.sidolabel.concat(" ", this.sigglabel),
+        dealDt: this.hopeDt.replaceAll("/", ""),
+        dealReq: this.etc,
+        clMbrId: 'test@test.com' /* 로그인아이디 store get */
+      }
+      this.$cf.call(
+        process.env.API + "/api/regCounsel/registerCs",
+        param,
+        this.registerCsCB,
+        false
+      )
+    },
+    registerCsCB() {
+      this.step = 1
+      this.signType = null
+      this.saleType = 'all'
+      this.selectedMntRt = {label: '선택', pnMntRtNo: 'all'}
+      this.mntRtList = []
+      this.pnMkr = 'all'
+      this.phoneList = []
+      this.selected = {label: '선택', pnMdlNo: 'all'}
+      this.sido = null
+      this.sidoOpt = []
+      this.sigg = null
+      this.siggOpt = [{cdNm: "선택", cdVal: "all"}]
+      this.hopeDt = ''
+      this.etc = ''
 
+      this.$router.push({path: "/main"});
     }
   }
 }
