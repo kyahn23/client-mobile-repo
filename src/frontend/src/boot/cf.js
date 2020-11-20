@@ -12,6 +12,7 @@ g_cxt = g_cxt.substring(0, g_cxt.length - 1);
 function cf_whatIsIt(obj) {
   let stringConstructor = "test".constructor;
   let numberConstructor = Number("123").constructor;
+  let dateConstructor = new Date().constructor;
   let arrayConstructor = [].constructor;
   let objectConstructor = {}.constructor;
 
@@ -24,6 +25,8 @@ function cf_whatIsIt(obj) {
   } else if (obj.constructor === numberConstructor) {
     if (isNaN(obj)) return "nothing";
     return "number";
+  } else if (obj.constructor === dateConstructor) {
+    return "date";
   } else if (obj.constructor === arrayConstructor) {
     return "array";
   } else if (obj.constructor === objectConstructor) {
@@ -210,6 +213,21 @@ export default async ({ Vue, store }) => {
      */
     isEmpty(obj) {
       return cf_isEmpty(obj);
+    },
+
+    /**
+     * JS Date 객체를 MySQL/MariaDB DATETIME 타입으로 변환
+     * @param date
+     * @returns
+     */
+    dateToDatetime(date) {
+      if (!date || cf_whatIsIt(date) !== "date") {
+        return "";
+      }
+      return date
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
     }
   };
 

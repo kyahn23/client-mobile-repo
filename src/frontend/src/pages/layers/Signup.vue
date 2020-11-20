@@ -102,15 +102,19 @@
         <q-select
           outlined
           v-model="userSido"
-          :options="sidoList"
           label="특별시도"
+          :options="sidoList"
+          option-value="cdVal"
+          option-label="cdNm"
           class="q-mt-none q-pt-none col-5"
         />
         <q-select
           outlined
           v-model="userSigg"
-          :options="siggList"
           label="시군구"
+          :options="siggList"
+          option-value="cdVal"
+          option-label="cdNm"
           class="q-mt-none q-pt-none col-5"
         />
       </div>
@@ -146,7 +150,7 @@
 
 <script>
 export default {
-  name: "PageSignup",
+  name: "LayerSignup",
   data() {
     return {
       /** 사용자 가입 데이터 */
@@ -168,11 +172,17 @@ export default {
       isPwd: true,
       isPwdChk: true,
       /** 화면 출력 데이터 */
-      sidoList: ["서울시", "경기도", "부산시"],
-      siggList: ["중구", "노원구", "서대문구", "마포구", "용산구"]
+      sidoList: [],
+      siggList: [
+        {
+          cdVal: "",
+          cdNm: "특별시도를 먼저 선택해주세요"
+        }
+      ]
     };
   },
   mounted() {
+    this.getSido();
     if (this.newSocialUser.id !== "") {
       this.isSocialUser = true;
     }
@@ -187,7 +197,38 @@ export default {
       this.userNm = this.newSocialUser.name;
     }
   },
+  watch: {
+    userSido(newSido) {
+      (this.userSigg = ""), this.getSigg(newSido.cdVal);
+    }
+  },
   methods: {
+    /** 시도 list 호출 함수 */
+    getSido() {
+      this.$cf.call(
+        process.env.API + "/api/common/sido",
+        {},
+        this.sidoCb,
+        false
+      );
+    },
+    /** 시도 list 콜백 함수 */
+    sidoCb(response) {
+      this.sidoList = response.sidoList;
+    },
+    /** 시군구 list 호출 함수 */
+    getSigg(sidoCd) {
+      this.$cf.call(
+        process.env.API + "/api/common/sigg",
+        { sidoCd: sidoCd },
+        this.siggCb,
+        true
+      );
+    },
+    /** 시군구 list 콜백 함수 */
+    siggCb(response) {
+      this.siggList = response.siggList;
+    },
     /** id값 변경 시 중복확인 완료된 email값과 대조 */
     onIdKeyup() {
       if (this.userId !== this.checkedId) {

@@ -28,9 +28,9 @@ public class UserRestController {
             rsltStat = "SUCC";
         }
 
-        DevMap rslt = new DevMap();
-        rslt.put("rsltStat", rsltStat);
-        return rslt;
+        DevMap result = new DevMap();
+        result.put("rsltStat", rsltStat);
+        return result;
     }
 
     @PostMapping("/signin")
@@ -43,8 +43,8 @@ public class UserRestController {
             rsltStat = "SUCC";
         }
 
-        DevMap rslt = new DevMap();
-        rslt.put("rsltStat", rsltStat);
-        return rslt;
+        DevMap result = new DevMap();
+        result.put("rsltStat", rsltStat);
+        return result;
     }
 }

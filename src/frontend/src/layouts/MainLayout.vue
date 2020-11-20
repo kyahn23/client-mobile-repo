@@ -45,7 +45,7 @@
     </q-footer>
 
     <q-dialog
-      v-model="dialogLogin"
+      v-model="isLayer"
       persistent
       maximized
       transition-show="slide-up"
@@ -55,7 +55,7 @@
         <q-bar class="bg-white">
           <q-space />
 
-          <q-btn dense flat icon="close" v-close-popup>
+          <q-btn dense flat icon="close" @click="closeLayer">
             <q-tooltip content-class="bg-white text-black">Close</q-tooltip>
           </q-btn>
         </q-bar>
@@ -80,7 +80,7 @@ export default {
   data() {
     return {
       loginLabel: "",
-      dialogLogin: false
+      dialogFrom: ""
     };
   },
   mounted() {
@@ -88,10 +88,13 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (to.path.includes("/login") || to.path.includes("/signup")) {
-        this.dialogLogin = true;
+      if (to.path.includes("/layer")) {
+        this.$store.commit("setLayer", { isLayer: true });
+        if (!from.path.includes("/layer")) {
+          this.dialogFrom = from.path;
+        }
       } else {
-        this.dialogLogin = false;
+        this.$store.commit("setLayer", { isLayer: false });
       }
       if (to.path.includes("/price") && !to.path.includes("price/")) {
         this.$router.push({ path: to.path + "/SKT" });
@@ -111,7 +114,7 @@ export default {
     },
     /** 로그인 테스트 용 토글 */
     loginToggle() {
-      this.$router.push({ path: "/login" });
+      this.$router.push({ path: "/layer/login" });
       // this.$store.commit("setAuth");
 
       // let msg = "";
@@ -131,12 +134,23 @@ export default {
       //   message: msg,
       // });
       // this.setLoginLabel();
+    },
+    /** 레이어 팝업 닫기 함수 */
+    closeLayer() {
+      this.$router.push({ path: this.dialogFrom });
+      this.$store.commit("setLayer", { isLayer: false });
+      this.dialogFrom = "";
     }
   },
   computed: {
     isLoading: {
       get() {
         return this.$store.getters.isLoading;
+      }
+    },
+    isLayer: {
+      get() {
+        return this.$store.getters.isLayer;
       }
     },
     notification: {

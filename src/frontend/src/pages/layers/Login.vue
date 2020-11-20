@@ -43,7 +43,13 @@
     </q-form>
     <q-separator />
     <div class="flex column q-px-lg q-py-lg q-gutter-y-md fit">
-      <q-btn unelevated rounded color="black" label="회원가입" to="/signup" />
+      <q-btn
+        unelevated
+        rounded
+        color="black"
+        label="회원가입"
+        to="/layer/signup"
+      />
       <q-btn
         unelevated
         rounded
@@ -79,7 +85,7 @@ import { openURL } from "quasar";
 import { fabGoogle } from "@quasar/extras/fontawesome-v5";
 
 export default {
-  name: "PageLogin",
+  name: "LayerLogin",
   data() {
     return {
       isPwd: true,

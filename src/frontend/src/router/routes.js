@@ -71,17 +71,28 @@ const routes = [
         props: true
       },
       {
-        path: "login",
+        path: "layer/login",
         components: {
           default: () => import("pages/Main.vue"),
-          dialog: () => import("pages/Login.vue")
+          dialog: () => import("pages/layers/Login.vue")
         }
       },
       {
-        path: "signup",
+        path: "layer/signup",
         components: {
           default: () => import("pages/Main.vue"),
-          dialog: () => import("pages/Signup.vue")
+          dialog: () => import("pages/layers/Signup.vue")
+        }
+      },
+      {
+        path: "layer/cancel/:dealno/:callno",
+        components: {
+          default: () => import("pages/status/Ongoing.vue"),
+          dialog: () => import("pages/layers/Cancel.vue")
+        },
+        props: {
+          default: route => ({ dealno: route.params.dealno }),
+          dialog: route => ({ callno: route.params.callno })
         }
       },
       {

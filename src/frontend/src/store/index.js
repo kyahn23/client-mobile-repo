@@ -7,6 +7,7 @@ export default function() {
   const store = new Vuex.Store({
     state: {
       isLoading: false,
+      isLayer: false,
       notification: {
         group: false,
         color: "",
@@ -25,6 +26,7 @@ export default function() {
     },
     getters: {
       isLoading: state => state.isLoading,
+      isLayer: state => state.isLayer,
       notification: state => state.notification,
       isAuth: state => state.isAuth,
       currentUser: state => state.currentUser,
@@ -33,6 +35,9 @@ export default function() {
     mutations: {
       setLoading(state, payload) {
         state.isLoading = payload.isLoading;
+      },
+      setLayer(state, payload) {
+        state.isLayer = payload.isLayer;
       },
       setNotification(state, payload) {
         state.notification = {

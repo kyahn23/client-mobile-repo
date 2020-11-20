@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="clientmobile.common">
+
+    <select id="sidoList" resultType="DevMap">
+        SELECT CD_VAL
+            , CD_NM
+        FROM TBL_CMMN_CD
+        WHERE CD_CATE = 'SIDO'
+        ORDER BY CD_VAL
+    </select>
+
+    <select id="siggList" parameterType="DevMap" resultType="DevMap">
+        SELECT CD_VAL
+        , CD_NM
+        FROM TBL_CMMN_CD
+        WHERE CD_CATE = 'SIGG'
+            AND CD_VAL LIKE CONCAT(#{sidoCd}, '%')
+        ORDER BY CD_VAL
+    </select>
+
+</mapper>
