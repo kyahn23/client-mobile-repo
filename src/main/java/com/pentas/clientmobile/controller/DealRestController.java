@@ -26,6 +26,30 @@ public class DealRestController {
         return result;
     }
 
+    @PostMapping("/dates")
+    public DevMap dates(@RequestBody DevMap param) {
+        DevMap result = new DevMap();
+        List<DevMap> dealDateList = dealService.dealDateList(param);
+        result.put("dealDateList", dealDateList);
+        return result;
+    }
+
+    @PostMapping("/extend")
+    public DevMap extend(@RequestBody DevMap param) {
+        DevMap result = new DevMap();
+        dealService.dealDateExtend(param);
+        result.put("success", "Y");
+        return result;
+    }
+
+    @PostMapping("/delete")
+    public DevMap delete(@RequestBody DevMap param) {
+        DevMap result = new DevMap();
+        dealService.dealClientCancel(param);
+        result.put("success", "Y");
+        return result;
+    }
+
     @PostMapping("/one")
     public DevMap one(@RequestBody DevMap param) {
         DevMap result = new DevMap();

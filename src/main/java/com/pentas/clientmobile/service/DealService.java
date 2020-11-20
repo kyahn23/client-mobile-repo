@@ -23,6 +23,12 @@ public class DealService {
         return cmmnDao.selectListPage("clientmobile.deal.dealList", param, pageBounds);
     }
 
+    public List<DevMap> dealDateList(DevMap param) { return cmmnDao.selectList("clientmobile.deal.dealDateList", param); }
+
+    public void dealDateExtend(DevMap param) { cmmnDao.update("clientmobile.deal.dealDateExtend", param); }
+
+    public void dealClientCancel(DevMap param) { cmmnDao.update("clientmobile.deal.dealClientCancel", param); }
+
     public DevMap dealOne(DevMap param) {
         return cmmnDao.selectOne("clientmobile.deal.dealOne", param);
     }

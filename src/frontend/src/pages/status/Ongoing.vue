@@ -148,6 +148,7 @@
               label="상담취소"
               class="full-width"
               style="height: 3.2em; font-size: 0.8em;"
+              @click="clientCancelLayer(consultOne.callNo)"
             />
           </div>
         </q-card-section>
@@ -166,6 +167,32 @@
     <q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="this.pageInit && this.consultList.length > 1">
       <q-btn fab icon="expand_less" color="grey-2" text-color="black" @click="scrollTop" />
     </q-page-sticky>
+    <q-dialog v-model="canceledDialog" persistent>
+      <q-card style="width: 300px">
+        <q-card-section>
+          <div class="text-subtitle1 text-weight-bold">상담거절</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none text-caption text-weight-bold" style="font-size: 1em;">
+          {{ canceledOne.bnNm }}
+        </q-card-section>
+
+        <q-card-section class="q-pt-none text-caption" style="font-size: 0.8em;">
+          거절사유 : {{ canceledOne.cnclCmnt | ifNullString }}
+        </q-card-section>
+
+        <q-card-actions align="evenly">
+          <q-btn
+            unelevated
+            rounded
+            color="primary"
+            label="확인"
+            class="full-width"
+            @click="iterateCanceledList"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -188,7 +215,13 @@ export default {
       /** 선택 deal 정보 */
       dealOne: {},
       /** 상담 list */
-      consultList: []
+      consultList: [],
+      /** 상담거절 팝업 표시 */
+      canceledDialog: false,
+      /** 상담거절 list */
+      canceledList: [],
+      /** 상담거절 정보 */
+      canceledOne: {}
     };
   },
   mounted() {
@@ -203,6 +236,10 @@ export default {
       const offset = ele.offsetTop - 1000;
       const duration = 200;
       setScrollPosition(target, offset, duration);
+    },
+    /** 상담취소 버튼 클릭 이벤트 */
+    clientCancelLayer(callNo) {
+      this.$router.push({ path: "/layer/cancel/" + this.dealno + "/" + callNo });
     },
     /** deal 호출 함수 */
     getDealOne() {
@@ -230,7 +267,25 @@ export default {
     /** ongoing 콜백 함수 */
     consultCb(result) {
       this.consultList = result.consultList;
+      for (let n in this.consultList) {
+        if (this.consultList[n].callStCd === "E") {
+          this.canceledList.push(this.consultList[n]);
+        }
+      }
+      if (this.canceledList.length > 0) {
+        this.iterateCanceledList();
+      }
       this.pageInit = true;
+    },
+    /** 상담거절 팝업 표시 함수 */
+    iterateCanceledList() {
+      this.canceledDialog = false;
+      setTimeout(() => {
+        if (this.canceledList.length > 0) {
+          this.canceledOne = this.canceledList.pop();
+          this.canceledDialog = true;
+        }
+      }, 500);
     },
     /** 상담상태 표시 함수 */
     callStatus(value) {

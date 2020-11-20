@@ -54,6 +54,41 @@
         ORDER BY INP_DT DESC
     </select>
 
+    <select id="dealDateList" parameterType="DevMap" resultType="DevMap">
+        SELECT A.DEAL_NO
+            , A.DEAL_DT
+            , (SELECT CONCAT(PN_MKR,' ',PN_MDL_NM)
+                FROM TBL011 B
+                WHERE B.PN_MDL_NO = A.PN_MDL_NO
+                AND B.PN_STOR = A.PN_STOR)
+                AS PN_MDL_NM
+            , A.MNT_CARR
+            , A.PN_REG_DIS
+            , (SELECT PN_MNT_RT_NM
+                FROM TBL010 C
+                WHERE C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
+                AS PN_MNT_RT_NM
+        FROM TBL006 A
+        WHERE A.CL_MBR_ID = #{email}
+        ORDER BY INP_DT DESC
+    </select>
+
+    <update id="dealDateExtend" parameterType="DevMap">
+        UPDATE TBL006
+        SET DEAL_DT = DATE_ADD(DEAL_DT, INTERVAL 7 DAY)
+            , AMD_DT = SYSDATE()
+        WHERE DEAL_NO = #{dealNo}
+            AND CL_MBR_ID = #{email}
+    </update>
+
+    <update id="dealClientCancel" parameterType="DevMap">
+        UPDATE TBL006
+        SET DEAL_ST_CD = 'C'
+            AND AMD_DT = SYSDATE()
+        WHERE DEAL_NO = #{dealNo}
+            AND CL_MBR_ID = #{email}
+    </update>
+
     <select id="dealOne" parameterType="DevMap" resultType="DevMap">
         SELECT (SELECT PN_IMG
                 FROM TBL011 B
@@ -103,6 +138,7 @@
                 AS BUYING_PRICE_RT
             , A.OLD_EXT_SERV_YN
             , A.OLD_ETC
+            , A.CNCL_CMNT
         FROM TBL008 A
         WHERE A.DEAL_NO = #{dealNo}
         ORDER BY BUYING_PRICE_DV ASC
@@ -163,14 +199,14 @@
                 END AS PN_ETC
         FROM TBL006 A, TBL003 B
         WHERE A.DEAL_NO = #{dealNo}
-        AND CASE
-            WHEN A.PN_REG_DIS = 'A'
-                THEN B.BN_NO = (SELECT BN_NO FROM `TBL007-A` C WHERE C.PN_MDL_NO = A.PN_MDL_NO AND C.PN_STOR = A.PN_STOR AND C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
-            WHEN A.PN_REG_DIS = 'B'
-                THEN B.BN_NO = (SELECT BN_NO FROM `TBL007-B` C WHERE C.PN_MDL_NO = A.PN_MDL_NO AND C.PN_STOR = A.PN_STOR AND C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
-            WHEN A.PN_REG_DIS = 'C'
-                THEN B.BN_NO = (SELECT BN_NO FROM `TBL007-C` C WHERE C.PN_MDL_NO = A.PN_MDL_NO AND C.PN_STOR = A.PN_STOR AND C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
-            END
+            AND CASE
+                WHEN A.PN_REG_DIS = 'A'
+                    THEN B.BN_NO = (SELECT BN_NO FROM `TBL007-A` C WHERE C.PN_MDL_NO = A.PN_MDL_NO AND C.PN_STOR = A.PN_STOR AND C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
+                WHEN A.PN_REG_DIS = 'B'
+                    THEN B.BN_NO = (SELECT BN_NO FROM `TBL007-B` C WHERE C.PN_MDL_NO = A.PN_MDL_NO AND C.PN_STOR = A.PN_STOR AND C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
+                WHEN A.PN_REG_DIS = 'C'
+                    THEN B.BN_NO = (SELECT BN_NO FROM `TBL007-C` C WHERE C.PN_MDL_NO = A.PN_MDL_NO AND C.PN_STOR = A.PN_STOR AND C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
+                END
         ORDER BY BUYING_PRICE_DV ASC
         LIMIT 3
     </select>
