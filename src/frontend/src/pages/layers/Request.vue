@@ -14,33 +14,21 @@
         style="margin-top: 25px; height: calc(100vh - 125px);"
       >
         <div class="q-mb-lg text-body1 text-weight-bold">
-          선택하신 <span class="text-primary">3</span>개의 업체에 상담을
-          신청하시겠습니까?
+          선택하신 <span class="text-primary">{{ bnList.length }}</span
+          >개의 업체에 상담을 신청하시겠습니까?
         </div>
         <div class="q-mb-sm text-subtitle2 text-weight-bold">
           선택 업체
         </div>
         <div class="q-mb-lg column">
-          <div class="q-mb-xs row">
+          <div v-for="(bn, index) in bnList" :key="index" class="q-mb-xs row">
             <q-icon
               name="store"
               style="font-size: 1.6em; margin-right: 10px;"
-            />강서대리점
-          </div>
-          <div class="q-mb-xs row">
-            <q-icon
-              name="store"
-              style="font-size: 1.6em; margin-right: 10px;"
-            />강남대리점
-          </div>
-          <div class="row">
-            <q-icon
-              name="store"
-              style="font-size: 1.6em; margin-right: 10px;"
-            />강북대리점
+            />{{ bn.bnNm }}
           </div>
         </div>
-        <div class="q-mb-sm text-subtitle2 text-weight-bold">
+        <!-- <div class="q-mb-sm text-subtitle2 text-weight-bold">
           이름
         </div>
         <div class="q-mb-sm">
@@ -51,7 +39,7 @@
             placeholder="이름을 입력해주세요"
             :rules="[$rules.required('이름을 입력해주세요.')]"
           />
-        </div>
+        </div> -->
         <div class="q-mb-sm text-subtitle2 text-weight-bold">
           연락처
         </div>
@@ -144,6 +132,10 @@ export default {
       type: String,
       required: true
     },
+    regdis: {
+      type: String,
+      required: true
+    },
     reqno: {
       type: String,
       required: true
@@ -153,8 +145,10 @@ export default {
     return {
       /** 상담요청 업체 목록 */
       requestList: [],
+      /** 업체 이름 목록 */
+      bnList: [],
       /** 고객 이름 */
-      clientName: "",
+      // clientName: "",
       /** 고객 전화번호 */
       clientNumber: "",
       /** 개인정보 동의 여부 */
@@ -205,9 +199,26 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit("setLoading", { isLoading: true });
     this.requestList = this.reqno.split("-", 3);
+    this.getShopName();
   },
   methods: {
+    /** 업체 이름 호출 함수 */
+    getShopName() {
+      this.$cf.call(
+        process.env.API + "/api/shop/name",
+        {
+          bnList: this.requestList
+        },
+        this.shopNameCb,
+        true
+      );
+    },
+    /** 업체 이름 콜백 함수 */
+    shopNameCb(response) {
+      this.bnList = response.nameList;
+    },
     /** 확장 버튼 클릭 이벤트 */
     onExpand() {
       this.privacyRead = true;
@@ -265,10 +276,15 @@ export default {
           caption: "동의 후 상담신청이 가능합니다."
         });
       } else {
-        if (!this.$cf.isEmpty(this.cnclCmnt)) {
+        if (!this.$cf.isEmpty(this.clientNumber)) {
           this.$cf.call(
-            process.env.API + "URL",
-            { PARAMS },
+            process.env.API + "/api/call/register",
+            {
+              phoneNo: this.clientNumber,
+              dealNo: this.dealno,
+              pnRegDis: this.regdis,
+              bnList: this.requestList
+            },
             this.confirmCb,
             true
           );
@@ -277,6 +293,11 @@ export default {
     },
     /** 확인 버튼 이벤트 콜백 함수 */
     confirmCb() {
+      this.$store.commit("setNotification", {
+        color: "positive",
+        textColor: "white",
+        message: "상담신청이 완료되었습니다."
+      });
       this.onClose();
     }
   }

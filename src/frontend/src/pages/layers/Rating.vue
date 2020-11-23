@@ -14,7 +14,8 @@
         style="margin-top: 25px; height: calc(100vh - 125px);"
       >
         <div class="q-mb-lg text-body1 text-weight-bold">
-          <span class="text-primary">강서대리점</span> 서비스에 만족하셨습니까?
+          <span class="text-primary">{{ businessName }}</span> 서비스에
+          만족하셨습니까?
         </div>
         <div class="q-mb-sm text-subtitle2 text-weight-bold">
           서비스 만족도 평가
@@ -22,6 +23,7 @@
         <div class="q-mb-md">
           <q-rating
             v-model="ratingScore"
+            :disable="callReport"
             size="2.5em"
             color="grey"
             color-selected="amber"
@@ -35,6 +37,7 @@
             maxlength="100"
             type="textarea"
             style="max-height: 146px;"
+            :rules="[$rules.required('구매평을 입력해주세요.')]"
           />
         </div>
         <div class="row">
@@ -52,6 +55,7 @@
               class="text-caption text-weight-bold"
               size="xs"
               v-model="callTerminated"
+              :disable="callReport"
               label="개통완료"
               style="margin: 0 4px 0 -6px;"
             />
@@ -134,6 +138,8 @@ export default {
   },
   data() {
     return {
+      /** 업체명 */
+      businessName: "",
       /** 평점 */
       ratingScore: 3,
       /** 평가내용 */
@@ -149,16 +155,38 @@ export default {
     };
   },
   watch: {
-    /** 신고 checkbox 최초 클릭 시 안내문 표시 */
+    /** 신고 checkbox 클릭 시 0점, 최초 클릭 시 안내문 표시 */
     callReport(newValue) {
-      if (newValue && !this.callReportWarning) {
-        this.warningDialog = true;
-        this.callReportWarning = true;
+      if (newValue) {
+        this.ratingScore = 0;
+        this.callTerminated = false;
+        if (!this.callReportWarning) {
+          this.warningDialog = true;
+          this.callReportWarning = true;
+        }
       }
     }
   },
-  mounted() {},
+  mounted() {
+    this.$store.commit("setLoading", { isLoading: true });
+    this.getShopName();
+  },
   methods: {
+    /** 업체 이름 호출 함수 */
+    getShopName() {
+      this.$cf.call(
+        process.env.API + "/api/shop/name",
+        {
+          bnList: [this.bnno]
+        },
+        this.shopNameCb,
+        true
+      );
+    },
+    /** 업체 이름 콜백 함수 */
+    shopNameCb(response) {
+      this.businessName = response.nameList[0].bnNm;
+    },
     /** 취소 버튼 클릭 이벤트 */
     onClose() {
       document.getElementById("layerCloseBtn").click();
@@ -167,16 +195,42 @@ export default {
     onConfirm() {
       if (!this.$cf.isEmpty(this.ratingComment)) {
         this.$cf.call(
-          process.env.API + "URL",
-          { PARAMS },
+          process.env.API + "/api/shop/rating",
+          {
+            dealNo: this.dealno,
+            callNo: this.callno,
+            bnNo: this.bnno,
+            email: "clientTest@gmail.com",
+            callReport: this.callReport,
+            callTerminated: this.callTerminated,
+            /** TODO 로그인 구현 후 사용 변경 */
+            // email: this.currentUser
+            ratingScore: this.ratingScore,
+            ratingComment: this.ratingComment
+          },
           this.confirmCb,
           true
         );
       }
     },
     /** 확인 버튼 이벤트 콜백 함수 */
-    confirmCb() {
+    confirmCb(response) {
+      let actionItem = "평가";
+      if (this.callReport) actionItem = "신고";
+      this.$store.commit("setNotification", {
+        color: "positive",
+        textColor: "white",
+        message: actionItem + "가 접수되었습니다."
+      });
       this.onClose();
+    }
+  },
+  computed: {
+    /** 현재 로그인 한 사용자 */
+    currentUser: {
+      get() {
+        return this.$store.getters.currentUser;
+      }
     }
   }
 };

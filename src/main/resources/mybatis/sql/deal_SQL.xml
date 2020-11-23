@@ -84,7 +84,7 @@
     <update id="dealClientCancel" parameterType="DevMap">
         UPDATE TBL006
         SET DEAL_ST_CD = 'C'
-            AND AMD_DT = SYSDATE()
+            , AMD_DT = SYSDATE()
         WHERE DEAL_NO = #{dealNo}
             AND CL_MBR_ID = #{email}
     </update>
@@ -110,39 +110,6 @@
             , A.DEAL_REQ
         FROM TBL006 A
         WHERE A.DEAL_NO = #{dealNo}
-    </select>
-
-    <select id="consultList" parameterType="DevMap" resultType="DevMap">
-        SELECT A.CALL_NO
-            , A.BN_NO
-            , (SELECT BN_NM
-                FROM TBL003 B
-                WHERE B.BN_NO = A.BN_NO)
-                AS BN_NM
-            , (SELECT CAST(AVG(C.RTN) AS DEC(2,2)) BN_RTN
-                FROM TBL004 C
-                WHERE C.BN_NO = A.BN_NO)
-                AS BN_RTN
-            , A.CALL_ST_CD
-            , (SELECT CONCAT(BN_ADDR_SIDO,' ',BN_ADDR_SIGG)
-                FROM TBL003 B
-                WHERE B.BN_NO = A.BN_NO)
-                AS BN_LOCA
-            , (SELECT CAST((SELECT D.PN_MSRP FROM TBL011 D, TBL006 E WHERE E.DEAL_NO = A.DEAL_NO AND D.PN_MDL_NO = E.PN_MDL_NO AND D.PN_STOR = E.PN_STOR) AS UNSIGNED INTEGER))
-                -(SELECT CAST((SELECT F.OLD_OFCL_SUBSD FROM TBL008 F WHERE F.CALL_NO = A.CALL_NO) AS UNSIGNED INTEGER))
-                -(SELECT CAST((SELECT F.OLD_EXT_SUBSD_DV FROM TBL008 F WHERE F.CALL_NO = A.CALL_NO) AS UNSIGNED INTEGER))
-                AS BUYING_PRICE_DV
-            , (SELECT CAST((SELECT D.PN_MSRP FROM TBL011 D, TBL006 E WHERE E.DEAL_NO = A.DEAL_NO AND D.PN_MDL_NO = E.PN_MDL_NO AND D.PN_STOR = E.PN_STOR) AS UNSIGNED INTEGER))
-                -(SELECT CAST((SELECT F.OLD_OFCL_SUBSD FROM TBL008 F WHERE F.CALL_NO = A.CALL_NO) AS UNSIGNED INTEGER))
-                -(SELECT CAST((SELECT F.OLD_EXT_SUBSD_RT FROM TBL008 F WHERE F.CALL_NO = A.CALL_NO) AS UNSIGNED INTEGER))
-                AS BUYING_PRICE_RT
-            , A.OLD_EXT_SERV_YN
-            , A.OLD_ETC
-            , A.CNCL_CMNT
-        FROM TBL008 A
-        WHERE A.DEAL_NO = #{dealNo}
-        ORDER BY BUYING_PRICE_DV ASC
-        LIMIT 3
     </select>
 
     <select id="sellingList" parameterType="DevMap" resultType="DevMap">

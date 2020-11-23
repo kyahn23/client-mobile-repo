@@ -57,14 +57,6 @@ public class DealRestController {
         return result;
     }
 
-    @PostMapping("/consult")
-    public DevMap consult(@RequestBody DevMap param) {
-        DevMap result = new DevMap();
-        List<DevMap> list = dealService.consultList(param);
-        result.put("consultList", list);
-        return result;
-    }
-
     @PostMapping("/selling")
     public DevMap selling(@RequestBody DevMap param) {
         DevMap result = new DevMap();

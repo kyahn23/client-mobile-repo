@@ -14,7 +14,7 @@
         style="margin-top: 25px; height: calc(100vh - 125px);"
       >
         <div class="q-mb-lg text-body1 text-weight-bold">
-          <span class="text-primary">강서대리점</span> 상담신청을
+          <span class="text-primary">{{ businessName }}</span> 상담신청을
           취소하시겠습니까?
         </div>
         <div class="q-mb-sm text-subtitle2 text-weight-bold">
@@ -64,15 +64,38 @@ export default {
     callno: {
       type: String,
       required: true
+    },
+    bnno: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
+      businessName: "",
       cnclCmnt: ""
     };
   },
-  mounted() {},
+  mounted() {
+    this.$store.commit("setLoading", { isLoading: true });
+    this.getShopName();
+  },
   methods: {
+    /** 업체 이름 호출 함수 */
+    getShopName() {
+      this.$cf.call(
+        process.env.API + "/api/shop/name",
+        {
+          bnList: [this.bnno]
+        },
+        this.shopNameCb,
+        true
+      );
+    },
+    /** 업체 이름 콜백 함수 */
+    shopNameCb(response) {
+      this.businessName = response.nameList[0].bnNm;
+    },
     /** 취소 버튼 클릭 이벤트 */
     onClose() {
       document.getElementById("layerCloseBtn").click();

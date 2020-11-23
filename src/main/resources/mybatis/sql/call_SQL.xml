@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="clientmobile.call">
+
+    <select id="callList" parameterType="DevMap" resultType="DevMap">
+        SELECT A.CALL_NO
+            , A.BN_NO
+            , (SELECT BN_NM
+                FROM TBL003 B
+                WHERE B.BN_NO = A.BN_NO)
+                AS BN_NM
+            , (SELECT CAST(AVG(C.RTN) AS DEC(2,2)) BN_RTN
+                FROM TBL004 C
+                WHERE C.BN_NO = A.BN_NO)
+                AS BN_RTN
+            , A.CALL_ST_CD
+            , (SELECT CONCAT(BN_ADDR_SIDO,' ',BN_ADDR_SIGG)
+                FROM TBL003 B
+                WHERE B.BN_NO = A.BN_NO)
+                AS BN_LOCA
+            , (SELECT CAST((SELECT D.PN_MSRP FROM TBL011 D, TBL006 E WHERE E.DEAL_NO = A.DEAL_NO AND D.PN_MDL_NO = E.PN_MDL_NO AND D.PN_STOR = E.PN_STOR) AS UNSIGNED INTEGER))
+                -(SELECT CAST((SELECT F.OLD_OFCL_SUBSD FROM TBL008 F WHERE F.CALL_NO = A.CALL_NO) AS UNSIGNED INTEGER))
+                -(SELECT CAST((SELECT F.OLD_EXT_SUBSD_DV FROM TBL008 F WHERE F.CALL_NO = A.CALL_NO) AS UNSIGNED INTEGER))
+                AS BUYING_PRICE_DV
+            , (SELECT CAST((SELECT D.PN_MSRP FROM TBL011 D, TBL006 E WHERE E.DEAL_NO = A.DEAL_NO AND D.PN_MDL_NO = E.PN_MDL_NO AND D.PN_STOR = E.PN_STOR) AS UNSIGNED INTEGER))
+                -(SELECT CAST((SELECT F.OLD_OFCL_SUBSD FROM TBL008 F WHERE F.CALL_NO = A.CALL_NO) AS UNSIGNED INTEGER))
+                -(SELECT CAST((SELECT F.OLD_EXT_SUBSD_RT FROM TBL008 F WHERE F.CALL_NO = A.CALL_NO) AS UNSIGNED INTEGER))
+                AS BUYING_PRICE_RT
+            , A.OLD_EXT_SERV_YN
+            , A.OLD_ETC
+            , A.CNCL_CMNT
+        FROM TBL008 A
+        WHERE A.DEAL_NO = #{dealNo}
+        ORDER BY BUYING_PRICE_DV ASC
+        LIMIT 3
+    </select>
+
+    <update id="callClientCancel" parameterType="DevMap">
+        UPDATE TBL008
+        SET CALL_ST_CD = 'C'
+            , CNCL_CMNT = #{cnclCmnt}
+            , AMD_DT = SYSDATE()
+        WHERE CALL_NO = #{callNo}
+            AND (SELECT CL_MBR_ID
+                FROM TBL006
+                WHERE DEAL_NO = (
+                    SELECT * FROM (SELECT B.DEAL_NO FROM TBL008 B WHERE B.CALL_NO = #{callNo}) X
+                )
+            ) = #{email}
+    </update>
+
+    <update id="callClientTerminate" parameterType="DevMap">
+        UPDATE TBL008
+        SET CALL_ST_CD = 'T'
+            , AMD_DT = SYSDATE()
+        WHERE CALL_NO = #{callNo}
+            AND (SELECT CL_MBR_ID
+                FROM TBL006
+                WHERE DEAL_NO = (
+                    SELECT * FROM (SELECT B.DEAL_NO FROM TBL008 B WHERE B.CALL_NO = #{callNo}) C
+                )
+            ) = #{email}
+    </update>
+
+    <insert id="callClientNew" parameterType="DevMap">
+        INSERT INTO TBL008
+            (
+                CALL_NO
+                ,CALL_ST_CD
+                ,MBR_PN_NO
+                ,OLD_OFCL_SUBSD
+                ,OLD_EXT_SUBSD_DV
+                ,OLD_EXT_SUBSD_RT
+                ,OLD_EXT_SERV_YN
+                ,OLD_ETC
+                ,INP_DT
+                ,AMD_DT
+                ,BN_NO
+                ,DEAL_NO
+            )
+        <foreach collection="bnList" item="bnNo" open="" close="" separator=" UNION ALL ">
+        SELECT
+            (SELECT
+                (IFNULL
+                    (
+                        (SELECT MAX(CALL_NO)
+                        FROM TBL008 X
+                        WHERE CALL_NO LIKE CONCAT
+                            (
+                                (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d'))
+                            ,'%')
+                        ),CONCAT(
+                            (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d'))
+                        ,'000000')
+                    )
+                +1)
+            AS CALL_NO)
+            ,'R' AS CALL_ST_CD
+            ,#{phoneNo} AS MBR_PN_NO
+            ,A.PN_OFCL_SUBSD AS OLD_OFCL_SUBSD
+            ,A.PN_EXT_SUBSD_DV AS OLD_EXT_SUBSD_DV
+            ,A.PN_EXT_SUBSD_RT AS OLD_EXT_SUBSD_RT
+            ,A.PN_EXT_SERV_YN AS OLD_EXT_SERV_YN
+            ,A.PN_ETC AS OLD_ETC
+            ,SYSDATE() AS INP_DT
+            ,SYSDATE() AS INP_DT
+            ,A.BN_NO AS BN_NO
+            ,#{dealNo} AS DEAL_NO
+            <choose>
+                <when test='pnRegDis == "A"'>
+                    from `TBL007-A` A
+                </when>
+                <when test='pnRegDis == "B"'>
+                    from `TBL007-B` A
+                </when>
+                <when test='pnRegDis == "C"'>
+                    from `TBL007-C` A
+                </when>
+            </choose>
+            WHERE A.PN_MDL_NO = (SELECT B.PN_MDL_NO FROM TBL006 B WHERE B.DEAL_NO = #{dealNo})
+                AND A.PN_STOR = (SELECT B.PN_STOR FROM TBL006 B WHERE B.DEAL_NO = #{dealNo})
+                AND A.PN_MNT_RT_NO = (SELECT B.PN_MNT_RT_NO FROM TBL006 B WHERE B.DEAL_NO = #{dealNo})
+                AND A.BN_NO = #{bnNo}
+        </foreach>
+    </insert>
+
+</mapper>

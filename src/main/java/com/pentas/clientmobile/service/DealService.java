@@ -33,7 +33,5 @@ public class DealService {
         return cmmnDao.selectOne("clientmobile.deal.dealOne", param);
     }
 
-    public List<DevMap> consultList(DevMap param) { return cmmnDao.selectList("clientmobile.deal.consultList", param); }
-
     public List<DevMap> sellingList(DevMap param) { return cmmnDao.selectList("clientmobile.deal.sellingList", param); }
 }

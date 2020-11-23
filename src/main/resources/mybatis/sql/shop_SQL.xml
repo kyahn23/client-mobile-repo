@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="clientmobile.shop">
+
+    <select id="shopNameList" parameterType="DevMap" resultType="DevMap">
+        SELECT BN_NM
+        FROM TBL003
+        WHERE BN_NO IN
+        <foreach collection="bnList" item="bnNo" open="(" close=")" separator=",">
+            #{bnNo}
+        </foreach>
+    </select>
+
+    <insert id="shopRatingNew" parameterType="DevMap">
+        INSERT INTO TBL004
+            (
+                RTN_NO
+                ,BN_NO
+                ,CL_MBR_ID
+                ,CALL_NO
+                ,RTN
+                ,CMNT
+                ,INP_DT
+                ,AMD_DT
+            ) VALUES (
+                (SELECT
+                    (IFNULL
+                        (
+                            (SELECT MAX(RTN_NO)
+                            FROM TBL004 X
+                            WHERE RTN_NO LIKE CONCAT
+                            (
+                                (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d'))
+                            ,'%')
+                            ),CONCAT(
+                                (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d'))
+                            ,'0000')
+                        )
+                    +1)
+                AS RTN_NO)
+                ,#{bnNo}
+                ,#{email}
+                ,#{callNo}
+                ,#{ratingScore}
+                ,#{ratingComment}
+                ,SYSDATE()
+                ,SYSDATE()
+            )
+    </insert>
+
+    <insert id="shopRatingBlack" parameterType="DevMap">
+        INSERT INTO `TBL005-A`
+            (
+                BL_NO
+                ,DEAL_NO
+                ,BN_NO
+                ,CL_MBR_ID
+                ,RPT_CONT
+                ,CLEAR_YN
+                ,RPT_DT
+            ) VALUES (
+                (SELECT
+                    (IFNULL
+                        (
+                            (SELECT MAX(BL_NO)
+                            FROM `TBL005-A` X
+                            WHERE BL_NO LIKE CONCAT
+                            (
+                                (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d'))
+                            ,'%')
+                            ),CONCAT(
+                                (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d'))
+                            ,'0000')
+                        )
+                    +1)
+                AS BL_NO)
+                ,#{dealNo}
+                ,#{bnNo}
+                ,#{email}
+                ,#{reportContent}
+                ,'N'
+                ,SYSDATE()
+            )
+    </insert>
+
+    <update id="shopRatingEdit" parameterType="DevMap">
+        UPDATE TBL004
+        SET RTN_NO = #{ratingScore}
+            , CMNT = #{ratingComment}
+            , AMD_DT = SYSDATE()
+        WHERE CALL_NO = #{callNo}
+            AND CL_MBR_ID = #{email}
+    </update>
+
+</mapper>

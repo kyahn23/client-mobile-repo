@@ -77,9 +77,9 @@
             style="border: 1px solid gray; border-radius: 4px; font-size: 0.8em;"
           >
             <span :class="callStatus(callOne.callStCd === 'R')">상담접수중</span>
-            <span :class="callStatus(callOne.callStCd === 'A')">방문예정</span>
-            <span :class="callStatus(callOne.callStCd === 'B')">상담완료</span>
-            <span :class="callStatus(callOne.callStCd === 'C')">상담취소</span>
+            <span :class="callStatus(callOne.callStCd === 'P')">방문예정</span>
+            <span :class="callStatus(callOne.callStCd === 'T')">상담완료</span>
+            <span :class="callStatus(callOne.callStCd === 'E' || callOne.callStCd === 'C')">상담취소</span>
           </div>
         </q-card-section>
         <q-card-section class="q-py-sm">
@@ -148,7 +148,8 @@
               label="상담취소"
               class="full-width"
               style="height: 3.2em; font-size: 0.8em;"
-              @click="clientCancelLayer(callOne.callNo)"
+              v-if="callOne.callStCd !== 'T' && callOne.callStCd !== 'E' && callOne.callStCd !== 'C'"
+              @click="clientCancelLayer(callOne.callNo, callOne.bnNo)"
             />
           </div>
           <div>
@@ -159,6 +160,7 @@
               label="평가하기"
               class="full-width"
               style="height: 3.2em; font-size: 0.8em;"
+              v-if="callOne.callStCd === 'T' || callOne.callStCd === 'E' || callOne.callStCd === 'C'"
               @click="ratingLayer(callOne.callNo, callOne.bnNo)"
             />
           </div>
@@ -249,8 +251,8 @@ export default {
       setScrollPosition(target, offset, duration);
     },
     /** 상담취소 버튼 클릭 이벤트 */
-    clientCancelLayer(callNo) {
-      this.$router.push({ path: "/layer/cancel/" + this.dealno + "/" + callNo });
+    clientCancelLayer(callNo, bnNo) {
+      this.$router.push({ path: "/layer/cancel/" + this.dealno + "/" + callNo + "?bn=" + bnNo });
     },
     /** 평가하기 버튼 클릭 이벤트 */
     ratingLayer(callNo, bnNo) {

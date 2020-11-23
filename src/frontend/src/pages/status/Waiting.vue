@@ -258,15 +258,13 @@ export default {
       if (this.requestButton.status) {
         let reqno = "";
         for (let n in this.checkList) {
-          console.log(n);
           if (parseInt(n, 10) === 0) {
             reqno += this.checkList[n]
           } else {
             reqno += ("-" + this.checkList[n])
           }
         }
-        console.log(reqno);
-        this.$router.push({ path: "/layer/request/" + this.dealno + "?req=" + reqno });
+        this.$router.push({ path: "/layer/request/" + this.dealno + "?dis=" + this.dealOne.pnRegDis + "&req=" + reqno });
       }
     },
     /** deal 호출 함수 */
