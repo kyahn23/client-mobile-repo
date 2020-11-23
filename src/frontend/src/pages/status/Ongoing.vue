@@ -55,7 +55,7 @@
       <q-card
         flat
         class="q-mt-sm q-mb-md"
-        v-for="(consultOne, index) in consultList"
+        v-for="(callOne, index) in callList"
         :key="index"
       >
         <q-card-section class="q-pb-sm">
@@ -64,10 +64,10 @@
               class="q-mr-sm text-subtitle2 text-weight-bold"
               style="font-size: 1em;"
             >
-              {{ consultOne.bnNm }}
+              {{ callOne.bnNm }}
             </div>
             <div class="text-primary" style="font-size: 0.8em;">
-              (<q-icon name="star_rate" /> {{ consultOne.bnRtn | ifNullNumber }} / 5.0)
+              (<q-icon name="star_rate" /> {{ callOne.bnRtn | ifNullNumber }} / 5.0)
             </div>
           </div>
         </q-card-section>
@@ -76,27 +76,27 @@
             class="row q-py-xs text-caption text-grey-5 justify-evenly"
             style="border: 1px solid gray; border-radius: 4px; font-size: 0.8em;"
           >
-            <span :class="callStatus(consultOne.callStCd === 'R')">상담접수중</span>
-            <span :class="callStatus(consultOne.callStCd === 'A')">방문예정</span>
-            <span :class="callStatus(consultOne.callStCd === 'B')">상담완료</span>
-            <span :class="callStatus(consultOne.callStCd === 'C')">상담취소</span>
+            <span :class="callStatus(callOne.callStCd === 'R')">상담접수중</span>
+            <span :class="callStatus(callOne.callStCd === 'A')">방문예정</span>
+            <span :class="callStatus(callOne.callStCd === 'B')">상담완료</span>
+            <span :class="callStatus(callOne.callStCd === 'C')">상담취소</span>
           </div>
         </q-card-section>
         <q-card-section class="q-py-sm">
           <div class="row items-center" style="height: 1.2em;">
             <div class="col-4 text-subtitle2 text-weight-bold" style="font-size: 0.8em;">위치</div>
-            <div class="col" style="font-size: 0.8em;">{{ consultOne.bnLoca }}</div>
+            <div class="col" style="font-size: 0.8em;">{{ callOne.bnLoca }}</div>
           </div>
           <div class="row items-center" style="height: 2em;">
             <div class="col-4 text-subtitle2 text-weight-bold self-center" style="font-size: 0.8em;">실구매가</div>
             <div class="col text-h6 text-weight-bold text-primary" style="font-size: 1.2em;">
-              {{ lowestPrice(consultOne.buyingPriceDv, consultOne.buyingPriceRt) 
+              {{ lowestPrice(callOne.buyingPriceDv, callOne.buyingPriceRt) 
               | showMeTheMoney }}
               </div>
           </div>
           <div class="row items-center q-mb-xs" style="height: 1.2em;">
             <div class="col-4 text-subtitle2 text-weight-bold" style="font-size: 0.8em;">부가서비스</div>
-            <div class="col" style="font-size: 0.8em;">{{ consultOne.oldExtServYn | isIncluded }}</div>
+            <div class="col" style="font-size: 0.8em;">{{ callOne.oldExtServYn | isIncluded }}</div>
           </div>
         </q-card-section>
         <q-card-section class="row q-col-gutter-xs q-py-none">
@@ -135,7 +135,7 @@
               <pre
                 class="q-my-none text-body2"
                 style="font-family: inherit !important; font-size: 0.8em;" 
-                >{{ consultOne.oldEtc | ifNullString }}</pre>
+                >{{ callOne.oldEtc | ifNullString }}</pre>
             </p>
           </div>
         </q-card-section>
@@ -148,12 +148,23 @@
               label="상담취소"
               class="full-width"
               style="height: 3.2em; font-size: 0.8em;"
-              @click="clientCancelLayer(consultOne.callNo)"
+              @click="clientCancelLayer(callOne.callNo)"
+            />
+          </div>
+          <div>
+            <q-btn
+              unelevated
+              rounded
+              color="primary"
+              label="평가하기"
+              class="full-width"
+              style="height: 3.2em; font-size: 0.8em;"
+              @click="ratingLayer(callOne.callNo, callOne.bnNo)"
             />
           </div>
         </q-card-section>
       </q-card>
-      <q-card flat class="q-py-lg" v-if="this.pageInit && this.consultList.length < 1">
+      <q-card flat class="q-py-lg" v-if="this.pageInit && this.callList.length < 1">
         <q-card-section class="text-grey-5 content-center">
           <div class="self-center">
             <q-icon name="error" size="xl" class="full-width" />
@@ -164,7 +175,7 @@
         </q-card-section>
       </q-card>
     </div>
-    <q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="this.pageInit && this.consultList.length > 1">
+    <q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="this.pageInit && this.callList.length > 1">
       <q-btn fab icon="expand_less" color="grey-2" text-color="black" @click="scrollTop" />
     </q-page-sticky>
     <q-dialog v-model="canceledDialog" persistent>
@@ -215,7 +226,7 @@ export default {
       /** 선택 deal 정보 */
       dealOne: {},
       /** 상담 list */
-      consultList: [],
+      callList: [],
       /** 상담거절 팝업 표시 */
       canceledDialog: false,
       /** 상담거절 list */
@@ -241,6 +252,10 @@ export default {
     clientCancelLayer(callNo) {
       this.$router.push({ path: "/layer/cancel/" + this.dealno + "/" + callNo });
     },
+    /** 평가하기 버튼 클릭 이벤트 */
+    ratingLayer(callNo, bnNo) {
+      this.$router.push({ path: "/layer/rating/" + this.dealno + "/" + callNo + "?bn=" + bnNo });
+    },
     /** deal 호출 함수 */
     getDealOne() {
       this.$cf.call(
@@ -253,23 +268,23 @@ export default {
     /** deal 콜백 함수 */
     dealOneCb(result) {
       this.dealOne = result;
-      this.getConsult();
+      this.getCallList();
     },
     /** ongoing 호출 함수 */
-    getConsult() {
+    getCallList() {
       this.$cf.call(
-        process.env.API + "/api/deal/consult",
+        process.env.API + "/api/call/list",
         { dealNo: this.dealno },
-        this.consultCb,
+        this.callListCb,
         true
       );
     },
     /** ongoing 콜백 함수 */
-    consultCb(result) {
-      this.consultList = result.consultList;
-      for (let n in this.consultList) {
-        if (this.consultList[n].callStCd === "E") {
-          this.canceledList.push(this.consultList[n]);
+    callListCb(result) {
+      this.callList = result.callList;
+      for (let n in this.callList) {
+        if (this.callList[n].callStCd === "E") {
+          this.canceledList.push(this.callList[n]);
         }
       }
       if (this.canceledList.length > 0) {

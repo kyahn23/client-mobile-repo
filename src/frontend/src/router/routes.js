@@ -104,6 +104,7 @@ const routes = [
         props: {
           default: route => ({ dealno: route.params.dealno }),
           dialog: route => ({
+            dealno: route.params.dealno,
             callno: route.params.callno,
             bnno: route.query.bn
           })

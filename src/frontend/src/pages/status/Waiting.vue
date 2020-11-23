@@ -91,12 +91,15 @@
       >
         <q-card-section class="q-pb-none">
           <div class="row items-center">
-            <q-checkbox size="xs" v-model="checkList" :val="sellingOne.bnNo" style="margin: 0 4px 0 -6px;" />
-            <div
-              class="q-mr-sm text-subtitle2 text-weight-bold"
-              style="font-size: 1em;"
-            >
-              {{ sellingOne.bnNm }}
+            <div class="q-mr-xs">
+            <q-checkbox
+              class="text-subtitle2 text-weight-bold"
+              size="xs"
+              v-model="checkList"
+              :val="sellingOne.bnNo"
+              :label="sellingOne.bnNm"
+              style="margin: 0 4px 0 -6px;"
+            />
             </div>
             <div class="text-primary" style="font-size: 0.8em;">
               (<q-icon name="star_rate" /> {{ sellingOne.bnRtn | ifNullNumber }} / 5.0)
@@ -178,6 +181,7 @@
           :text-color="requestButton.textColor"
           label="상담신청"
           icon-right="chevron_right"
+          @click="onRequest"
         />
       </q-page-sticky>
       <q-page-sticky position="bottom-right" :offset="[18, 18]">
@@ -248,6 +252,22 @@ export default {
       const offset = ele.offsetTop - 1000;
       const duration = 200;
       setScrollPosition(target, offset, duration);
+    },
+    /** 상담신청 클릭 이벤트 */
+    onRequest() {
+      if (this.requestButton.status) {
+        let reqno = "";
+        for (let n in this.checkList) {
+          console.log(n);
+          if (parseInt(n, 10) === 0) {
+            reqno += this.checkList[n]
+          } else {
+            reqno += ("-" + this.checkList[n])
+          }
+        }
+        console.log(reqno);
+        this.$router.push({ path: "/layer/request/" + this.dealno + "?req=" + reqno });
+      }
     },
     /** deal 호출 함수 */
     getDealOne() {
