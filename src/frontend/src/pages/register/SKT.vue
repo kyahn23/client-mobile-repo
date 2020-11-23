@@ -384,7 +384,6 @@ export default {
   },
   watch: {
     pnMkr: function (newValue, oldValue) {
-      // console.log(newValue)
       if (newValue !== oldValue) {
         this.selected = {
           label: '선택',
@@ -676,6 +675,7 @@ export default {
       this.hopeDt = ''
       this.etc = ''
 
+      // 상담등록 후 상담현황으로 이동
       this.$router.push({path: "/main"});
     }
   }

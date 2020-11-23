@@ -42,9 +42,21 @@ public class PriceRestController {
     @PostMapping("/priceList")
     public DevMap priceList(@RequestBody DevMap param) {
         DevMap result = new DevMap();
-        PageList<DevMap> listPage = priceService.priceList(param);
-        result.put("priceList", listPage);
-        result.put("pageInfo", listPage.getPaginator());
+        switch (param.getString("signType")){
+            case "moveCarr":
+                param.put("SIGN_TYPE", "A");
+                break;
+            case "chgDev":
+                param.put("SIGN_TYPE", "B");
+                break;
+            case "newSign":
+                param.put("SIGN_TYPE", "C");
+                break;
+        }
+
+
+        List<DevMap> resultList = priceService.priceList(param);
+        result.put("priceList", resultList);
         return result;
     }
 }

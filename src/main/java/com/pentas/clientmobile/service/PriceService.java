@@ -34,12 +34,8 @@ public class PriceService {
     }
 
 
-    public PageList<DevMap> priceList(DevMap param) {
-        int page = Integer.parseInt(param.getString("page"));
-        int pageSize = 10;
+    public List<DevMap> priceList(DevMap param) {
 
-        PageBounds pageBounds = new PageBounds(page, pageSize);
-
-        return cmmnDao.selectListPage("clientmobile.price.priceList", param, pageBounds);
+        return cmmnDao.selectList("clientmobile.price.priceList", param);
     }
 }

@@ -23,8 +23,7 @@
             :options="pnMkrList"
             dense
             emit-value
-            map-options
-          >
+            map-options>
           </q-select>
         </div>
         <div class="row q-mb-sm">
@@ -32,8 +31,8 @@
           <q-select
             class="col-9 self-center"
             outlined
-            v-model="pnMkr"
-            :options="pnMkrList"
+            v-model="selected"
+            :options="phoneList"
             dense
             emit-value
             map-options
@@ -45,8 +44,8 @@
           <q-select
             class="col-9 self-center"
             outlined
-            v-model="pnMkr"
-            :options="pnMkrList"
+            v-model="selectedMntRt"
+            :options="mntRtList"
             dense
             emit-value
             map-options
@@ -54,12 +53,12 @@
           </q-select>
         </div>
         <div class="row q-mb-sm">
-          <span class="col-3 text-weight-bold self-center">기간입력</span>
+          <span class="col-3 text-weight-bold self-center">기간선택</span>
           <q-select
             class="col-9 self-center"
             outlined
-            v-model="pnMkr"
-            :options="pnMkrList"
+            v-model="searchPeriod"
+            :options="period"
             dense
             emit-value
             map-options
@@ -67,20 +66,21 @@
           </q-select>
         </div>
         <div class="text-center q-mb-md">
-          <q-btn unelevated color="primary" label="검색" size="md" class="q-px-lg q-py-xs"/>
+          <q-btn unelevated color="primary" label="검색" size="md" class="q-px-lg q-py-xs" @click="searchValidate"/>
         </div>
       </div>
-      <div class="q-mb-xs">
-        <q-btn outline color="white" text-color="black" rounded size="sm" class="q-px-xs q-mr-xs q-py-xs" label="전체"/>
-        <q-btn outline color="primary" rounded size="sm" class="q-px-xs q-py-xs" label="KT 최저가"/>
-      </div>
-      <div class="q-pa-xs q-mb-sm">
-        <q-table class="no-shadow no-outline" :data="priceList" :columns="columns" :pagination.sync="pricePagination"
-                 :hide-bottom="true">
+      <!--      <div class="q-mb-xs">-->
+      <!--        <q-btn outline color="white" text-color="black" rounded size="sm" class="q-px-xs q-mr-xs q-py-xs" label="전체"/>-->
+      <!--        <q-btn outline color="primary" rounded size="sm" class="q-px-xs q-py-xs" label="KT 최저가"/>-->
+      <!--      </div>-->
+      <div class="q-pa-xs q-mb-sm" v-if="priceList.length !== 0">
+        <q-table class="no-shadow no-outline" :data="priceList" :columns="columns" :hide-bottom="true"
+                 :pagination.sync="pricePagination">
         </q-table>
       </div>
-      <div>
-        <q-btn unelevated class="full-width bg-blue-1 no-border text-blue-6 text-weight-bold" label="더보기 +"></q-btn>
+      <div v-if="priceList.length > 10 && pricePagination.rowsPerPage !== 15">
+        <q-btn unelevated class="full-width bg-blue-1 no-border text-blue-6 text-weight-bold" label="더보기 +"
+               @click="moreBtn"></q-btn>
       </div>
       <div id="scroll-top" @click="scrollTop" class="q-mb-lg q-mr-md"
            style="position: fixed; display: block; right: 0; bottom: 0;">
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import {scroll} from "quasar";
+import {scroll, date} from "quasar";
 
 const {getScrollTarget, setScrollPosition} = scroll;
 
@@ -105,9 +105,10 @@ export default {
         sortBy: 'desc',
         descending: false,
         page: 1,
-        rowsPerPage: 10
+        rowsPerPage: 7
       },
       carr: "K",
+      carrLong: "KT",
       signType: null,
       signOpts: [
         {label: "신규가입", value: "newSign"},
@@ -125,17 +126,14 @@ export default {
       searchPeriod: 'all',
       period: [
         {label: '선택', value: 'all'},
-        {label: '오늘', value: 0},
+        {label: '1일', value: 1},
         {label: '3일', value: 3},
         {label: '7일', value: 7},
         {label: '15일', value: 15},
       ],
-      selected: {
-        label: '선택',
-        pnMdlNo: 'all'
-      },
+      selected: {label: '선택', pnMdlNo: 'all'},
       phoneList: [],
-      selectedMntRt: {label: '선택', mntRtNo: 'all'},
+      selectedMntRt: {label: '선택', pnMntRtNo: 'all'},
       mntRtList: [],
       columns: [
         {
@@ -144,36 +142,29 @@ export default {
           label: "일자",
           align: "center",
           field: row => row.priceDate,
-          headerClasses: "bg-blue-2 text-dark text-weight-bold"
+          format: val => `${val}`,
+          headerClasses: "bg-blue-1 text-dark text-weight-bold"
         },
         {
-          name: "ofclDv",
+          name: "pnSubsdDv",
           align: "center",
           label: "공시지원금",
-          field: "ofclDv",
-          headerClasses: "bg-blue-2 text-dark text-weight-bold"
+          field: "pnSubsdDv",
+          headerClasses: "bg-blue-1 text-dark text-weight-bold"
         },
         {
-          name: "ofclRt",
+          name: "pnSubsdRt",
           align: "center",
           label: "요금할인",
-          field: "ofclRt",
-          headerClasses: "bg-blue-2 text-dark text-weight-bold"
+          field: "pnSubsdRt",
+          headerClasses: "bg-blue-1 text-dark text-weight-bold"
         }
       ],
-      priceList: [
-        {priceDate: "20.11.01", ofclDv: "370000원", ofclRt: "610000원"},
-        {priceDate: "20.11.02", ofclDv: "320000원", ofclRt: "620000원"},
-        {priceDate: "20.11.03", ofclDv: "310000원", ofclRt: "630000원"},
-        {priceDate: "20.11.04", ofclDv: "350000원", ofclRt: "640000원"},
-        {priceDate: "20.11.05", ofclDv: "120000원", ofclRt: "650000원"},
-        {priceDate: "20.11.06", ofclDv: "230000원", ofclRt: "670000원"}
-      ]
+      priceList: [],
     };
   },
   watch: {
     pnMkr: function (newValue, oldValue) {
-      // console.log(newValue)
       if (newValue !== oldValue) {
         this.selected = {
           label: '선택',
@@ -185,7 +176,6 @@ export default {
       }
     },
     'selected.pnMdlNo': function (newValue, oldValue) {
-      console.log(newValue)
       if (newValue !== oldValue) {
         this.selectedMntRt = {
           label: '선택',
@@ -228,20 +218,8 @@ export default {
       }
     },
     getMntRtList() {
-      let carr = ''
-      switch (this.carr) {
-        case "S":
-          carr = 'SKT'
-          break
-        case "K":
-          carr = 'KT'
-          break
-        case "L":
-          carr = 'LGU'
-          break
-      }
       let param = {
-        mntCarr: carr,
+        mntCarr: this.carrLong,
         pnNetType: this.selected.pnNetType
       }
       this.$cf.call(
@@ -262,6 +240,85 @@ export default {
         this.mntRtList.push(response.mntRtList[n])
       }
     },
+    searchValidate() {
+      let valChk = false
+      if (this.signType === null) {
+        this.$store.commit("setNotification", {
+          color: "grey-8",
+          textColor: "white",
+          message: "가입유형을 선택해주세요."
+        });
+        valChk = true
+      } else if (this.pnMkr === 'all') {
+        this.$store.commit("setNotification", {
+          color: "grey-8",
+          textColor: "white",
+          message: "제조사를 선택해주세요."
+        });
+        valChk = true
+      } else if (this.selected.pnMdlNo === 'all') {
+        this.$store.commit("setNotification", {
+          color: "grey-8",
+          textColor: "white",
+          message: "스마트폰을 선택해주세요."
+        });
+        valChk = true
+      } else if (this.selectedMntRt.pnMntRtNo === 'all') {
+        this.$store.commit("setNotification", {
+          color: "grey-8",
+          textColor: "white",
+          message: "요금제를 선택해주세요."
+        });
+        valChk = true
+      } else if (this.searchPeriod === 'all') {
+        this.$store.commit("setNotification", {
+          color: "grey-8",
+          textColor: "white",
+          message: "기간을 선택해주세요."
+        });
+        valChk = true
+      }
+      if (!valChk) {
+        this.searchPrice()
+      }
+    },
+    searchPrice() {
+      // this.priceList = this.tempList
+
+      let curDate = new Date()
+      curDate.setDate(curDate.getDate() - this.searchPeriod)
+      let sinceDate = ''
+      sinceDate = date.formatDate(curDate, 'YYYYMMDD')
+
+      let param = {
+        lpCarr: this.carrLong,
+        signType: this.signType,
+        pnMkr: this.pnMkr,
+        pnMdlNo: this.selected.pnMdlNo,
+        pnStor: this.selected.pnStor,
+        pnMntRtNo: this.selectedMntRt.pnMntRtNo,
+        sinceDt: sinceDate
+      }
+      console.log(param)
+      this.$cf.call(
+        process.env.API + "/api/price/priceList",
+        param,
+        this.searchPriceCB,
+        true
+      )
+    },
+    searchPriceCB(response) {
+
+      for (let n in response.priceList) {
+        response.priceList[n].priceDate = date.formatDate(response.priceList[n].inpDt, 'YY.MM.DD')
+        response.priceList[n].pnSubsdDv = Number(response.priceList[n].pnSubsdDv).toLocaleString().concat("원")
+        response.priceList[n].pnSubsdRt = Number(response.priceList[n].pnSubsdRt).toLocaleString().concat("원")
+      }
+      this.priceList = response.priceList
+    },
+    moreBtn() {
+      this.pricePagination.rowsPerPage = 15
+    }
   }
 };
 </script>

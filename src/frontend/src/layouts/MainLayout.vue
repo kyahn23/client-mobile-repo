@@ -38,7 +38,7 @@
         >
           <q-route-tab to="/main" icon="home" label="홈" />
           <q-route-tab to="/price" icon="monetization_on" label="최저가 조회" />
-          <q-route-tab to="/after" icon="post_add" label="상담등록" />
+          <q-route-tab to="/register" icon="post_add" label="상담등록" />
           <q-route-tab to="/after" icon="person" label="마이페이지" />
         </q-tabs>
       </div>
@@ -97,6 +97,9 @@ export default {
         this.$store.commit("setLayer", { isLayer: false });
       }
       if (to.path.includes("/price") && !to.path.includes("price/")) {
+        this.$router.push({ path: to.path + "/SKT" });
+      }
+      if (to.path.includes("/register") && !to.path.includes("register/")) {
         this.$router.push({ path: to.path + "/SKT" });
       }
     },

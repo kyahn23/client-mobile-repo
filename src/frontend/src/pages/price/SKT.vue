@@ -23,8 +23,7 @@
             :options="pnMkrList"
             dense
             emit-value
-            map-options
-          >
+            map-options>
           </q-select>
         </div>
         <div class="row q-mb-sm">
@@ -94,7 +93,7 @@
 </template>
 
 <script>
-import {scroll} from "quasar";
+import {scroll, date} from "quasar";
 
 const {getScrollTarget, setScrollPosition} = scroll;
 
@@ -109,6 +108,7 @@ export default {
         rowsPerPage: 7
       },
       carr: "S",
+      carrLong: "SKT",
       signType: null,
       signOpts: [
         {label: "신규가입", value: "newSign"},
@@ -143,62 +143,28 @@ export default {
           align: "center",
           field: row => row.priceDate,
           format: val => `${val}`,
-          headerClasses: "bg-blue-2 text-dark text-weight-bold"
+          headerClasses: "bg-blue-1 text-dark text-weight-bold"
         },
         {
-          name: "ofclDv",
+          name: "pnSubsdDv",
           align: "center",
           label: "공시지원금",
-          field: "ofclDv",
-          headerClasses: "bg-blue-2 text-dark text-weight-bold"
+          field: "pnSubsdDv",
+          headerClasses: "bg-blue-1 text-dark text-weight-bold"
         },
         {
-          name: "ofclRt",
+          name: "pnSubsdRt",
           align: "center",
           label: "요금할인",
-          field: "ofclRt",
-          headerClasses: "bg-blue-2 text-dark text-weight-bold"
+          field: "pnSubsdRt",
+          headerClasses: "bg-blue-1 text-dark text-weight-bold"
         }
       ],
-      priceList: [
-        // {priceDate: "20.11.01", ofclDv: "370000원", ofclRt: "610000원"},
-        // {priceDate: "20.11.02", ofclDv: "320000원", ofclRt: "620000원"},
-        // {priceDate: "20.11.03", ofclDv: "310000원", ofclRt: "630000원"},
-        // {priceDate: "20.11.04", ofclDv: "350000원", ofclRt: "640000원"},
-        // {priceDate: "20.11.05", ofclDv: "120000원", ofclRt: "650000원"},
-        // {priceDate: "20.11.06", ofclDv: "230000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.07", ofclDv: "230000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.08", ofclDv: "340000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.09", ofclDv: "450000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.10", ofclDv: "120000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.11", ofclDv: "500000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.12", ofclDv: "210000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.13", ofclDv: "220000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.14", ofclDv: "220000원", ofclRt: "670000원"},
-        // {priceDate: "20.11.15", ofclDv: "220000원", ofclRt: "670000원"}
-      ],
-      tempList: [
-        {priceDate: "20.11.01", ofclDv: "370000원", ofclRt: "610000원"},
-        {priceDate: "20.11.02", ofclDv: "320000원", ofclRt: "620000원"},
-        {priceDate: "20.11.03", ofclDv: "310000원", ofclRt: "630000원"},
-        {priceDate: "20.11.04", ofclDv: "350000원", ofclRt: "640000원"},
-        {priceDate: "20.11.05", ofclDv: "120000원", ofclRt: "650000원"},
-        {priceDate: "20.11.06", ofclDv: "230000원", ofclRt: "670000원"},
-        {priceDate: "20.11.07", ofclDv: "230000원", ofclRt: "670000원"},
-        {priceDate: "20.11.08", ofclDv: "340000원", ofclRt: "670000원"},
-        {priceDate: "20.11.09", ofclDv: "450000원", ofclRt: "670000원"},
-        {priceDate: "20.11.10", ofclDv: "120000원", ofclRt: "670000원"},
-        {priceDate: "20.11.11", ofclDv: "500000원", ofclRt: "670000원"},
-        {priceDate: "20.11.12", ofclDv: "210000원", ofclRt: "670000원"},
-        {priceDate: "20.11.13", ofclDv: "220000원", ofclRt: "670000원"},
-        {priceDate: "20.11.14", ofclDv: "220000원", ofclRt: "670000원"},
-        {priceDate: "20.11.15", ofclDv: "220000원", ofclRt: "670000원"}
-      ]
+      priceList: [],
     };
   },
   watch: {
     pnMkr: function (newValue, oldValue) {
-      // console.log(newValue)
       if (newValue !== oldValue) {
         this.selected = {
           label: '선택',
@@ -252,20 +218,8 @@ export default {
       }
     },
     getMntRtList() {
-      let carr = ''
-      switch (this.carr) {
-        case "S":
-          carr = 'SKT'
-          break
-        case "K":
-          carr = 'KT'
-          break
-        case "L":
-          carr = 'LGU'
-          break
-      }
       let param = {
-        mntCarr: carr,
+        mntCarr: this.carrLong,
         pnNetType: this.selected.pnNetType
       }
       this.$cf.call(
@@ -329,23 +283,38 @@ export default {
       }
     },
     searchPrice() {
-      this.priceList = this.tempList
+      // this.priceList = this.tempList
+
+      let curDate = new Date()
+      curDate.setDate(curDate.getDate() - this.searchPeriod)
+      let sinceDate = ''
+      sinceDate = date.formatDate(curDate, 'YYYYMMDD')
+
       let param = {
+        lpCarr: this.carrLong,
         signType: this.signType,
         pnMkr: this.pnMkr,
         pnMdlNo: this.selected.pnMdlNo,
         pnStor: this.selected.pnStor,
         pnMntRtNo: this.selectedMntRt.pnMntRtNo,
-        searchPeriod: this.searchPeriod
+        sinceDt: sinceDate
       }
-      // this.$cf.call(
-      //   process.env.API + "/api/price/최저가검색",
-      //   param,
-      //   this.searchPriceCB,
-      //   true
-      // )
+      console.log(param)
+      this.$cf.call(
+        process.env.API + "/api/price/priceList",
+        param,
+        this.searchPriceCB,
+        true
+      )
     },
     searchPriceCB(response) {
+
+      for (let n in response.priceList) {
+        response.priceList[n].priceDate = date.formatDate(response.priceList[n].inpDt, 'YY.MM.DD')
+        response.priceList[n].pnSubsdDv = Number(response.priceList[n].pnSubsdDv).toLocaleString().concat("원")
+        response.priceList[n].pnSubsdRt = Number(response.priceList[n].pnSubsdRt).toLocaleString().concat("원")
+      }
+      this.priceList = response.priceList
     },
     moreBtn() {
       this.pricePagination.rowsPerPage = 15

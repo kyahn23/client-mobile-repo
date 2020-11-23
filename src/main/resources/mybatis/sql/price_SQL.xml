@@ -24,6 +24,14 @@
     </select>
 
     <select id="priceList" parameterType="DevMap" resultType="DevMap">
+        SELECT * FROM TBL017 t
+        WHERE LP_CARR = #{lpCarr}
+        AND LP_SIGN_TYPE = #{signType}
+        AND PN_MNT_RT_NO = #{pnMntRtNo}
+        AND PN_MDL_NO = #{pnMdlNo}
+        AND PN_STOR = #{pnStor}
+        AND INP_DT BETWEEN #{sinceDt} AND DATE_FORMAT(SYSDATE(), '%Y%m%d')
+        ORDER BY INP_DT desc
     </select>
 
 </mapper>
