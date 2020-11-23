@@ -96,6 +96,34 @@ const routes = [
         }
       },
       {
+        path: "layer/rating/:dealno/:callno",
+        components: {
+          default: () => import("pages/status/Ongoing.vue"),
+          dialog: () => import("pages/layers/Rating.vue")
+        },
+        props: {
+          default: route => ({ dealno: route.params.dealno }),
+          dialog: route => ({
+            callno: route.params.callno,
+            bnno: route.query.bn
+          })
+        }
+      },
+      {
+        path: "layer/request/:dealno",
+        components: {
+          default: () => import("pages/status/Waiting.vue"),
+          dialog: () => import("pages/layers/Request.vue")
+        },
+        props: {
+          default: route => ({ dealno: route.params.dealno }),
+          dialog: route => ({
+            dealno: route.params.dealno,
+            reqno: route.query.req
+          })
+        }
+      },
+      {
         path: "register",
         component: () => import("pages/Register.vue"),
         children: [

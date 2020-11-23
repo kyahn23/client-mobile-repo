@@ -55,12 +55,17 @@
         <q-bar class="bg-white">
           <q-space />
 
-          <q-btn dense flat icon="close" @click="closeLayer">
-            <q-tooltip content-class="bg-white text-black">Close</q-tooltip>
-          </q-btn>
+          <q-btn
+            id="layerCloseBtn"
+            dense
+            flat
+            icon="close"
+            @click="closeLayer"
+            style="font-size: 0.8em; top: 10px; z-index: 6000;"
+          />
         </q-bar>
 
-        <q-card-section class="q-pt-none">
+        <q-card-section class="q-pt-none q-px-none">
           <q-page-container class="no-padding">
             <router-view name="dialog" />
           </q-page-container>
