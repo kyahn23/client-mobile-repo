@@ -676,7 +676,7 @@ export default {
       this.etc = ''
 
       // 상담등록 후 상담현황으로 이동
-      this.$router.push({path: "/main"});
+      this.$router.push({path: "/status"});
     }
   }
 }
