@@ -147,6 +147,30 @@ const routes = [
         ]
       },
       {
+        path: "customer",
+        component: () => import("pages/Customer.vue"),
+        children: [
+          {
+            path: "notice",
+            component: () => import("pages/customer/notice.vue"),
+          },
+          {
+            path: "notice/:ntcNo",
+            component: () => import("pages/customer/notice-detail.vue"),
+            props: true
+          },
+          {
+            path: "faq",
+            component: () => import("pages/customer/faq.vue")
+          },
+          {
+            path: "manual",
+            component: () => import("pages/customer/manual.vue")
+          }
+        ]
+      },
+
+      {
         path: "after",
         component: () => import("pages/After.vue"),
         meta: {
