@@ -152,14 +152,6 @@ const routes = [
           }
         ]
       },
-
-      {
-        path: "after",
-        component: () => import("pages/After.vue"),
-        meta: {
-          requiresAuth: true
-        }
-      },
       {
         path: "mypage",
         component: () => import("pages/MyPage.vue"),

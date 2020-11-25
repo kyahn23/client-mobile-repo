@@ -18,13 +18,9 @@
         <q-route-tab to="/main" label="홈" />
         <q-route-tab to="/price" label="최저가 조회" />
         <q-route-tab to="/register" label="상담등록" />
-<<<<<<< Updated upstream
-        <q-route-tab to="/customer" label="고객센터" />
-=======
         <q-route-tab to="/status" label="상담현황" />
-        <q-route-tab to="/after" label="고객센터" />
->>>>>>> Stashed changes
-        <q-route-tab to="/after" label="마이페이지" />
+        <q-route-tab to="/customer" label="고객센터" />
+        <q-route-tab to="/mypage" label="마이페이지" />
       </q-tabs>
     </q-header>
 
@@ -44,7 +40,7 @@
           <q-route-tab to="/main" icon="home" label="홈" />
           <q-route-tab to="/price" icon="monetization_on" label="최저가 조회" />
           <q-route-tab to="/register" icon="post_add" label="상담등록" />
-          <q-route-tab to="/after" icon="person" label="마이페이지" />
+          <q-route-tab to="/mypage" icon="person" label="마이페이지" />
         </q-tabs>
       </div>
     </q-footer>
