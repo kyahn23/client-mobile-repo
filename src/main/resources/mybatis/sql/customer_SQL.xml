@@ -25,8 +25,7 @@
     </select>
 
     <select id="faqList" parameterType="DevMap" resultType="DevMap">
-        SELECT FAQ_ID
-            , FAQ_QUESTION
+        SELECT FAQ_QUESTION
             , FAQ_ANSWER
             , FAQ_DETAIL
         FROM TBL019
