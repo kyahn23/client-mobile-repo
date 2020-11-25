@@ -1,6 +1,6 @@
 <template>
-  <div>
-
+  <div class="q-px-md q-mt-lg q-pt-lg">
+    <span>사용방법</span>
   </div>
 </template>
 

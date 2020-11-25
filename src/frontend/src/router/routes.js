@@ -114,18 +114,22 @@ const routes = [
       {
         path: "register",
         component: () => import("pages/Register.vue"),
+        meta: {requiresAuth: true},
         children: [
           {
             path: "SKT",
-            component: () => import("pages/register/SKT.vue")
+            component: () => import("pages/register/SKT.vue"),
+            meta: {requiresAuth: true}
           },
           {
             path: "KT",
-            component: () => import("pages/register/KT.vue")
+            component: () => import("pages/register/KT.vue"),
+            meta: {requiresAuth: true}
           },
           {
             path: "LGU",
-            component: () => import("pages/price/LGU.vue")
+            component: () => import("pages/price/LGU.vue"),
+            meta: {requiresAuth: true}
           }
         ]
       },
@@ -155,7 +159,7 @@ const routes = [
       {
         path: "mypage",
         component: () => import("pages/MyPage.vue"),
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
       },
       {
         path: "social/:mode/:service/:id/:email/:name",
@@ -165,7 +169,7 @@ const routes = [
       {
         path: "verify",
         component: () => import("components/VerifyEmail.vue"),
-        props: route => ({ mail: route.query.mail })
+        props: route => ({mail: route.query.mail})
       }
     ]
   },

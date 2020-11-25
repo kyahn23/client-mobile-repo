@@ -3,7 +3,12 @@
 <mapper namespace="clientmobile.customer">
 
     <select id="noticeList" parameterType="DevMap" resultType="DevMap">
-        SELECT *
+        SELECT NTC_ID,
+        NTC_IMP_YN,
+        NTC_TITLE,
+        NTC_CONTENT,
+        NTC_WRITER,
+        DATE_FORMAT(t.INP_DT, '%Y.%m.%d') as INP_DT
         from TBL018 t
         order by NTC_IMP_YN desc, INP_DT desc
     </select>

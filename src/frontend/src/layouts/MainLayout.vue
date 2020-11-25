@@ -110,6 +110,9 @@ export default {
       if (to.path.includes("/register") && !to.path.includes("register/")) {
         this.$router.push({ path: to.path + "/SKT" });
       }
+      if (to.path.includes("/customer") && !to.path.includes("customer/")) {
+        this.$router.push({ path: to.path + "/notice" });
+      }
     },
     notification(newNotification) {
       this.$q.notify(newNotification);
