@@ -33,8 +33,8 @@ public class CustomerRestController {
         return result;
     }
 
-    @PostMapping("/faqlist")
-    public DevMap faqlist(@RequestBody DevMap param) {
+    @PostMapping("/faq")
+    public DevMap faq(@RequestBody DevMap param) {
         DevMap result = new DevMap();
         PageList<DevMap> listPage = customerService.faqList(param);
 
