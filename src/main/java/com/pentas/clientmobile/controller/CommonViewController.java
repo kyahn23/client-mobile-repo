@@ -38,7 +38,7 @@ public class CommonViewController {
                             + "/" + memberId
                             + "/" + URLEncoder.encode(memberNickname, "UTF-8");
                 } else {
-                    redirectUrl += "/#/login?notify=emailAcc";
+                    redirectUrl += "/#/layer/login?notify=emailAcc";
                 }
             } else {
                 redirectUrl += "/#/social/signup/" + user.getSocialService()

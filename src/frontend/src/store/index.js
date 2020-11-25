@@ -49,7 +49,7 @@ export default function() {
         };
       },
       setAuth(state, payload) {
-        state.isAuth = payload ? payload.isAuth : !state.isAuth;
+        state.isAuth = payload.isAuth;
       },
       setCurrentUser(state, payload) {
         state.currentUser = payload.currentUser;

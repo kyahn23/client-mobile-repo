@@ -18,7 +18,12 @@
         <q-route-tab to="/main" label="홈" />
         <q-route-tab to="/price" label="최저가 조회" />
         <q-route-tab to="/register" label="상담등록" />
+<<<<<<< Updated upstream
         <q-route-tab to="/customer" label="고객센터" />
+=======
+        <q-route-tab to="/status" label="상담현황" />
+        <q-route-tab to="/after" label="고객센터" />
+>>>>>>> Stashed changes
         <q-route-tab to="/after" label="마이페이지" />
       </q-tabs>
     </q-header>
@@ -84,12 +89,14 @@ export default {
   name: "MainLayout",
   data() {
     return {
-      loginLabel: "",
-      dialogFrom: ""
+      loginLabel: "로그인",
+      dialogFrom: "/main"
     };
   },
   mounted() {
-    this.setLoginLabel();
+    if (this.$route.path.includes("/layer")) {
+      this.$store.commit("setLayer", { isLayer: true });
+    }
   },
   watch: {
     $route(to, from) {
@@ -110,38 +117,31 @@ export default {
     },
     notification(newNotification) {
       this.$q.notify(newNotification);
+    },
+    isLogin(newLogin) {
+      if (newLogin) {
+        this.loginLabel = "로그아웃";
+      } else {
+        this.loginLabel = "로그인";
+      }
     }
   },
   methods: {
-    /** 로그인 라벨 셋팅 */
-    setLoginLabel() {
-      this.loginLabel = "로그아웃";
-      if (!this.isLogin) {
-        this.loginLabel = "로그인";
-      }
-    },
-    /** 로그인 테스트 용 토글 */
+    /** 로그인 토글 */
     loginToggle() {
-      this.$router.push({ path: "/layer/login" });
-      // this.$store.commit("setAuth");
-
-      // let msg = "";
-      // let clr = "";
-      // if (this.isLogin) {
-      //   msg = "로그인 되었습니다.";
-      //   clr = "positive";
-      // } else {
-      //   msg = "로그아웃 되었습니다.";
-      //   clr = "negative";
-      //   this.$router.push({ path: "main" });
-      // }
-
-      // this.$q.notify({
-      //   group: false,
-      //   color: clr,
-      //   message: msg,
-      // });
-      // this.setLoginLabel();
+      if (!this.isLogin) {
+        this.$router.push({ path: "/layer/login" });
+      } else {
+        this.$store.commit("setAuth", { isAuth: false });
+        this.$store.commit("setCurrentUser", { currentUser: "" });
+        this.$store.commit("setNotification", {
+          color: "primary",
+          textColor: "white",
+          message: "로그아웃 되었습니다.",
+          caption: ""
+        });
+        this.$router.push({ path: "/" });
+      }
     },
     /** 레이어 팝업 닫기 함수 */
     closeLayer() {

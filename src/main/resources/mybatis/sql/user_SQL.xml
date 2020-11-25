@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="clientmobile.user">
+
+    <select id="getUserInfo" parameterType="DevMap" resultType="DevMap">
+        SELECT
+            MBR_NM
+            ,MBR_LOC_SIDO
+            ,MBR_LOC_SIGG
+            ,MKT_YN
+            ,SNS_LOGIN_YN
+        FROM TBL001
+        WHERE CL_MBR_ID = #{email}
+    </select>
+
+    <update id="updateUserInfo" parameterType="DevMap">
+        UPDATE TBL001
+        SET AMD_DT = SYSDATE()
+            <if test="memberName != null">
+                ,MBR_NM = #{memberName}
+            </if>
+            <if test="newPassword != null">
+                ,PWD_NO = #{newPassword}
+            </if>
+            <if test="memberLocationSido != null">
+                ,MBR_LOC_SIDO = #{memberLocationSido}
+            </if>
+            <if test="memberLocationSigg != null">
+                ,MBR_LOC_SIGG = #{memberLocationSigg}
+            </if>
+            <if test="marketingAgree != null">
+                ,SNS_LOGIN_YN = #{marketingAgree}
+            </if>
+        WHERE CL_MBR_ID = #{email}
+    </update>
+
+    <update id="verifyEmail" parameterType="string">
+        UPDATE TBL001
+        SET AUTH_YN = 'Y'
+        WHERE CL_MBR_ID = #{email}
+    </update>
+
+</mapper>

@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import sha256 from "sha256";
+import sha256 from "crypto-js/sha256";
 import { openURL } from "quasar";
 import { fabGoogle } from "@quasar/extras/fontawesome-v5";
 
@@ -112,17 +112,28 @@ export default {
     }
   },
   methods: {
+    /** 로그인 폼 초기화 함수 */
+    resetLogin() {
+      this.isPwd = true;
+      this.userId = "";
+      this.userPw = "";
+      this.$refs.loginForm.reset();
+    },
     /** 로그인 버튼 클릭 이벤트 */
-    onLogin: function() {
-      if (!this.$cf.isEmpty(this.userId)) {
+    onLogin() {
+      if (!this.$cf.isEmpty(this.userId) && !this.$cf.isEmpty(this.userPw)) {
         this.$cf.call(
           process.env.API + "/api/auth/signin",
-          { email: this.userId },
+          {
+            email: this.userId,
+            bibun: sha256(this.userPw).toString()
+          },
           this.afterLogin,
           true
         );
       }
     },
+    /** 로그인 콜백 함수 */
     afterLogin(response) {
       if (response.rsltStat === "SSO") {
         this.$store.commit("setNotification", {
@@ -131,15 +142,39 @@ export default {
           message: "이미 소셜로그인으로 가입된 계정입니다.",
           caption: "소셜로그인으로 진행해주세요."
         });
-        this.isPwd = true;
-        this.userId = "";
-        this.userPw = "";
-        this.$refs.loginForm.reset();
+        this.resetLogin();
         return;
+      } else if (response.rsltStat === "MAIL") {
+        this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "이메일 인증이 완료되지 않았습니다.",
+          caption: "이메일 인증 후 로그인 해주세요."
+        });
+        this.resetLogin();
+        return;
+      } else if (response.rsltStat === "FAIL") {
+        this.$store.commit("setNotification", {
+          color: "negative",
+          textColor: "white",
+          message: "로그인에 실패했습니다.",
+          caption: "이메일 및 비밀번호를 확인해주세요."
+        });
+        this.resetLogin();
+        return;
+      } else if (response.rsltStat === "SUCC") {
+        this.$store.commit("setAuth", { isAuth: true });
+        this.$store.commit("setCurrentUser", { currentUser: this.email });
+        this.$store.commit("setNotification", {
+          color: "primary",
+          textColor: "white",
+          message: "로그인 되었습니다."
+        });
+        this.$router.push({ path: "/main" });
       }
     },
     /** 서비스별 oAuth 처리 Url */
-    oAuthUrl: function(service) {
+    oAuthUrl(service) {
       return process.env.API + "/oauth2/authorization/" + service;
     }
   }

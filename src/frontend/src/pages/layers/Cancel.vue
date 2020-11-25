@@ -108,9 +108,7 @@ export default {
           {
             callNo: this.callno,
             cnclCmnt: this.cnclCmnt,
-            email: "clientTest@gmail.com"
-            /** TODO 로그인 구현 후 사용 변경 */
-            // email: this.currentUser
+            email: this.currentUser
           },
           this.confirmCb,
           true

@@ -13,30 +13,7 @@ const routes = [
       },
       {
         path: "main",
-        component: () => import("pages/Main.vue"),
-        /** for research */
-        children: [
-          {
-            path: "1",
-            component: () => import("pages/main/Page1.vue")
-          },
-          {
-            path: "2",
-            component: () => import("pages/main/Page2.vue")
-          },
-          {
-            path: "3",
-            component: () => import("pages/main/Page3.vue")
-          },
-          {
-            path: "4",
-            component: () => import("pages/main/Page4.vue")
-          },
-          {
-            path: "5",
-            component: () => import("pages/main/Page5.vue")
-          }
-        ]
+        component: () => import("pages/Main.vue")
       },
       {
         path: "price",
@@ -58,17 +35,20 @@ const routes = [
       },
       {
         path: "status",
-        component: () => import("pages/Status.vue")
+        component: () => import("pages/Status.vue"),
+        meta: { requiresAuth: true }
       },
       {
         path: "ongoing/:dealno",
         component: () => import("pages/status/Ongoing.vue"),
-        props: true
+        props: true,
+        meta: { requiresAuth: true }
       },
       {
         path: "waiting/:dealno",
         component: () => import("pages/status/Waiting.vue"),
-        props: true
+        props: true,
+        meta: { requiresAuth: true }
       },
       {
         path: "layer/login",
@@ -96,7 +76,8 @@ const routes = [
             callno: route.params.callno,
             bnno: route.query.bn
           })
-        }
+        },
+        meta: { requiresAuth: true }
       },
       {
         path: "layer/rating/:dealno/:callno",
@@ -111,7 +92,8 @@ const routes = [
             callno: route.params.callno,
             bnno: route.query.bn
           })
-        }
+        },
+        meta: { requiresAuth: true }
       },
       {
         path: "layer/request/:dealno",
@@ -126,7 +108,8 @@ const routes = [
             regdis: route.query.dis,
             reqno: route.query.req
           })
-        }
+        },
+        meta: { requiresAuth: true }
       },
       {
         path: "register",
@@ -152,7 +135,7 @@ const routes = [
         children: [
           {
             path: "notice",
-            component: () => import("pages/customer/notice.vue"),
+            component: () => import("pages/customer/notice.vue")
           },
           {
             path: "notice/:ntcNo",
@@ -178,9 +161,19 @@ const routes = [
         }
       },
       {
+        path: "mypage",
+        component: () => import("pages/MyPage.vue"),
+        meta: { requiresAuth: true }
+      },
+      {
         path: "social/:mode/:service/:id/:email/:name",
         component: () => import("components/SocialLogin.vue"),
         props: true
+      },
+      {
+        path: "verify",
+        component: () => import("components/VerifyEmail.vue"),
+        props: route => ({ mail: route.query.mail })
       }
     ]
   },

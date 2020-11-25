@@ -247,9 +247,7 @@ export default {
       this.$cf.call(
         process.env.API + "/api/deal/dates",
         {
-          email: "clientTest@gmail.com"
-          /** TODO 로그인 구현 후 사용 변경 */
-          // email: this.currentUser
+          email: this.currentUser
         },
         this.datesCb,
         true
@@ -289,9 +287,7 @@ export default {
       this.$cf.call(
         process.env.API + "/api/deal/extend",
         {
-          email: "clientTest@gmail.com",
-          /** TODO 로그인 구현 후 사용 변경 */
-          // email: this.currentUser,
+          email: this.currentUser,
           dealNo: this.dealDateOne.dealNo
         },
         this.extendCb,
@@ -320,9 +316,7 @@ export default {
       this.$cf.call(
         process.env.API + "/api/deal/list",
         {
-          email: "clientTest@gmail.com",
-          /** TODO 로그인 구현 후 사용 변경 */
-          // email: this.currentUser,
+          email: this.currentUser,
           page: page
         },
         this.listCb,
@@ -343,9 +337,7 @@ export default {
       this.$cf.call(
         process.env.API + "/api/deal/delete",
         {
-          email: "clientTest@gmail.com",
-          /** TODO 로그인 구현 후 사용 변경 */
-          // email: this.currentUser,
+          email: this.currentUser,
           dealNo: this.deleteTarget.dealNo
         },
         this.deleteCb,

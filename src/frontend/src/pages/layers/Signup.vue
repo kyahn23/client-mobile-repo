@@ -149,6 +149,8 @@
 </template>
 
 <script>
+import sha256 from "crypto-js/sha256";
+
 export default {
   name: "LayerSignup",
   data() {
@@ -183,17 +185,14 @@ export default {
   },
   mounted() {
     this.getSido();
-    if (this.newSocialUser.id !== "") {
+    if (!this.$cf.isEmpty(this.newSocialUser.id)) {
       this.isSocialUser = true;
     }
-    if (
-      this.newSocialUser.email !== "" &&
-      this.newSocialUser.email !== "null"
-    ) {
+    if (!this.$cf.isEmpty(this.newSocialUser.email)) {
       this.isSocialId = true;
       this.userId = this.newSocialUser.email;
     }
-    if (this.newSocialUser.name !== "" && this.newSocialUser.name !== "null") {
+    if (!this.$cf.isEmpty(this.newSocialUser.name)) {
       this.userNm = this.newSocialUser.name;
     }
   },
@@ -274,21 +273,27 @@ export default {
     /** form submit 이벤트 함수 */
     onSubmit() {
       /** 아래 외 나머지 항목은 form 자체 validation 이용 */
+      let warningItems = [];
       if (!this.isIdChk && !this.isSocialUser) {
-        this.$store.commit("setNotification", {
-          color: "warning",
-          textColor: "dark",
-          message: "이메일 중복확인을 완료해주세요.",
-          caption: ""
-        });
-        return;
+        warningItems.push("이메일 중복확인");
       }
       if (!this.trmAgree) {
+        warningItems.push("서비스 이용약관 동의");
+      }
+      if (warningItems.length !== 0) {
+        let warningCaption = "";
+        for (let n in warningItems) {
+          if (parseInt(n, 10) === 0) {
+            warningCaption += this.warningItems[n];
+          } else {
+            warningCaption += ", " + this.warningItems[n];
+          }
+        }
         this.$store.commit("setNotification", {
           color: "warning",
           textColor: "dark",
-          message: "서비스 이용약관에 동의해주세요.",
-          caption: ""
+          message: "아래 항목을 완료해주세요.",
+          caption: warningCaption
         });
         return;
       }
@@ -296,21 +301,23 @@ export default {
       let param = {
         memberId: this.userId,
         memberNickname: this.userNm,
-        memberLocationSido: this.userSido,
-        memberLocationSigg: this.userSigg,
+        memberLocationSido: this.userSido.cdNm,
+        memberLocationSigg: this.userSigg.cdNm,
         isMarketingAgreed: this.mktAgree ? "Y" : "N"
       };
 
       /** 일반, 소셜 가입 구분 */
       if (!this.isSocialUser) {
-        this.passwordPin = this.userPw;
+        param.passwordPin = sha256(this.userPw).toString();
+        param.isSocialLogin = "N";
+        param.isEmailAuthenticated = "N";
       } else {
-        this.isSocialLogin = "Y";
-        this.socialService = this.newSocialUser.service
+        param.isSocialLogin = "Y";
+        param.socialService = this.newSocialUser.service
           .slice(0, 3)
           .toUpperCase();
-        this.socialId = this.newSocialUser.id;
-        this.isEmailAuthenticated = "Y";
+        param.socialId = this.newSocialUser.id;
+        param.isEmailAuthenticated = "Y";
       }
 
       this.$cf.call(
@@ -328,7 +335,7 @@ export default {
       } else {
         cptPrefix = "이메일 인증 후 ";
       }
-      this.$router.push({ path: "main" });
+      this.$router.push({ path: "/main" });
       this.$store.commit("setNotification", {
         color: "positive",
         textColor: "white",

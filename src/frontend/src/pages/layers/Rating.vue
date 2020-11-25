@@ -203,8 +203,7 @@ export default {
             email: "clientTest@gmail.com",
             callReport: this.callReport,
             callTerminated: this.callTerminated,
-            /** TODO 로그인 구현 후 사용 변경 */
-            // email: this.currentUser
+            email: this.currentUser,
             ratingScore: this.ratingScore,
             ratingComment: this.ratingComment
           },

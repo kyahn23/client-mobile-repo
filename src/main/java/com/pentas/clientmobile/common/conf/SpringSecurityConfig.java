@@ -40,9 +40,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                     .and()
                 .oauth2Login()
-                    .loginPage("http://localhost:8081/#/login")
+                    .loginPage("http://localhost:8081/#/layer/login")
                     .defaultSuccessUrl("/ssoproc")
-                    .failureUrl("http://localhost:8081/#/login?notify=socialCan")
+                    .failureUrl("http://localhost:8081/#/layer/login?notify=socialCan")
                     .userInfoEndpoint()
                         .userService(customOAuth2UserService);
     }
