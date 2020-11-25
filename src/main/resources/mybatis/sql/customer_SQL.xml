@@ -13,6 +13,17 @@
         order by NTC_IMP_YN desc, INP_DT desc
     </select>
 
+    <select id="noticeDetail" parameterType="DevMap" resultType="DevMap">
+        SELECT NTC_ID,
+        NTC_IMP_YN,
+        NTC_TITLE,
+        NTC_CONTENT,
+        NTC_WRITER,
+        DATE_FORMAT(t.INP_DT, '%Y.%m.%d') as INP_DT
+        FROM TBL018 t
+        WHERE NTC_ID=#{ntcNo}
+    </select>
+
     <select id="faqList" parameterType="DevMap" resultType="DevMap">
         SELECT FAQ_QUESTION
             , FAQ_ANSWER

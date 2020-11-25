@@ -30,4 +30,8 @@ public class CustomerService {
 
         return cmmnDao.selectListPage("clientmobile.customer.faqList", param, pageBounds);
     }
+
+    public DevMap noticeDetail(DevMap param) {
+        return cmmnDao.selectOne("clientmobile.customer.noticeDetail", param);
+    }
 }

@@ -17,12 +17,19 @@ public class CustomerRestController {
     private final CustomerService customerService;
 
     @PostMapping("/noticeList")
-    public DevMap list(@RequestBody DevMap param) {
+    public DevMap noticeList(@RequestBody DevMap param) {
         DevMap result = new DevMap();
         PageList<DevMap> listPage = customerService.noticeList(param);
 
         result.put("noticeList", listPage);
         result.put("pageInfo", listPage.getPaginator());
+        return result;
+    }
+
+    @PostMapping("/noticeDetail")
+    public DevMap noticeDetail(@RequestBody DevMap param) {
+        DevMap result = new DevMap();
+        result = customerService.noticeDetail(param);
         return result;
     }
 
