@@ -226,7 +226,7 @@ export default {
         this.expandToggle = !this.expandToggle;
         this.expandLoading = !this.expandLoading;
 
-        this.expandStyle.transform = "rotate( -180deg )";
+        this.expandStyle.transform = "rotate( 180deg )";
         this.scrollBoxStyle.opacity = 1;
         this.scrollBoxStyle.transform = "";
 

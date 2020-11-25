@@ -325,7 +325,6 @@ export default {
     },
     /** list 콜백 함수 */
     listCb(response) {
-      console.log(response);
       this.pageInfo = response.pageInfo;
       for (let n in response.dealList) {
         this.dealList.push(response.dealList[n]);
