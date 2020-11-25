@@ -21,4 +21,13 @@ public class CustomerService {
 
         return cmmnDao.selectListPage("clientmobile.customer.noticeList", param, pageBounds);
     }
+
+    public PageList<DevMap> faqList(DevMap param) {
+        int page = Integer.parseInt(param.getString("page"));
+        int pageSize = 5;
+
+        PageBounds pageBounds = new PageBounds(page, pageSize);
+
+        return cmmnDao.selectListPage("clientmobile.customer.faqList", param, pageBounds);
+    }
 }

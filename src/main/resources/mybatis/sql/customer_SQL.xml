@@ -13,4 +13,12 @@
         order by NTC_IMP_YN desc, INP_DT desc
     </select>
 
+    <select id="faqList" parameterType="DevMap" resultType="DevMap">
+        SELECT FAQ_QUESTION
+            , FAQ_ANSWER
+            , FAQ_DETAIL
+        FROM TBL019
+        ORDER BY FAQ_ID ASC
+    </select>
+
 </mapper>

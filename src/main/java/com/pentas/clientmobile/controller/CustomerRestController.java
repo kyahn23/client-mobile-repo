@@ -25,4 +25,15 @@ public class CustomerRestController {
         result.put("pageInfo", listPage.getPaginator());
         return result;
     }
+
+    @PostMapping("/faqlist")
+    public DevMap faqlist(@RequestBody DevMap param) {
+        DevMap result = new DevMap();
+        PageList<DevMap> listPage = customerService.faqList(param);
+
+        result.put("faqList", listPage);
+        result.put("pageInfo", listPage.getPaginator());
+        return result;
+    }
+
 }
