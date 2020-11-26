@@ -6,6 +6,7 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
+    meta: { titleLabel: "펜타폰" },
     children: [
       {
         path: "",
@@ -13,11 +14,13 @@ const routes = [
       },
       {
         path: "main",
-        component: () => import("pages/Main.vue")
+        component: () => import("pages/Main.vue"),
+        meta: { titleLabel: "펜타폰" }
       },
       {
         path: "price",
         component: () => import("pages/Price.vue"),
+        meta: { titleLabel: "최저가 조회" },
         children: [
           {
             path: "SKT",
@@ -36,19 +39,28 @@ const routes = [
       {
         path: "status",
         component: () => import("pages/Status.vue"),
-        meta: { requiresAuth: true }
+        meta: {
+          requiresAuth: true,
+          titleLabel: "상담현황"
+        }
       },
       {
         path: "ongoing/:dealno",
         component: () => import("pages/status/Ongoing.vue"),
         props: true,
-        meta: { requiresAuth: true }
+        meta: {
+          requiresAuth: true,
+          titleLabel: "상담현황"
+        }
       },
       {
         path: "waiting/:dealno",
         component: () => import("pages/status/Waiting.vue"),
         props: true,
-        meta: { requiresAuth: true }
+        meta: {
+          requiresAuth: true,
+          titleLabel: "상담현황"
+        }
       },
       {
         path: "layer/login",
@@ -114,28 +126,29 @@ const routes = [
       {
         path: "register",
         component: () => import("pages/Register.vue"),
-        meta: {requiresAuth: true},
+        meta: {
+          requiresAuth: true,
+          titleLabel: "상담등록"
+        },
         children: [
           {
             path: "SKT",
-            component: () => import("pages/register/SKT.vue"),
-            meta: {requiresAuth: true}
+            component: () => import("pages/register/SKT.vue")
           },
           {
             path: "KT",
-            component: () => import("pages/register/KT.vue"),
-            meta: {requiresAuth: true}
+            component: () => import("pages/register/KT.vue")
           },
           {
             path: "LGU",
-            component: () => import("pages/price/LGU.vue"),
-            meta: {requiresAuth: true}
+            component: () => import("pages/price/LGU.vue")
           }
         ]
       },
       {
         path: "customer",
         component: () => import("pages/Customer.vue"),
+        meta: { titleLabel: "고객센터" },
         children: [
           {
             path: "notice",
@@ -159,7 +172,10 @@ const routes = [
       {
         path: "mypage",
         component: () => import("pages/MyPage.vue"),
-        meta: {requiresAuth: true}
+        meta: {
+          requiresAuth: true,
+          titleLabel: "마이페이지"
+        }
       },
       {
         path: "social/:mode/:service/:id/:email/:name",
@@ -169,7 +185,7 @@ const routes = [
       {
         path: "verify",
         component: () => import("components/VerifyEmail.vue"),
-        props: route => ({mail: route.query.mail})
+        props: route => ({ mail: route.query.mail })
       }
     ]
   },

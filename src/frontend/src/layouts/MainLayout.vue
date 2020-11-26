@@ -2,7 +2,20 @@
   <q-layout view="hHh lpr fFf">
     <q-header class="bg-primary text-white" height-hint="98">
       <q-toolbar>
-        <q-toolbar-title class="text-center">펜타폰</q-toolbar-title>
+        <q-btn
+          :icon="leftBtnIcon"
+          unelevated
+          color="standard"
+          :text-color="leftBtnColor"
+          size="md"
+          @click="goBackBtn"
+        />
+        <q-toolbar-title
+          class="text-center text-weight-bold"
+          style="font-size: 1.2em;"
+        >
+          {{ titleLabel }}
+        </q-toolbar-title>
         <q-btn
           icon="power_settings_new"
           :label="loginLabel"
@@ -28,7 +41,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer class="bg-grey-8 text-white">
+    <q-footer id="mainFooter" class="bg-grey-8 text-white">
       <div class="q-gutter-y-md">
         <q-tabs
           indicator-color="transparent"
@@ -85,8 +98,12 @@ export default {
   name: "MainLayout",
   data() {
     return {
+      isMain: true,
+      isBackBtn: false,
+      titleLabel: "펜타폰",
       loginLabel: "로그인",
-      dialogFrom: "/main"
+      dialogFrom: "/main",
+      pageFrom: []
     };
   },
   mounted() {
@@ -103,16 +120,26 @@ export default {
         }
       } else {
         this.$store.commit("setLayer", { isLayer: false });
+        const matchedRoutes = this.$router.currentRoute.matched;
+        let routeIndex = matchedRoutes.length;
+        let labelExists = false;
+        while (!labelExists) {
+          routeIndex -= 1;
+          if (matchedRoutes[routeIndex].meta.titleLabel !== undefined) {
+            this.titleLabel = matchedRoutes[routeIndex].meta.titleLabel;
+            labelExists = true;
+          }
+        }
+        if (!from.path.includes("/layer") && !this.isBackBtn) {
+          this.pageFrom.push(from.path);
+        }
       }
-      if (to.path.includes("/price") && !to.path.includes("price/")) {
-        this.$router.push({ path: to.path + "/SKT" });
+      if (to.path.includes("/main")) {
+        this.isMain = true;
+      } else {
+        this.isMain = false;
       }
-      if (to.path.includes("/register") && !to.path.includes("register/")) {
-        this.$router.push({ path: to.path + "/SKT" });
-      }
-      if (to.path.includes("/customer") && !to.path.includes("customer/")) {
-        this.$router.push({ path: to.path + "/notice" });
-      }
+      this.isBackBtn = false;
     },
     notification(newNotification) {
       this.$q.notify(newNotification);
@@ -126,6 +153,14 @@ export default {
     }
   },
   methods: {
+    /** 백 버튼 클릭 이벤트 */
+    goBackBtn() {
+      console.log(this.pageFrom);
+      if (!this.isMain) {
+        this.isBackBtn = true;
+        this.$router.push({ path: this.pageFrom.pop() });
+      }
+    },
     /** 로그인 토글 */
     loginToggle() {
       if (!this.isLogin) {
@@ -169,7 +204,37 @@ export default {
       get() {
         return this.$store.getters.isAuth;
       }
+    },
+    leftBtnIcon: {
+      get() {
+        if (
+          this.isMain ||
+          (this.isLayer && this.dialogFrom.includes("/main"))
+        ) {
+          return "check_box_outline_blank";
+        }
+        return "arrow_back_ios";
+      }
+    },
+    leftBtnColor: {
+      get() {
+        if (
+          this.isMain ||
+          (this.isLayer && this.dialogFrom.includes("/main"))
+        ) {
+          return "primary";
+        }
+        return "white";
+      }
     }
   }
 };
 </script>
+<style>
+#mainFooter .q-tabs {
+  min-height: 5em;
+}
+#mainFooter .q-tab__label {
+  font-size: 0.8em;
+}
+</style>

@@ -34,7 +34,7 @@ export default function({ store /*, ssrContext*/ }) {
       if (route.meta.requiresAuth) {
         if (!store.getters.isAuth) {
           next({
-            path: "layer/login"
+            path: "/layer/login"
           });
           return;
         }
@@ -42,7 +42,28 @@ export default function({ store /*, ssrContext*/ }) {
 
       if (to.path === "/") {
         next({
-          path: "main"
+          path: "/main"
+        });
+        return;
+      }
+
+      if (to.path === "/price") {
+        next({
+          path: "/price/SKT"
+        });
+        return;
+      }
+
+      if (to.path === "/register") {
+        next({
+          path: "/register/SKT"
+        });
+        return;
+      }
+
+      if (to.path === "/customer") {
+        next({
+          path: "/customer/notice"
         });
         return;
       }
