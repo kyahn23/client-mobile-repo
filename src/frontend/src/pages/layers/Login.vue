@@ -5,10 +5,11 @@
     <q-form class="flex column fit" ref="loginForm" @submit.prevent="onLogin">
       <q-input
         v-model="userId"
-        placeholder="아이디 (이메일)"
+        label="아이디 (이메일)"
         rounded
         outlined
-        class="q-px-lg q-py-sm fit"
+        stack-label
+        class="q-px-lg q-pt-sm q-mb-xs fit"
         :rules="[
           $rules.required('아이디를 입력해주세요.'),
           $rules.email('올바른 이메일이 아닙니다.')
@@ -16,9 +17,10 @@
       />
       <q-input
         v-model="userPw"
-        placeholder="비밀번호"
+        label="비밀번호"
         rounded
         outlined
+        stack-label
         :type="isPwd ? 'password' : 'text'"
         class="q-px-lg q-py-sm fit"
         :rules="[$rules.required('비밀번호를 입력해주세요.')]"
