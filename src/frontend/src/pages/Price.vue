@@ -8,18 +8,18 @@
       style="z-index: 5000 !important;"
     >
       <q-tabs dense align="justify" class="bg-white text-black full-width">
-        <q-route-tab label="SKT" to="/price/SKT" />
-        <q-route-tab label="KT" to="/price/KT" />
-        <q-route-tab label="LGU+" to="/price/LGU" />
+        <q-route-tab label="SKT" to="/price/search/SKT" />
+        <q-route-tab label="KT" to="/price/search/KT" />
+        <q-route-tab label="LGU+" to="/price/search/LGU" />
       </q-tabs>
     </q-page-sticky>
-      <router-view />
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: "Price"
+  name: "PagePrice"
 };
 </script>
 <!--<style src="src/css/styles.css"></style>-->

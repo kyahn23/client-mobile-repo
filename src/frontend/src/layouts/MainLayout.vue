@@ -141,6 +141,7 @@ export default {
           !from.path.includes("/social") &&
           !from.path.includes("/verify") &&
           !from.path.includes("price/") &&
+          !from.path.includes("register/") &&
           !from.path.includes("ongoing/") &&
           !from.path.includes("waiting/") &&
           !from.path.includes("customer/") &&

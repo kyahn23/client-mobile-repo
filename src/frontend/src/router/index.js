@@ -49,14 +49,14 @@ export default function({ store /*, ssrContext*/ }) {
 
       if (to.path === "/price") {
         next({
-          path: "/price/SKT"
+          path: "/price/search/SKT"
         });
         return;
       }
 
       if (to.path === "/register") {
         next({
-          path: "/register/SKT"
+          path: "/register/form/SKT"
         });
         return;
       }

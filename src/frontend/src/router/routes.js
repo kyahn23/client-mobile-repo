@@ -23,17 +23,22 @@ const routes = [
         meta: { titleLabel: "최저가 조회" },
         children: [
           {
-            path: "SKT",
-            component: () => import("pages/price/SKT.vue")
-          },
-          {
-            path: "KT",
-            component: () => import("pages/price/KT.vue")
-          },
-          {
-            path: "LGU",
-            component: () => import("pages/price/LGU.vue")
+            path: "search/:carrier",
+            component: () => import("pages/PriceSearch.vue"),
+            props: true
           }
+          // {
+          //   path: "SKT",
+          //   component: () => import("pages/price/SKT.vue")
+          // },
+          // {
+          //   path: "KT",
+          //   component: () => import("pages/price/KT.vue")
+          // },
+          // {
+          //   path: "LGU",
+          //   component: () => import("pages/price/LGU.vue")
+          // }
         ]
       },
       {
@@ -132,16 +137,9 @@ const routes = [
         },
         children: [
           {
-            path: "SKT",
-            component: () => import("pages/register/SKT.vue")
-          },
-          {
-            path: "KT",
-            component: () => import("pages/register/KT.vue")
-          },
-          {
-            path: "LGU",
-            component: () => import("pages/price/LGU.vue")
+            path: "form/:carrier",
+            component: () => import("pages/RegisterForm.vue"),
+            props: true
           }
         ]
       },

@@ -431,14 +431,14 @@
         <template v-slot:navigation>
           <q-stepper-navigation
             class="no-margin no-padding fixed-bottom"
-            style="margin-bottom: 56px !important;"
+            style="margin-bottom: 70px !important;"
           >
             <q-btn
               v-if="step === 1"
               @click="$refs.stepper.next()"
               color="primary"
               padding="sm"
-              label="SKT 상담등록 시작하기 >>"
+              :label="carrLong + ' 상담등록 시작하기 >>'"
               class="full-width no-border-radius"
             >
             </q-btn>
@@ -493,12 +493,16 @@
 import { date } from "quasar";
 
 export default {
-  name: "LGU",
+  name: "PageRegisterForm",
+  props: {
+    carrier: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       step: 1,
-      carr: "L",
-      carrLong: "LGU",
       signType: null,
       signOpts: [
         { label: "신규가입", value: "newSign" },
@@ -566,6 +570,13 @@ export default {
     this.getMntRtList();
   },
   computed: {
+    /** 통신사 변수 */
+    carr() {
+      return this.carrier.charAt(0);
+    },
+    carrLong() {
+      return this.carrier;
+    },
     /** 현재 로그인 한 사용자 */
     currentUser: {
       get() {
