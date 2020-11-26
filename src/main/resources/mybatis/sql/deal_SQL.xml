@@ -109,11 +109,12 @@
                 AND B.PN_STOR = A.PN_STOR)
                 AS PN_MDL_NM
             , A.MNT_CARR
+            , A.PN_REG_DIS
             , (SELECT CD_NM
                 FROM TBL_CMMN_CD E
                 WHERE E.CD_VAL = A.PN_REG_DIS
                     AND E.CD_CATE = 'PN_REG_DIS')
-                AS PN_REG_DIS
+                AS PN_REG_DIS_TXT
             , (SELECT PN_MNT_RT_NM
                 FROM TBL010 C
                 WHERE C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)

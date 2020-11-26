@@ -20,7 +20,7 @@
           </div>
           <div class="row items-center" style="height: 1.6em;">
             <div class="col-4 text-subtitle2 text-weight-bold" style="font-size: 0.8em;">가입유형</div>
-            <div class="col" style="font-size: 0.8em;">{{ dealOne.pnRegDis }}</div>
+            <div class="col" style="font-size: 0.8em;">{{ dealOne.pnRegDisTxt }}</div>
           </div>
           <div class="row items-center" style="height: 100%;">
             <div class="col-4 text-subtitle2 text-weight-bold" style="font-size: 0.8em;">요금제</div>

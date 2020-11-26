@@ -36,7 +36,7 @@
               가입유형
             </div>
             <div class="col" style="font-size: 0.8em;">
-              {{ dealOne.pnRegDis }}
+              {{ dealOne.pnRegDisTxt }}
             </div>
           </div>
           <div class="row items-center" style="height: 100%;">
