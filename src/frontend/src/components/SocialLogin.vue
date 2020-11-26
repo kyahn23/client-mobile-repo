@@ -49,7 +49,7 @@ export default {
         message: "소셜계정으로 로그인 되었습니다.",
         caption: "서비스 이용을 위해 회원가입을 진행해주세요."
       });
-      this.$router.push({ path: "/signup" });
+      this.$router.push({ path: "/layer/signup" });
     } else {
       this.$router.push({ path: "/" });
     }

@@ -10,7 +10,7 @@
                 WHERE B.PN_MDL_NO = A.PN_MDL_NO
                 AND B.PN_STOR = A.PN_STOR)
                 AS PN_IMG
-            , (SELECT CONCAT(PN_MKR,' ',PN_MDL_NM)
+            , (SELECT CONCAT((SELECT X.CD_NM FROM TBL_CMMN_CD X WHERE X.CD_VAL = B.PN_MKR AND X.CD_CATE = 'PN_MKR'),' ',PN_MDL_NM)
                 FROM TBL011 B
                 WHERE B.PN_MDL_NO = A.PN_MDL_NO
                 AND B.PN_STOR = A.PN_STOR)
@@ -44,7 +44,11 @@
                     -(SELECT CAST((SELECT MAX(PN_EXT_SUBSD_RT) FROM `TBL007-C` D WHERE D.PN_MDL_NO = A.PN_MDL_NO AND D.PN_STOR = A.PN_STOR AND D.PN_MNT_RT_NO = A.PN_MNT_RT_NO AND D.AMD_DT = (SELECT MAX(AMD_DT) FROM `TBL007-C`)) AS UNSIGNED INTEGER))
                 END AS MIN_PRICE_RT
             , A.MNT_CARR
-            , A.PN_REG_DIS
+            , (SELECT CD_NM
+                FROM TBL_CMMN_CD E
+                WHERE E.CD_VAL = A.PN_REG_DIS
+                    AND E.CD_CATE = 'PN_REG_DIS')
+                AS PN_REG_DIS
             , (SELECT PN_MNT_RT_NM
                 FROM TBL010 C
                 WHERE C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
@@ -57,13 +61,17 @@
     <select id="dealDateList" parameterType="DevMap" resultType="DevMap">
         SELECT A.DEAL_NO
             , A.DEAL_DT
-            , (SELECT CONCAT(PN_MKR,' ',PN_MDL_NM)
+            , (SELECT CONCAT((SELECT X.CD_NM FROM TBL_CMMN_CD X WHERE X.CD_VAL = B.PN_MKR AND X.CD_CATE = 'PN_MKR'),' ',PN_MDL_NM)
                 FROM TBL011 B
                 WHERE B.PN_MDL_NO = A.PN_MDL_NO
                 AND B.PN_STOR = A.PN_STOR)
                 AS PN_MDL_NM
             , A.MNT_CARR
-            , A.PN_REG_DIS
+            , (SELECT CD_NM
+                FROM TBL_CMMN_CD E
+                WHERE E.CD_VAL = A.PN_REG_DIS
+                    AND E.CD_CATE = 'PN_REG_DIS')
+                AS PN_REG_DIS
             , (SELECT PN_MNT_RT_NM
                 FROM TBL010 C
                 WHERE C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)
@@ -95,13 +103,17 @@
                 WHERE B.PN_MDL_NO = A.PN_MDL_NO
                 AND B.PN_STOR = A.PN_STOR)
                 AS PN_IMG
-            , (SELECT CONCAT(PN_MKR,' ',PN_MDL_NM)
+            , (SELECT CONCAT((SELECT X.CD_NM FROM TBL_CMMN_CD X WHERE X.CD_VAL = B.PN_MKR AND X.CD_CATE = 'PN_MKR'),' ',PN_MDL_NM)
                 FROM TBL011 B
                 WHERE B.PN_MDL_NO = A.PN_MDL_NO
                 AND B.PN_STOR = A.PN_STOR)
                 AS PN_MDL_NM
             , A.MNT_CARR
-            , A.PN_REG_DIS
+            , (SELECT CD_NM
+                FROM TBL_CMMN_CD E
+                WHERE E.CD_VAL = A.PN_REG_DIS
+                    AND E.CD_CATE = 'PN_REG_DIS')
+                AS PN_REG_DIS
             , (SELECT PN_MNT_RT_NM
                 FROM TBL010 C
                 WHERE C.PN_MNT_RT_NO = A.PN_MNT_RT_NO)

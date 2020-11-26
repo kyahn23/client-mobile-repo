@@ -7,30 +7,46 @@
         ref="stepper"
         animated
         contracted
-        header-class="no-header">
+        header-class="no-header"
+      >
         <q-step
           class="no-padding no-margin"
-          :name="1" title="step 1" :done="step > 1"
-          style="min-height: 250px">
+          :name="1"
+          title="step 1"
+          :done="step > 1"
+          style="min-height: 250px"
+        >
           <div class="step1content">
             <!-- Your content goes here -->
             <div class="intro-bg q-px-md q-py-xs">
-              <p class="text-subtitle1 text-weight-bold">원하는 조건을 입력하시면</p>
               <p class="text-subtitle1 text-weight-bold">
-                <span style="color: cornflowerblue;">지역별 시세정보</span>와</p>
+                원하는 조건을 입력하시면
+              </p>
               <p class="text-subtitle1 text-weight-bold">
-                <span style="color: cornflowerblue;">상담</span>을 받으실 수 있습니다.</p>
+                <span style="color: cornflowerblue;">지역별 시세정보</span>와
+              </p>
+              <p class="text-subtitle1 text-weight-bold">
+                <span style="color: cornflowerblue;">상담</span>을 받으실 수
+                있습니다.
+              </p>
             </div>
             <div class="q-px-md">
-              <p class="text-body2 text-weight-medium"
-                 style="word-break: keep-all;">
-                이곳 저곳 방문하지 않고 간단한
-                조건 등록을 통해서 원하는 대리점을 추천해 드립니다.
+              <p
+                class="text-body2 text-weight-medium"
+                style="word-break: keep-all;"
+              >
+                이곳 저곳 방문하지 않고 간단한 조건 등록을 통해서 원하는
+                대리점을 추천해 드립니다.
               </p>
             </div>
             <div>
-              <div class="q-mx-md text-subtitle1 text-weight-bold">상담등록 절차</div>
-              <img class="full-width text-center q-pa-sm" src="/images/intro-icon2.png">
+              <div class="q-mx-md text-subtitle1 text-weight-bold">
+                상담등록 절차
+              </div>
+              <img
+                class="full-width text-center q-pa-sm"
+                src="/images/intro-icon2.png"
+              />
             </div>
           </div>
         </q-step>
@@ -39,36 +55,64 @@
           class="no-padding no-margin"
           :name="2"
           title="step2"
-          style="min-height: 250px">
+          style="min-height: 250px"
+        >
           <div class="step2content">
             <!-- Your content goes here -->
             <div class="q-px-md q-py-xs">
-              <p class="text-subtitle2 text-weight-bold no-margin">STEP 1. 가입유형</p>
+              <p class="text-subtitle2 text-weight-bold no-margin">
+                STEP 1. 가입유형
+              </p>
             </div>
 
             <div class="no-margin">
-              <img style="border-bottom: 2px solid lightgrey;" class="full-width text-center q-pa-sm"
-                   src="/images/step01-img1.png">
+              <img
+                style="border-bottom: 2px solid lightgrey;"
+                class="full-width text-center q-pa-sm"
+                src="/images/step01-img1.png"
+              />
             </div>
             <div class="q-ma-sm">
               <div class="row q-mb-sm">
-                <div class="col-3 items-center"><span class="text-subtitle2 text-weight-bold q-pl-sm">가입유형</span></div>
+                <div class="col-3 items-center">
+                  <span class="text-subtitle2 text-weight-bold q-pl-sm"
+                    >가입유형</span
+                  >
+                </div>
                 <div class="col-9 self-center">
-                  <q-radio class="text-caption q-mr-xs" style="width: 32%" dense size="xs"
-                           v-model="signType"
-                           val="newSign"
-                           label="신규가입"></q-radio>
-                  <q-radio class="text-caption q-mr-xs" style="width: 32%" dense size="xs"
-                           v-model="signType"
-                           val="moveCarr"
-                           label="번호이동"></q-radio>
-                  <q-radio class="text-caption" style="width: 32%" dense size="xs"
-                           v-model="signType" val="chgDev"
-                           label="기기변경"></q-radio>
+                  <q-radio
+                    class="text-caption q-mr-xs"
+                    style="width: 32%"
+                    dense
+                    size="xs"
+                    v-model="signType"
+                    val="newSign"
+                    label="신규가입"
+                  ></q-radio>
+                  <q-radio
+                    class="text-caption q-mr-xs"
+                    style="width: 32%"
+                    dense
+                    size="xs"
+                    v-model="signType"
+                    val="moveCarr"
+                    label="번호이동"
+                  ></q-radio>
+                  <q-radio
+                    class="text-caption"
+                    style="width: 32%"
+                    dense
+                    size="xs"
+                    v-model="signType"
+                    val="chgDev"
+                    label="기기변경"
+                  ></q-radio>
                 </div>
               </div>
               <div class="row q-mb-sm">
-                <span class="col-3 text-weight-bold self-center q-pl-sm">지원구분</span>
+                <span class="col-3 text-weight-bold self-center q-pl-sm"
+                  >지원구분</span
+                >
                 <q-select
                   class="col-9 self-center"
                   outlined
@@ -76,11 +120,14 @@
                   :options="saleOpts"
                   dense
                   emit-value
-                  map-options>
+                  map-options
+                >
                 </q-select>
               </div>
               <div class="row q-mb-sm">
-                <span class="col-3 text-weight-bold self-center q-pl-sm">요금제</span>
+                <span class="col-3 text-weight-bold self-center q-pl-sm"
+                  >요금제</span
+                >
                 <q-select
                   class="col-9 self-center"
                   outlined
@@ -88,7 +135,8 @@
                   :options="mntRtList"
                   dense
                   emit-value
-                  map-options>
+                  map-options
+                >
                 </q-select>
               </div>
             </div>
@@ -96,113 +144,176 @@
               <ul>
                 <li>
                   <span style="color: lightgray;">데이터 :</span>
-                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs">-</span>
-                  <span v-else class="q-pl-xs">{{ selectedMntRt.pnMntData }}</span>
+                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs"
+                    >-</span
+                  >
+                  <span v-else class="q-pl-xs">{{
+                    selectedMntRt.pnMntData
+                  }}</span>
                 </li>
                 <li>
                   <span style="color: lightgray;">음성 :</span>
-                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs">-</span>
-                  <span v-else class="q-pl-xs">{{ selectedMntRt.pnMntCall }}</span>
+                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs"
+                    >-</span
+                  >
+                  <span v-else class="q-pl-xs">{{
+                    selectedMntRt.pnMntCall
+                  }}</span>
                 </li>
                 <li>
                   <span style="color: lightgray;">문자 :</span>
-                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs">-</span>
-                  <span v-else class="q-pl-xs">{{ selectedMntRt.pnMntSms }}</span>
+                  <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs"
+                    >-</span
+                  >
+                  <span v-else class="q-pl-xs">{{
+                    selectedMntRt.pnMntSms
+                  }}</span>
                 </li>
               </ul>
             </div>
           </div>
         </q-step>
 
-        <q-step
-          :name="3"
-          title="step3"
-          style="min-height: 250px">
+        <q-step :name="3" title="step3" style="min-height: 250px">
           <div class="step3content">
             <!-- Your content goes here -->
             <div class="q-px-md q-py-xs">
-              <p class="text-subtitle2 text-weight-bold no-margin">STEP 2. 스마트폰 선택</p>
+              <p class="text-subtitle2 text-weight-bold no-margin">
+                STEP 2. 스마트폰 선택
+              </p>
             </div>
             <div class="no-margin">
-              <img style="border-bottom: 2px solid lightgrey;" class="full-width text-center q-pa-sm"
-                   src="/images/step02-img1.png">
+              <img
+                style="border-bottom: 2px solid lightgrey;"
+                class="full-width text-center q-pa-sm"
+                src="/images/step02-img1.png"
+              />
             </div>
             <div class="q-ma-sm">
               <div class="row q-mb-sm">
-                <span class="col-3 text-weight-bold self-center q-pl-sm">제조사</span>
+                <span class="col-3 text-weight-bold self-center q-pl-sm"
+                  >제조사</span
+                >
                 <q-select
-                  class="col-9 self-center" outlined
-                  v-model="pnMkr" :options="pnMkrList"
-                  dense emit-value map-options>
+                  class="col-9 self-center"
+                  outlined
+                  v-model="pnMkr"
+                  :options="pnMkrList"
+                  dense
+                  emit-value
+                  map-options
+                >
                 </q-select>
               </div>
               <div class="row q-mb-sm">
-                <span class="col-3 text-weight-bold self-center q-pl-sm">모델명</span>
+                <span class="col-3 text-weight-bold self-center q-pl-sm"
+                  >모델명</span
+                >
                 <q-select
-                  class="col-9 self-center" outlined
-                  v-model="selected" :options="phoneList"
-                  dense emit-value map-options>
+                  class="col-9 self-center"
+                  outlined
+                  v-model="selected"
+                  :options="phoneList"
+                  dense
+                  emit-value
+                  map-options
+                >
                 </q-select>
               </div>
             </div>
           </div>
-
         </q-step>
 
         <q-step
           class="no-border"
           :name="4"
           title="step4"
-          style="min-height: 200px">
+          style="min-height: 200px"
+        >
           <div class="page-content">
             <!-- Your content goes here -->
             <div class="q-px-md q-py-xs">
-              <p class="text-subtitle2 text-weight-bold no-margin">STEP 3. 기타 상담정보</p>
+              <p class="text-subtitle2 text-weight-bold no-margin">
+                STEP 3. 기타 상담정보
+              </p>
             </div>
             <div class="no-margin">
-              <img style="border-bottom: 2px solid lightgrey;"
-                   src="/images/step03-img1.png"
-                   class="full-width text-center q-pa-sm">
+              <img
+                style="border-bottom: 2px solid lightgrey;"
+                src="/images/step03-img1.png"
+                class="full-width text-center q-pa-sm"
+              />
             </div>
             <div class="q-ma-sm">
               <div class="flex row q-mb-sm fit">
-                <span class="col-3 text-weight-bold self-center text-caption text-center">희망 구매지역</span>
+                <span
+                  class="col-3 text-weight-bold self-center text-caption text-center"
+                  >희망 구매지역</span
+                >
                 <q-select
-                  class="col-5 self-center" outlined
+                  class="col-5 self-center"
+                  outlined
                   label="시/도"
-                  v-model="sido" :options="sidoOpt"
+                  v-model="sido"
+                  :options="sidoOpt"
                   option-value="cdVal"
                   option-label="cdNm"
-                  dense emit-value map-options>
+                  dense
+                  emit-value
+                  map-options
+                >
                 </q-select>
                 <q-select
-                  class="col-4 self-center q-pl-xs" outlined
+                  class="col-4 self-center q-pl-xs"
+                  outlined
                   label="시/군/구"
-                  v-model="sigg" :options="siggOpt"
+                  v-model="sigg"
+                  :options="siggOpt"
                   option-value="cdVal"
                   option-label="cdNm"
-                  dense emit-value map-options>
+                  dense
+                  emit-value
+                  map-options
+                >
                 </q-select>
               </div>
               <div class="row q-mb-sm">
-                <span class="col-3 text-weight-bold self-center text-caption text-center">예상 구매일</span>
-                <q-input class="col-9 self-center input-buy-date" outlined dense v-model="hopeDt" mask="date"
-                         :rules="['date']">
+                <span
+                  class="col-3 text-weight-bold self-center text-caption text-center"
+                  >예상 구매일</span
+                >
+                <q-input
+                  class="col-9 self-center input-buy-date"
+                  outlined
+                  dense
+                  v-model="hopeDt"
+                  mask="date"
+                  :rules="['date']"
+                >
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer">
-                      <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                        <q-date v-model="hopeDt" :options="calendarOpt">
-                          <div class="row items-center justify-end">
-                            <q-btn v-close-popup label="Close" color="primary" flat/>
-                          </div>
-                        </q-date>
+                      <q-popup-proxy
+                        ref="qDateProxy"
+                        transition-show="scale"
+                        transition-hide="scale"
+                        v-model="calendarPopup"
+                      >
+                        <q-date
+                          v-model="hopeDt"
+                          :options="calendarOpt"
+                          subtitle="​​​​​"
+                          title="예상 구매일"
+                          first-day-of-week="1"
+                        />
                       </q-popup-proxy>
                     </q-icon>
                   </template>
                 </q-input>
               </div>
               <div>
-                <span class="q-pl-sm text-caption text-weight-bold full-width">기타 요청사항</span>
+                <span class="q-pl-sm text-caption text-weight-bold full-width"
+                  >기타 요청사항</span
+                >
                 <q-input
                   style="height: 100px"
                   class="full-width"
@@ -210,8 +321,12 @@
                   outlined
                   type="textarea"
                   maxlength="30"
-                  :rules="[ val => val.length <= 30 || '요청사항은 30자 이내로 작성해주세요']"
-                  hint="요청사항은 30자 이내로 작성해주세요"/>
+                  :rules="[
+                    val =>
+                      val.length <= 30 || '요청사항은 30자 이내로 작성해주세요'
+                  ]"
+                  hint="요청사항은 30자 이내로 작성해주세요"
+                />
               </div>
             </div>
           </div>
@@ -220,21 +335,31 @@
           class="no-border"
           :name="5"
           title="step5"
-          style="min-height: 250px">
+          style="min-height: 250px"
+        >
           <div class="page-content">
             <!-- Your content goes here -->
             <div class="q-px-md q-py-xs">
-              <p class="text-subtitle2 text-weight-bold no-margin">FINAL. 상담등록 정보 확인/등록</p>
+              <p class="text-subtitle2 text-weight-bold no-margin">
+                FINAL. 상담등록 정보 확인/등록
+              </p>
             </div>
             <div class="no-margin">
-              <img style="border-bottom: 2px solid lightgrey;"
-                   src="/images/final-img1.png"
-                   class="full-width text-center q-pa-sm">
+              <img
+                style="border-bottom: 2px solid lightgrey;"
+                src="/images/final-img1.png"
+                class="full-width text-center q-pa-sm"
+              />
             </div>
             <div class="q-pa-sm">
               <table style="width: 100%; border-spacing: 0px;">
                 <tr style="height: 2.5rem">
-                  <th class="bg-blue-1" style="width: 40%; border-top: 2px solid lightgrey;">통신사</th>
+                  <th
+                    class="bg-blue-1"
+                    style="width: 40%; border-top: 2px solid lightgrey;"
+                  >
+                    통신사
+                  </th>
                   <td style="width: 60%; border-top: 2px solid lightgrey;;">
                     <span class="q-pl-md">{{ carrLong }}</span>
                   </td>
@@ -272,17 +397,26 @@
                   </td>
                 </tr>
                 <tr style="height: 2.5rem;">
-                  <th class="bg-blue-1" style="width: 40%; border-bottom: 2px solid lightgrey;">예상 구매일</th>
+                  <th
+                    class="bg-blue-1"
+                    style="width: 40%; border-bottom: 2px solid lightgrey;"
+                  >
+                    예상 구매일
+                  </th>
                   <td style="width: 60%; border-bottom: 2px solid lightgrey;">
                     <span class="q-pl-md">{{ hopeDt }}</span>
                   </td>
                 </tr>
               </table>
+
               <div class="q-my-xs" style="margin-bottom: 40px">
-                <span class="q-mt-sm q-pl-sm text-weight-bold full-width">기타 요청사항</span>
+                <span class="q-mt-sm q-pl-sm text-weight-bold full-width"
+                  >기타 요청사항</span
+                >
                 <p
                   style="height: 60px; border: 1px solid lightgrey; border-radius: 5px"
-                  class="full-width text-caption q-pa-xs q-mb-lg">
+                  class="full-width text-caption q-pa-xs q-mb-lg"
+                >
                   {{ etc }}
                 </p>
               </div>
@@ -291,45 +425,58 @@
         </q-step>
 
         <template v-slot:navigation>
-          <q-stepper-navigation class="no-margin no-padding fixed-bottom" style="margin-bottom: 56px !important;">
-            <q-btn v-if="step === 1"
-                   @click="$refs.stepper.next()"
-                   color="primary"
-                   padding="sm"
-                   label="SKT 상담등록 시작하기 >>"
-                   class="full-width no-border-radius">
+          <q-stepper-navigation
+            class="no-margin no-padding fixed-bottom"
+            style="margin-bottom: 56px !important;"
+          >
+            <q-btn
+              v-if="step === 1"
+              @click="$refs.stepper.next()"
+              color="primary"
+              padding="sm"
+              label="SKT 상담등록 시작하기 >>"
+              class="full-width no-border-radius"
+            >
             </q-btn>
-            <q-btn v-if="step === 2"
-                   class="no-border-radius"
-                   color="grey"
-                   padding="sm"
-                   @click="$refs.stepper.previous()"
-                   label="취소"
-                   style="width: 30%">
+            <q-btn
+              v-if="step === 2"
+              class="no-border-radius"
+              color="grey"
+              padding="sm"
+              @click="$refs.stepper.previous()"
+              label="취소"
+              style="width: 30%"
+            >
             </q-btn>
-            <q-btn v-if="step > 2"
-                   class="no-border-radius"
-                   color="grey"
-                   padding="sm"
-                   @click="$refs.stepper.previous()"
-                   label="이전"
-                   style="width: 30%">
+            <q-btn
+              v-if="step > 2"
+              class="no-border-radius"
+              color="grey"
+              padding="sm"
+              @click="$refs.stepper.previous()"
+              label="이전"
+              style="width: 30%"
+            >
             </q-btn>
-            <q-btn v-if="step < 5 && step !== 1"
-                   class="no-border-radius"
-                   @click="nextStep"
-                   label="다음"
-                   padding="sm"
-                   color="primary"
-                   style="width: 70%">
+            <q-btn
+              v-if="step < 5 && step !== 1"
+              class="no-border-radius"
+              @click="nextStep"
+              label="다음"
+              padding="sm"
+              color="primary"
+              style="width: 70%"
+            >
             </q-btn>
-            <q-btn v-if="step === 5"
-                   class="no-border-radius"
-                   @click="registerCs"
-                   label="등록하기 >>"
-                   padding="sm"
-                   color="primary"
-                   style="width: 70%">
+            <q-btn
+              v-if="step === 5"
+              class="no-border-radius"
+              @click="registerCs"
+              label="등록하기 >>"
+              padding="sm"
+              color="primary"
+              style="width: 70%"
+            >
             </q-btn>
           </q-stepper-navigation>
         </template>
@@ -339,7 +486,7 @@
 </template>
 
 <script>
-import {date} from 'quasar'
+import { date } from "quasar";
 
 export default {
   name: "KT",
@@ -347,111 +494,116 @@ export default {
     return {
       step: 1,
       carr: "K",
-      carrLong: 'KT',
+      carrLong: "KT",
       signType: null,
       signOpts: [
-        {label: "신규가입", value: "newSign"},
-        {label: "번호이동", value: "moveCarr"},
-        {label: "기기변경", value: "chgDev"}
+        { label: "신규가입", value: "newSign" },
+        { label: "번호이동", value: "moveCarr" },
+        { label: "기기변경", value: "chgDev" }
       ],
-      saleType: 'all',
+      saleType: "all",
       saleOpts: [
-        {label: "선택", value: "all"},
-        {label: "공시지원", value: "ofclDv"},
-        {label: "요금할인", value: "ofclRt"}
+        { label: "선택", value: "all" },
+        { label: "공시지원", value: "ofclDv" },
+        { label: "요금할인", value: "ofclRt" }
       ],
-      selectedMntRt: {label: '선택', pnMntRtNo: 'all'},
+      selectedMntRt: { label: "선택", pnMntRtNo: "all" },
       mntRtList: [],
       pnMkr: "all",
       pnMkrList: [
-        {label: "선택", value: "all"},
-        {label: "삼성전자", value: "SAM"},
-        {label: "LG전자", value: "LGE"},
-        {label: "애플", value: "APP"},
-        {label: "샤오미", value: "XIA"}
+        { label: "선택", value: "all" },
+        { label: "삼성전자", value: "SAM" },
+        { label: "LG전자", value: "LGE" },
+        { label: "애플", value: "APP" },
+        { label: "샤오미", value: "XIA" }
       ],
-      selected: {label: '선택', pnMdlNo: 'all'},
+      selected: { label: "선택", pnMdlNo: "all" },
       phoneList: [],
       sido: null,
       sidoOpt: [],
       sigg: null,
-      siggOpt: [
-        {cdNm: "선택", cdVal: "all"}
-      ],
-      hopeDt: '',
-      etc: '',
+      siggOpt: [{ cdNm: "선택", cdVal: "all" }],
+      hopeDt: "",
+      etc: "",
+      calendarPopup: false
     };
   },
   watch: {
-    pnMkr: function (newValue, oldValue) {
+    pnMkr: function(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.selected = {
-          label: '선택',
-          pnMdlNo: 'all'
-        }
-        this.phoneList = []
-        this.getPhoneList()
+          label: "선택",
+          pnMdlNo: "all"
+        };
+        this.phoneList = [];
+        this.getPhoneList();
       }
     },
-    step: function (value) {
+    step: function(value) {
       if (value === 3) {
-        this.getSido()
+        this.getSido();
       }
     },
     sido(newSido) {
-      if (this.sido === 'all') {
-        this.sigg = 'all'
-        this.siggOpt = [{cdNm: "선택", cdVal: "all"}]
+      if (this.sido === "all") {
+        this.sigg = "all";
+        this.siggOpt = [{ cdNm: "선택", cdVal: "all" }];
       } else {
         this.getSigg(newSido);
       }
     }
   },
   mounted() {
-    this.getMntRtList()
+    this.getMntRtList();
   },
   computed: {
-    signTypeLabel() {
-      let signlabel = ''
-      switch (this.signType) {
-        case 'newSign':
-          signlabel = '신규가입'
-          break
-        case 'moveCarr':
-          signlabel = '번호이동'
-          break
-        case 'chgDev':
-          signlabel = '기기변경'
-          break
+    /** 현재 로그인 한 사용자 */
+    currentUser: {
+      get() {
+        return this.$store.getters.currentUser;
       }
-      return signlabel
+    },
+    signTypeLabel() {
+      let signlabel = "";
+      switch (this.signType) {
+        case "newSign":
+          signlabel = "신규가입";
+          break;
+        case "moveCarr":
+          signlabel = "번호이동";
+          break;
+        case "chgDev":
+          signlabel = "기기변경";
+          break;
+      }
+      return signlabel;
     },
     saleTypeLabel() {
-      let salelabel = ''
+      let salelabel = "";
       for (let n in this.saleOpts) {
         if (this.saleOpts[n].value === this.saleType) {
-          salelabel = this.saleOpts[n].label
+          salelabel = this.saleOpts[n].label;
         }
       }
-      return salelabel
+      return salelabel;
     },
     sidolabel() {
-      let sido = ''
+      let sido = "";
       for (let n in this.sidoOpt) {
         if (this.sidoOpt[n].cdVal === this.sido) {
-          sido = this.sidoOpt[n].cdNm
+          sido = this.sidoOpt[n].cdNm;
         }
       }
-      return sido
+      return sido;
     },
     sigglabel() {
-      let sigg = ''
+      let sigg = "";
       for (let n in this.siggOpt) {
         if (this.siggOpt[n].cdVal === this.sigg) {
-          sigg = this.siggOpt[n].cdNm
+          sigg = this.siggOpt[n].cdNm;
         }
       }
-      return sigg
+      return sigg;
     },
     currentUser: {
       get() {
@@ -463,23 +615,27 @@ export default {
     getMntRtList() {
       let param = {
         mntCarr: this.carrLong
-      }
+      };
       this.$cf.call(
         process.env.API + "/api/regCounsel/mntRtList",
         param,
         this.getMntRtListCB,
         false
-      )
+      );
     },
     getMntRtListCB(response) {
       const obj = {
-        label: '선택',
-        pnMntRtNo: 'all'
-      }
-      this.mntRtList.push(obj)
+        label: "선택",
+        pnMntRtNo: "all"
+      };
+      this.mntRtList.push(obj);
       for (let n in response.mntRtList) {
-        response.mntRtList[n].label = response.mntRtList[n].pnMntRtNm.concat(" ", Number(response.mntRtList[n].pnMntAmt).toLocaleString(), "원")
-        this.mntRtList.push(response.mntRtList[n])
+        response.mntRtList[n].label = response.mntRtList[n].pnMntRtNm.concat(
+          " ",
+          Number(response.mntRtList[n].pnMntAmt).toLocaleString(),
+          "원"
+        );
+        this.mntRtList.push(response.mntRtList[n]);
       }
     },
     getPhoneList() {
@@ -487,118 +643,118 @@ export default {
         mntCarr: this.carr,
         pnMkr: this.pnMkr,
         pnNetType: this.selectedMntRt.pnNetType
-      }
+      };
       this.$cf.call(
         process.env.API + "/api/regCounsel/phoneList",
         param,
         this.getPhoneListCB,
         false
-      )
+      );
     },
     getPhoneListCB(response) {
       const obj = {
-        label: '선택',
-        pnMdlNo: 'all'
-      }
-      this.phoneList.push(obj)
+        label: "선택",
+        pnMdlNo: "all"
+      };
+      this.phoneList.push(obj);
       for (let n in response.phoneList) {
-        this.phoneList.push(response.phoneList[n])
+        this.phoneList.push(response.phoneList[n]);
       }
     },
     nextStep() {
       // step 1 은 상담 등록 시작화면
       switch (this.step) {
-        case 1 :
-        case 2 :
-          let step2Chk = false
+        case 1:
+        case 2:
+          let step2Chk = false;
           if (this.signType === null) {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "가입유형을 선택해주세요."
             });
-            step2Chk = true
-          } else if (this.saleType === 'all') {
+            step2Chk = true;
+          } else if (this.saleType === "all") {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "지원구분을 선택해주세요."
             });
-            step2Chk = true
-          } else if (this.selectedMntRt.pnMntRtNo === 'all') {
+            step2Chk = true;
+          } else if (this.selectedMntRt.pnMntRtNo === "all") {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "요금제를 선택해주세요."
             });
-            step2Chk = true
+            step2Chk = true;
           }
           if (!step2Chk) {
             this.$refs.stepper.next();
           }
-          break
-        case 3 :
-          let step3Chk = false
-          if (this.pnMkr === 'all') {
+          break;
+        case 3:
+          let step3Chk = false;
+          if (this.pnMkr === "all") {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "제조사를 선택해주세요."
             });
-            step3Chk = true
-          } else if (this.selected.pnMdlNo === 'all') {
+            step3Chk = true;
+          } else if (this.selected.pnMdlNo === "all") {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "스마트폰을 선택해주세요."
             });
-            step3Chk = true
+            step3Chk = true;
           }
           if (!step3Chk) {
             this.$refs.stepper.next();
           }
-          break
-        case 4 :
-          let step4Chk = false
-          if (this.sido === 'all' || this.sido === null) {
+          break;
+        case 4:
+          let step4Chk = false;
+          if (this.sido === "all" || this.sido === null) {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "시/도를 선택해주세요."
             });
-            step4Chk = true
-          } else if (this.sigg === 'all' || this.sigg === null) {
+            step4Chk = true;
+          } else if (this.sigg === "all" || this.sigg === null) {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "시/군/구를 선택해주세요."
             });
-            step4Chk = true
-          } else if (this.hopeDt === '') {
+            step4Chk = true;
+          } else if (this.hopeDt === "") {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "예상구매일을 선택해주세요."
             });
-            step4Chk = true
-          } else if (this.etc === '') {
+            step4Chk = true;
+          } else if (this.etc === "") {
             this.$store.commit("setNotification", {
               color: "grey-8",
               textColor: "white",
               message: "기타요청사항을 작성해주세요."
             });
-            step4Chk = true
+            step4Chk = true;
           }
           if (!step4Chk) {
             this.$refs.stepper.next();
           }
-          break
+          break;
       }
     },
     calendarOpt(dt) {
-      let timeStamp = Date.now()
-      let formattedString = date.formatDate(timeStamp, 'YYYY/MM/DD')
-      return dt >= formattedString
+      let timeStamp = Date.now();
+      let formattedString = date.formatDate(timeStamp, "YYYY/MM/DD");
+      return dt >= formattedString;
     },
     getSido() {
       this.$cf.call(
@@ -610,33 +766,33 @@ export default {
     },
     sidoCb(response) {
       const obj = {
-        cdNm: '선택',
-        cdVal: 'all'
-      }
-      this.sidoOpt.push(obj)
+        cdNm: "선택",
+        cdVal: "all"
+      };
+      this.sidoOpt.push(obj);
       for (let n in response.sidoList) {
-        this.sidoOpt.push(response.sidoList[n])
+        this.sidoOpt.push(response.sidoList[n]);
       }
     },
     /** 시군구 list 호출 함수 */
     getSigg(sidoCd) {
       this.$cf.call(
         process.env.API + "/api/common/sigg",
-        {sidoCd: sidoCd},
+        { sidoCd: sidoCd },
         this.siggCb,
         false
       );
     },
     /** 시군구 list 콜백 함수 */
     siggCb(response) {
-      this.siggOpt = []
+      this.siggOpt = [];
       const obj = {
-        cdNm: '선택',
-        cdVal: 'all'
-      }
-      this.siggOpt.push(obj)
+        cdNm: "선택",
+        cdVal: "all"
+      };
+      this.siggOpt.push(obj);
       for (let n in response.siggList) {
-        this.siggOpt.push(response.siggList[n])
+        this.siggOpt.push(response.siggList[n]);
       }
     },
     registerCs() {
@@ -650,36 +806,36 @@ export default {
         dealLoc: this.sidolabel.concat(" ", this.sigglabel),
         dealDt: this.hopeDt.replaceAll("/", ""),
         dealReq: this.etc,
-        clMbrId: 'test@test.com' /* 로그인아이디 store get */
-      }
+        clMbrId: this.currentUser
+      };
       this.$cf.call(
         process.env.API + "/api/regCounsel/registerCs",
         param,
         this.registerCsCB,
         false
-      )
+      );
     },
     registerCsCB() {
-      this.step = 1
-      this.signType = null
-      this.saleType = 'all'
-      this.selectedMntRt = {label: '선택', pnMntRtNo: 'all'}
-      this.mntRtList = []
-      this.pnMkr = 'all'
-      this.phoneList = []
-      this.selected = {label: '선택', pnMdlNo: 'all'}
-      this.sido = null
-      this.sidoOpt = []
-      this.sigg = null
-      this.siggOpt = [{cdNm: "선택", cdVal: "all"}]
-      this.hopeDt = ''
-      this.etc = ''
+      this.step = 1;
+      this.signType = null;
+      this.saleType = "all";
+      this.selectedMntRt = { label: "선택", pnMntRtNo: "all" };
+      this.mntRtList = [];
+      this.pnMkr = "all";
+      this.phoneList = [];
+      this.selected = { label: "선택", pnMdlNo: "all" };
+      this.sido = null;
+      this.sidoOpt = [];
+      this.sigg = null;
+      this.siggOpt = [{ cdNm: "선택", cdVal: "all" }];
+      this.hopeDt = "";
+      this.etc = "";
 
       // 상담등록 후 상담현황으로 이동
-      this.$router.push({path: "/status"});
+      this.$router.push({ path: "/status" });
     }
   }
-}
+};
 </script>
 <style>
 .no-header {

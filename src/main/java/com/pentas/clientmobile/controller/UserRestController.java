@@ -80,10 +80,11 @@ public class UserRestController {
     @PostMapping("/update")
     public DevMap update(@RequestBody DevMap param) {
         String email = param.getString("email");
+        Boolean sociallogin = param.getBoolean("sociallogin");
         String password = param.getString("oldPassword");
         int rowCount = 0;
 
-        if (userService.isLoginAllowed(email, password)) {
+        if (sociallogin || userService.isLoginAllowed(email, password)) {
             rowCount = userService.updateUserInfo(param);
         }
 

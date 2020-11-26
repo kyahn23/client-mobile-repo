@@ -160,12 +160,17 @@ export default {
     },
     /** 변경하기 버튼 클릭 이벤트 */
     onSubmit() {
-      if (!this.$cf.isEmpty(this.oldPassword)) {
+      if (this.isSocialLogin === false && !this.$cf.isEmpty(this.oldPassword)) {
+        return;
+      } else {
         this.$store.commit("setLoading", { isLoading: true });
         let param = {
           email: this.currentUser,
-          oldPassword: sha256(this.oldPassword).toString()
+          sociallogin: this.isSocialLogin
         };
+        if (!this.$cf.isEmpty(this.oldPassword)) {
+          param.oldPassword = sha256(this.oldPassword).toString();
+        }
         if (this.oldName !== this.memberName) {
           param.memberName = this.memberName;
         }
@@ -206,8 +211,7 @@ export default {
     /** 현재 로그인 한 사용자 */
     currentUser: {
       get() {
-        // return this.$store.getters.currentUser;
-        return "kimdevtest@naver.com";
+        return this.$store.getters.currentUser;
       }
     }
   }

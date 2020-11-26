@@ -284,9 +284,9 @@ export default {
         let warningCaption = "";
         for (let n in warningItems) {
           if (parseInt(n, 10) === 0) {
-            warningCaption += this.warningItems[n];
+            warningCaption += warningItems[n];
           } else {
-            warningCaption += ", " + this.warningItems[n];
+            warningCaption += ", " + warningItems[n];
           }
         }
         this.$store.commit("setNotification", {
