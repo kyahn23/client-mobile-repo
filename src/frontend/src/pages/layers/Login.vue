@@ -46,6 +46,7 @@
       <q-btn
         unelevated
         rounded
+        outline
         color="black"
         label="회원가입"
         to="/layer/signup"
@@ -54,6 +55,7 @@
         unelevated
         rounded
         color="primary"
+        icon="app:google"
         label="구글 로그인"
         type="a"
         :href="oAuthUrl('google')"
@@ -62,6 +64,8 @@
         unelevated
         rounded
         color="positive"
+        icon="app:naver"
+        id="naverLoginBtn"
         label="네이버 로그인"
         type="a"
         :href="oAuthUrl('naver')"
@@ -71,6 +75,7 @@
         rounded
         color="amber"
         text-color="black"
+        icon="app:kakao"
         label="카카오 로그인"
         type="a"
         :href="oAuthUrl('kakao')"
@@ -180,3 +185,8 @@ export default {
   }
 };
 </script>
+<style>
+#naverLoginBtn .q-icon {
+  font-size: 1.4em;
+}
+</style>
