@@ -164,7 +164,7 @@ export default {
         return;
       } else if (response.rsltStat === "SUCC") {
         this.$store.commit("setAuth", { isAuth: true });
-        this.$store.commit("setCurrentUser", { currentUser: this.email });
+        this.$store.commit("setCurrentUser", { currentUser: this.userId });
         this.$store.commit("setNotification", {
           color: "primary",
           textColor: "white",
