@@ -51,7 +51,8 @@ export default {
   },
   methods: {
     goToList() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({ path: "/customer/notice" });
     },
     getNoticeInfo() {
       this.$cf.call(

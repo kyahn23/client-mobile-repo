@@ -35,7 +35,6 @@
                 <q-icon
                   name="chevron_right"
                   size="sm"
-                  @click="noticeClick(1)"
                 />
               </q-item-label>
             </q-item-section>
