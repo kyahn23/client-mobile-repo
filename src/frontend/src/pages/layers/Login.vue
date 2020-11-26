@@ -50,7 +50,8 @@
         rounded
         outline
         color="black"
-        label="회원가입"
+        icon="mail"
+        label="이메일로 회원가입"
         to="/layer/signup"
       />
       <q-btn
