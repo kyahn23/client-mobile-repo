@@ -113,9 +113,15 @@ export default {
   },
   watch: {
     $route(to, from) {
+      console.log("from: " + from.path);
+      console.log("to: " + to.path);
       if (to.path.includes("/layer")) {
         this.$store.commit("setLayer", { isLayer: true });
-        if (!from.path.includes("/layer")) {
+        if (
+          !from.path.includes("/layer") &&
+          !from.path.includes("/social") &&
+          !from.path.includes("/verify")
+        ) {
           this.dialogFrom = from.path;
         }
       } else {
@@ -130,7 +136,16 @@ export default {
             labelExists = true;
           }
         }
-        if (!from.path.includes("/layer") && !this.isBackBtn) {
+        if (
+          !from.path.includes("/layer") &&
+          !from.path.includes("/social") &&
+          !from.path.includes("/verify") &&
+          !from.path.includes("price/") &&
+          !from.path.includes("ongoing/") &&
+          !from.path.includes("waiting/") &&
+          !from.path.includes("customer/") &&
+          !this.isBackBtn
+        ) {
           this.pageFrom.push(from.path);
         }
       }
@@ -155,7 +170,6 @@ export default {
   methods: {
     /** 백 버튼 클릭 이벤트 */
     goBackBtn() {
-      console.log(this.pageFrom);
       if (!this.isMain) {
         this.isBackBtn = true;
         this.$router.push({ path: this.pageFrom.pop() });

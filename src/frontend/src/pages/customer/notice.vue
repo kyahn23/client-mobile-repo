@@ -13,7 +13,11 @@
       <q-separator />
       <q-infinite-scroll @load="onScrollLoad" :offset="110">
         <!--        <div v-for="(dealOne, index) in dealList" :key="index">-->
-        <div v-for="notice in noticeList" @click="noticeClick(notice.ntcId)">
+        <div
+          v-for="(notice, index) in noticeList"
+          :key="index"
+          @click="noticeClick(notice.ntcId)"
+        >
           <q-item>
             <q-item-section class="q-py-xs">
               <q-item-label class="text-subtitle2 text-weight-bold" lines="1">
@@ -32,10 +36,7 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label>
-                <q-icon
-                  name="chevron_right"
-                  size="sm"
-                />
+                <q-icon name="chevron_right" size="sm" />
               </q-item-label>
             </q-item-section>
           </q-item>
