@@ -555,6 +555,11 @@ export default {
       } else {
         this.getSigg(newSido);
       }
+    },
+    hopeDt(newDt) {
+      if (!this.$cf.isEmpty(newDt)) {
+        this.calendarPopup = false;
+      }
     }
   },
   mounted() {
