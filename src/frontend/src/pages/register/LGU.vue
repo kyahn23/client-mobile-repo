@@ -230,7 +230,7 @@
           title="step4"
           style="min-height: 200px"
         >
-          <div class="page-content">
+          <div class="page-content q-mb-xl">
             <!-- Your content goes here -->
             <div class="q-px-md q-py-xs">
               <p class="text-subtitle2 text-weight-bold no-margin">
@@ -245,15 +245,16 @@
               />
             </div>
             <div class="q-ma-sm">
-              <div class="flex row q-mb-sm fit">
-                <span
-                  class="col-3 text-weight-bold self-center text-caption text-center"
+              <div class="flex row q-ml-xs q-mb-xs fit">
+                <span class="text-weight-bold text-caption text-left"
                   >희망 구매지역</span
                 >
+              </div>
+              <div class="flex row q-mb-md fit">
                 <q-select
-                  class="col-5 self-center"
+                  class="col-6 self-center"
                   outlined
-                  label="시/도"
+                  label="특별시도"
                   v-model="sido"
                   :options="sidoOpt"
                   option-value="cdVal"
@@ -264,9 +265,9 @@
                 >
                 </q-select>
                 <q-select
-                  class="col-4 self-center q-pl-xs"
+                  class="col-6 self-center q-pl-xs"
                   outlined
-                  label="시/군/구"
+                  label="시군구"
                   v-model="sigg"
                   :options="siggOpt"
                   option-value="cdVal"
@@ -277,13 +278,14 @@
                 >
                 </q-select>
               </div>
-              <div class="row q-mb-sm">
-                <span
-                  class="col-3 text-weight-bold self-center text-caption text-center"
+              <div class="row q-ml-xs q-mb-xs">
+                <span class="text-weight-bold text-caption text-left"
                   >예상 구매일</span
                 >
+              </div>
+              <div class="row q-mb-md">
                 <q-input
-                  class="col-9 self-center input-buy-date"
+                  class="col self-center input-buy-date"
                   outlined
                   dense
                   v-model="hopeDt"
@@ -311,9 +313,11 @@
                 </q-input>
               </div>
               <div>
-                <span class="q-pl-sm text-caption text-weight-bold full-width"
-                  >기타 요청사항</span
-                >
+                <div class="q-ml-xs">
+                  <span class="text-caption text-weight-bold full-width"
+                    >기타 요청사항</span
+                  >
+                </div>
                 <q-input
                   style="height: 100px"
                   class="full-width"
