@@ -4,7 +4,11 @@
 export default {
   name: "VerifyEmail",
   props: {
-    mail: {
+    mbr: {
+      type: String,
+      required: true
+    },
+    cue: {
       type: String,
       required: true
     }
@@ -16,7 +20,10 @@ export default {
     verifyMail() {
       this.$cf.call(
         process.env.API + "/api/auth/verify",
-        { email: this.mail },
+        {
+          mbr: this.mbr,
+          cue: this.cue
+        },
         this.verifyCb,
         true
       );

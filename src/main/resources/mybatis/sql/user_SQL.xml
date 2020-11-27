@@ -34,10 +34,29 @@
         WHERE CL_MBR_ID = #{email}
     </update>
 
+    <update id="setAuthKey" parameterType="DevMap">
+        UPDATE TBL001
+        SET AMD_DT = SYSDATE()
+            ,AUTH_KEY = #{authKey}
+        WHERE CL_MBR_ID = #{email}
+            AND SNS_LOGIN_YN = 'N'
+    </update>
+
+    <select id="getEmailByAuthKey" parameterType="string" resultType="string">
+        SELECT CL_MBR_ID
+        FROM TBL001
+        WHERE AUTH_KEY = #{authKey}
+            AND SNS_LOGIN_YN = 'N'
+            AND AUTH_YN = 'N'
+    </select>
+
     <update id="verifyEmail" parameterType="string">
         UPDATE TBL001
-        SET AUTH_YN = 'Y'
+        SET AMD_DT = SYSDATE()
+            ,AUTH_YN = 'Y'
+            ,AUTH_KEY = NULL
         WHERE CL_MBR_ID = #{email}
+            AND SNS_LOGIN_YN = 'N'
     </update>
 
 </mapper>

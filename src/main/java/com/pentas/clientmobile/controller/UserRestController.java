@@ -1,9 +1,11 @@
 package com.pentas.clientmobile.controller;
 
+import com.pentas.clientmobile.common.module.util.CmmnUtil;
 import com.pentas.clientmobile.common.module.util.DevMap;
 import com.pentas.clientmobile.dto.UserSaveRequestDto;
 import com.pentas.clientmobile.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +26,23 @@ public class UserRestController {
     public DevMap signup(@RequestBody UserSaveRequestDto requestDto) {
         String rsltStat = "FAIL";
         char isSocialLogin = requestDto.getIsSocialLogin();
-        if (isSocialLogin != 'Y') {
-            userService.sendNewMemberEmail(requestDto.getMemberId(), requestDto.getMemberNickname());
-        }
         String rsltId = userService.save(requestDto);
+
         if (rsltId != null && !rsltId.isEmpty()) {
             rsltStat = "SUCC";
+            if (isSocialLogin != 'Y') {
+                DevMap param = new DevMap();
+                String authKey = RandomStringUtils.randomAlphanumeric(8, 64);
+                authKey = CmmnUtil.encryptSHA256(authKey);
+                param.put("authKey", authKey);
+                param.put("email", requestDto.getMemberId());
+                param.put("nickname", requestDto.getMemberNickname());
+                int rowCount = 0;
+                rowCount = userService.setAuthKey(param);
+                if (rowCount <= 0) {
+                    rsltStat = "FAIL";
+                }
+            }
         }
 
         DevMap result = new DevMap();
@@ -62,10 +75,15 @@ public class UserRestController {
     @PostMapping("/verify")
     public DevMap verify(@RequestBody DevMap param) {
         DevMap result = new DevMap();
-        String email = param.getString("email");
-        if (userService.isRegisteredUser(email)) {
+        String email = "";
+        String hashEmail = param.getString("mbr");
+        String authKey = param.getString("cue");
+
+        email = userService.getEmailByAuthKey(authKey);
+        if (hashEmail.equals(CmmnUtil.encryptSHA256(email))) {
             userService.verifyEmail(email);
         }
+
         result.put("success", "Y");
         return result;
     }

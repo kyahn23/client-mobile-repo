@@ -27,18 +27,6 @@ const routes = [
             component: () => import("pages/PriceSearch.vue"),
             props: true
           }
-          // {
-          //   path: "SKT",
-          //   component: () => import("pages/price/SKT.vue")
-          // },
-          // {
-          //   path: "KT",
-          //   component: () => import("pages/price/KT.vue")
-          // },
-          // {
-          //   path: "LGU",
-          //   component: () => import("pages/price/LGU.vue")
-          // }
         ]
       },
       {
@@ -183,7 +171,10 @@ const routes = [
       {
         path: "verify",
         component: () => import("components/VerifyEmail.vue"),
-        props: route => ({ mail: route.query.mail })
+        props: route => ({
+          mbr: route.query.mbr,
+          cue: route.query.cue
+        })
       }
     ]
   },
