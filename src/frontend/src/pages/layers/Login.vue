@@ -48,8 +48,7 @@
       <q-btn
         unelevated
         rounded
-        outline
-        color="black"
+        color="primary"
         icon="mail"
         label="이메일로 회원가입"
         to="/layer/signup"
@@ -57,7 +56,8 @@
       <q-btn
         unelevated
         rounded
-        color="primary"
+        outline
+        color="black"
         icon="app:google"
         label="구글 로그인"
         type="a"

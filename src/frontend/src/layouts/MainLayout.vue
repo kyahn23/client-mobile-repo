@@ -113,8 +113,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log("from: " + from.path);
-      console.log("to: " + to.path);
       if (to.path.includes("/layer")) {
         this.$store.commit("setLayer", { isLayer: true });
         if (
