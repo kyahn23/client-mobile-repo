@@ -1,10 +1,7 @@
 package com.pentas.clientmobile.service;
 
 import com.pentas.clientmobile.common.CmmnDao;
-import com.pentas.clientmobile.common.conf.properties.EmailProperties;
-import com.pentas.clientmobile.common.module.util.CmmnUtil;
 import com.pentas.clientmobile.common.module.util.DevMap;
-import com.pentas.clientmobile.common.module.util.email.EmailUtil;
 import com.pentas.clientmobile.domain.user.User;
 import com.pentas.clientmobile.domain.user.UserRepository;
 import com.pentas.clientmobile.dto.UserSaveRequestDto;
@@ -23,14 +20,14 @@ public class UserService {
     CmmnDao cmmnDao;
 
     @Autowired
-    EmailProperties emailProperties;
+    EmailService emailService;
 
     /**
      * JPA
      */
     public Boolean isRegisteredUser (String memberId) { return userRepository.findById(memberId).isPresent(); }
 
-    public Boolean isLoginAllowed (String memberId, String passwordPin) { return userRepository.findByMemberIdAndPasswordPin(memberId, passwordPin).isPresent(); }
+    public Boolean isLoginMatch (String memberId, String passwordPin) { return userRepository.findByMemberIdAndPasswordPin(memberId, passwordPin).isPresent(); }
 
     public Boolean isEmailAuthenticated (String memberId) {
         char isEmailAuthenticated = 'N';
@@ -65,7 +62,7 @@ public class UserService {
         int rowCount = 0;
         rowCount = cmmnDao.update("clientmobile.user.setAuthKey", param);
         if (rowCount > 0) {
-            sendNewMemberEmail(
+            emailService.sendNewMemberEmail(
                     param.getString("nickname"),
                     param.getString("email"),
                     param.getString("authKey")
@@ -78,26 +75,15 @@ public class UserService {
 
     public void verifyEmail (String email) { cmmnDao.update("clientmobile.user.verifyEmail", email); }
 
-    /**
-     * Email Util
-     */
-    private void sendNewMemberEmail (String nickname, String email, String authKey) {
-        String hashEmail = CmmnUtil.encryptSHA256(email);
-        String verifyUrl = "http://localhost:8081/#/verify?mbr=" + hashEmail + "&cue=" + authKey;
+    public Boolean isLoginAllowed (String email) { return cmmnDao.selectOne("clientmobile.user.getLoginAllowed", email).equals("Y"); }
 
-        EmailUtil.sendMailAuthSSL(
-                emailProperties.getSmtpHost(),
-                emailProperties.getSmtpPort(),
-                emailProperties.getSmtpUser(),
-                emailProperties.getSmtpPassword(),
-                "[Pentaworks Service] 이메일 인증 안내",
-                "<html><p>" + nickname + "님의 가입을 축하합니다!<br>" +
-                        "아래 링크를 누르거나 주소로 이동하여 이메일 인증을 진행해주세요.<br></p>" +
-                        "<h4>이메일 인증 링크</h4>" +
-                        "<p><a href='" + verifyUrl + "' target='_blank'>" + verifyUrl + "</a></p>",
-                email + "",
-                emailProperties.getFromEmail(),
-                emailProperties.getFromName()
-        );
-    }
+    public void setLoginDenied (String email) { cmmnDao.update("clientmobile.user.setLoginDenied", email); }
+
+    public int getPasswordErrorCount (String email) { return cmmnDao.selectOne("clientmobile.user.getPasswordErrorCount", email); }
+
+    public void setPasswordErrorCount (String email) { cmmnDao.update("clientmobile.user.setPasswordErrorCount", email); }
+
+    public void resetPasswordErrorCount (String email) { cmmnDao.update("clientmobile.user.resetPasswordErrorCount", email); }
+
+    public int resetLogin (DevMap param) { return cmmnDao.update("clientmobile.user.resetLogin", param); }
 }

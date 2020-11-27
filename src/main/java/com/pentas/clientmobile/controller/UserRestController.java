@@ -32,8 +32,7 @@ public class UserRestController {
             rsltStat = "SUCC";
             if (isSocialLogin != 'Y') {
                 DevMap param = new DevMap();
-                String authKey = RandomStringUtils.randomAlphanumeric(8, 64);
-                authKey = CmmnUtil.encryptSHA256(authKey);
+                String authKey = generateAuthKey();
                 param.put("authKey", authKey);
                 param.put("email", requestDto.getMemberId());
                 param.put("nickname", requestDto.getMemberNickname());
@@ -58,11 +57,27 @@ public class UserRestController {
         if (userService.isSocialUser(memberId)) {
             rsltStat = "SSO";
         } else if (userService.isRegisteredUser(memberId)) {
-            if (userService.isLoginAllowed(memberId, passwordPin)) {
-                if (userService.isEmailAuthenticated(memberId)) {
-                    rsltStat = "SUCC";
+            if (!userService.isLoginAllowed(memberId)) {
+                rsltStat = "DND";
+            } else {
+                int errorCount = userService.getPasswordErrorCount(memberId);
+                if (userService.isLoginMatch(memberId, passwordPin)) {
+                    if (userService.isEmailAuthenticated(memberId)) {
+                        if (errorCount > 0) {
+                            userService.resetPasswordErrorCount(memberId);
+                        }
+                        rsltStat = "SUCC";
+                    } else {
+                        rsltStat = "MAIL";
+                    }
                 } else {
-                    rsltStat = "MAIL";
+                    if (errorCount < 5) {
+                        userService.setPasswordErrorCount(memberId);
+                        rsltStat = "CHK";
+                    } else {
+                        userService.setLoginDenied(memberId);
+                        rsltStat = "DND";
+                    }
                 }
             }
         }
@@ -88,6 +103,12 @@ public class UserRestController {
         return result;
     }
 
+    @PostMapping("/reset")
+    public DevMap reset(@RequestBody DevMap param) {
+        DevMap result = new DevMap();
+        return result;
+    }
+
     @PostMapping("/getinfo")
     public DevMap getinfo(@RequestBody DevMap param) {
         DevMap result = new DevMap();
@@ -102,7 +123,7 @@ public class UserRestController {
         String password = param.getString("oldPassword");
         int rowCount = 0;
 
-        if (sociallogin || userService.isLoginAllowed(email, password)) {
+        if (sociallogin || userService.isLoginMatch(email, password)) {
             rowCount = userService.updateUserInfo(param);
         }
 
@@ -113,5 +134,11 @@ public class UserRestController {
             result.put("success", "N");
         }
         return result;
+    }
+
+    private String generateAuthKey() {
+        String authKey = RandomStringUtils.randomAlphanumeric(8, 64);
+        authKey = CmmnUtil.encryptSHA256(authKey);
+        return authKey;
     }
 }

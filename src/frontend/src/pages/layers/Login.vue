@@ -1,6 +1,11 @@
 <template>
   <q-page class="flex column flex-center">
-    <h5>로그인</h5>
+    <q-img
+      class="q-pt-xl q-mt-lg q-pb-md"
+      src="/images/pentas_logo_320.png"
+      style="width: 60%; max-width: 240px;"
+      contain
+    />
 
     <q-form class="flex column fit" ref="loginForm" @submit.prevent="onLogin">
       <q-input
@@ -33,7 +38,7 @@
           />
         </template>
       </q-input>
-      <div class="flex column q-px-lg q-py-lg q-gutter-y-md fit">
+      <div class="flex column q-px-lg q-pt-lg q-gutter-y-md fit">
         <q-btn
           unelevated
           rounded
@@ -43,16 +48,70 @@
         />
       </div>
     </q-form>
-    <q-separator />
-    <div class="flex column q-px-lg q-py-lg q-gutter-y-md fit">
+    <div
+      class="row q-px-md q-mt-md q-mb-md full-width justify-around items-center"
+      style="font-size: 0.8em; vertical-align: middle; line-height: 1em;"
+    >
       <q-btn
+        class="q-px-xs"
         unelevated
         rounded
-        color="primary"
-        icon="mail"
-        label="이메일로 회원가입"
+        flat
+        dense
+        color="black"
+        label="이용방법"
+        style="font-size: 0.8em;"
+        to="/customer/manual"
+      />
+      <q-icon
+        name="horizontal_rule"
+        color="grey"
+        style="font-size: 1.4em; transform: rotate(90deg);"
+      />
+      <q-btn
+        class="q-px-xs"
+        unelevated
+        rounded
+        flat
+        dense
+        color="black"
+        label="아이디 찾기"
+        style="font-size: 0.8em;"
+      />
+      <q-icon
+        name="horizontal_rule"
+        color="grey"
+        style="font-size: 1.4em; transform: rotate(90deg);"
+      />
+      <q-btn
+        class="q-px-xs"
+        unelevated
+        rounded
+        flat
+        dense
+        color="black"
+        label="비밀번호 찾기"
+        style="font-size: 0.8em;"
+      />
+      <q-icon
+        name="horizontal_rule"
+        color="grey"
+        style="font-size: 1.4em; transform: rotate(90deg);"
+      />
+      <q-btn
+        class="q-px-xs"
+        unelevated
+        rounded
+        flat
+        dense
+        color="black"
+        label="회원가입"
+        style="font-size: 0.8em;"
         to="/layer/signup"
       />
+    </div>
+    <q-separator />
+    <div class="flex column q-px-lg q-py-lg q-gutter-y-md fit">
       <q-btn
         unelevated
         rounded
@@ -90,7 +149,6 @@
 <script>
 import sha256 from "crypto-js/sha256";
 import { openURL } from "quasar";
-import { fabGoogle } from "@quasar/extras/fontawesome-v5";
 
 export default {
   name: "LayerLogin",
@@ -161,12 +219,21 @@ export default {
         });
         this.resetLogin();
         return;
-      } else if (response.rsltStat === "FAIL") {
+      } else if (response.rsltStat === "CHK") {
         this.$store.commit("setNotification", {
           color: "negative",
           textColor: "white",
           message: "로그인에 실패했습니다.",
           caption: "이메일 및 비밀번호를 확인해주세요."
+        });
+        this.resetLogin();
+        return;
+      } else if (response.rsltStat === "DND") {
+        this.$store.commit("setNotification", {
+          color: "negative",
+          textColor: "white",
+          message: "로그인에 5회 이상 실패했습니다.",
+          caption: "비밀번호 찾기를 이용해주세요."
         });
         this.resetLogin();
         return;

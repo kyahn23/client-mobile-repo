@@ -3,8 +3,7 @@
 <mapper namespace="clientmobile.user">
 
     <select id="getUserInfo" parameterType="DevMap" resultType="DevMap">
-        SELECT
-            MBR_NM
+        SELECT MBR_NM
             ,MBR_LOC_SIDO
             ,MBR_LOC_SIGG
             ,MKT_YN
@@ -55,6 +54,54 @@
         SET AMD_DT = SYSDATE()
             ,AUTH_YN = 'Y'
             ,AUTH_KEY = NULL
+        WHERE CL_MBR_ID = #{email}
+            AND SNS_LOGIN_YN = 'N'
+    </update>
+
+    <select id="getLoginAllowed" parameterType="string" resultType="string">
+        SELECT LGIN_AVL_YN
+        FROM TBL001
+        WHERE CL_MBR_ID = #{email}
+            AND SNS_LOGIN_YN = 'N'
+    </select>
+
+    <update id="setLoginDenied" parameterType="string">
+        UPDATE TBL001
+        SET AMD_DT = SYSDATE()
+        ,LGIN_AVL_YN = 'N'
+        WHERE CL_MBR_ID = #{email}
+            AND SNS_LOGIN_YN = 'N'
+    </update>
+
+    <select id="getPasswordErrorCount" parameterType="string" resultType="_int">
+        SELECT PWERR_CNT
+        FROM TBL001
+        WHERE CL_MBR_ID = #{email}
+            AND SNS_LOGIN_YN = 'N'
+    </select>
+
+    <update id="setPasswordErrorCount" parameterType="string">
+        UPDATE TBL001
+        SET PWERR_CNT = PWERR_CNT + 1
+        WHERE CL_MBR_ID = #{email}
+            AND SNS_LOGIN_YN = 'N'
+    </update>
+
+    <update id="resetPasswordErrorCount" parameterType="string">
+        UPDATE TBL001
+        SET PWERR_CNT = 0
+        WHERE CL_MBR_ID = #{email}
+            AND LGIN_AVL_YN = 'Y'
+            AND SNS_LOGIN_YN = 'N'
+    </update>
+
+    <update id="resetLogin" parameterType="DevMap">
+        UPDATE TBL001
+        SET AMD_DT = SYSDATE()
+            ,LGIN_AVL_YN = 'Y'
+            ,PWERR_CNT = 0
+            ,AUTH_KEY = NULL
+            ,PWD_NO = #{newPassword}
         WHERE CL_MBR_ID = #{email}
             AND SNS_LOGIN_YN = 'N'
     </update>
