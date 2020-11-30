@@ -92,6 +92,7 @@
         color="black"
         label="비밀번호 찾기"
         style="font-size: 0.8em;"
+        to="/layer/findpw"
       />
       <q-icon
         name="horizontal_rule"

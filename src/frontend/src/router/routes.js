@@ -70,6 +70,13 @@ const routes = [
         }
       },
       {
+        path: "layer/findpw",
+        components: {
+          default: () => import("pages/Main.vue"),
+          dialog: () => import("pages/layers/FindPassword.vue")
+        }
+      },
+      {
         path: "layer/cancel/:dealno/:callno",
         components: {
           default: () => import("pages/status/Ongoing.vue"),
@@ -175,6 +182,19 @@ const routes = [
           mbr: route.query.mbr,
           cue: route.query.cue
         })
+      },
+      {
+        path: "layer/reset",
+        components: {
+          default: () => import("pages/Main.vue"),
+          dialog: () => import("pages/layers/ResetPassword.vue")
+        },
+        props: {
+          dialog: route => ({
+            mbr: route.query.mbr,
+            cue: route.query.cue
+          })
+        }
       }
     ]
   },
@@ -184,7 +204,7 @@ const routes = [
   {
     path: "*",
     component: () => import("pages/Error404.vue"),
-    alias: "/404"
+    alias: "404"
   }
 ];
 

@@ -46,7 +46,6 @@
         FROM TBL001
         WHERE AUTH_KEY = #{authKey}
             AND SNS_LOGIN_YN = 'N'
-            AND AUTH_YN = 'N'
     </select>
 
     <update id="verifyEmail" parameterType="string">

@@ -49,6 +49,8 @@ public class UserService {
         return isSocialUserYn == 'Y';
     }
 
+    public Boolean isIdAndNameMatch (String memberId, String memberNickname) { return userRepository.findByMemberIdAndMemberNickname(memberId, memberNickname).isPresent(); }
+
     public String save (UserSaveRequestDto requestDto) { return userRepository.save(requestDto.toEntity()).getMemberId(); }
 
     /**
@@ -58,15 +60,23 @@ public class UserService {
 
     public int updateUserInfo (DevMap param) { return cmmnDao.update("clientmobile.user.updateUserInfo", param); }
 
-    public int setAuthKey (DevMap param) {
+    public int setAuthKey (DevMap param, String type) {
         int rowCount = 0;
         rowCount = cmmnDao.update("clientmobile.user.setAuthKey", param);
         if (rowCount > 0) {
-            emailService.sendNewMemberEmail(
-                    param.getString("nickname"),
-                    param.getString("email"),
-                    param.getString("authKey")
-            );
+            if (type.equals("NEW")) {
+                emailService.sendNewMemberEmail(
+                        param.getString("nickname"),
+                        param.getString("email"),
+                        param.getString("authKey")
+                );
+            } else if (type.equals("EXT")) {
+                emailService.sendFindMemberEmail(
+                        param.getString("nickname"),
+                        param.getString("email"),
+                        param.getString("authKey")
+                );
+            }
         }
         return rowCount;
     }

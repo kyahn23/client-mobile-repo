@@ -109,6 +109,8 @@ export default {
   mounted() {
     if (this.$route.path.includes("/layer")) {
       this.$store.commit("setLayer", { isLayer: true });
+    } else {
+      this.$store.commit("setLayer", { isLayer: false });
     }
   },
   watch: {

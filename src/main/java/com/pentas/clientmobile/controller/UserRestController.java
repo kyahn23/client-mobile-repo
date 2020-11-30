@@ -37,7 +37,7 @@ public class UserRestController {
                 param.put("email", requestDto.getMemberId());
                 param.put("nickname", requestDto.getMemberNickname());
                 int rowCount = 0;
-                rowCount = userService.setAuthKey(param);
+                rowCount = userService.setAuthKey(param, "NEW");
                 if (rowCount <= 0) {
                     rsltStat = "FAIL";
                 }
@@ -93,19 +93,69 @@ public class UserRestController {
         String email = "";
         String hashEmail = param.getString("mbr");
         String authKey = param.getString("cue");
+        String target = param.getString("tgt");
 
         email = userService.getEmailByAuthKey(authKey);
         if (hashEmail.equals(CmmnUtil.encryptSHA256(email))) {
-            userService.verifyEmail(email);
+            if (target.equals("MAIL")) {
+                userService.verifyEmail(email);
+            } else if (target.equals("USER")) {
+                String nickname = "";
+
+                DevMap infoParam = new DevMap();
+                infoParam.put("email", email);
+
+                DevMap userInfo = userService.getUserInfo(infoParam);
+                nickname = userInfo.getString("mbrNm");
+
+                result.put("userNm", nickname);
+                result.put("userId", email);
+            }
         }
 
         result.put("success", "Y");
         return result;
     }
 
+    @PostMapping("/findid")
+    public DevMap findid(@RequestBody DevMap param) {
+        DevMap result = new DevMap();
+        return result;
+    }
+
+    @PostMapping("/findpw")
+    public DevMap findpw(@RequestBody DevMap param) {
+        String successCd = "Y";
+        String email = param.getString("email");
+        String nickname = param.getString("nickname");
+
+        if (userService.isIdAndNameMatch(email, nickname)) {
+            int rowCount = 0;
+            String authKey = generateAuthKey();
+            param.put("authKey", authKey);
+            rowCount = userService.setAuthKey(param, "EXT");
+            if (rowCount <= 0) {
+                successCd = "N";
+            }
+        }
+
+        DevMap result = new DevMap();
+        result.put("success", successCd);
+        return result;
+    }
+
     @PostMapping("/reset")
     public DevMap reset(@RequestBody DevMap param) {
+        int rowCount = 0;
+        String successCd = "Y";
         DevMap result = new DevMap();
+
+        rowCount = userService.resetLogin(param);
+        if (rowCount <= 0) {
+            successCd = "N";
+        }
+
+        result.put("success", successCd);
         return result;
     }
 

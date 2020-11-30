@@ -22,7 +22,8 @@ export default {
         process.env.API + "/api/auth/verify",
         {
           mbr: this.mbr,
-          cue: this.cue
+          cue: this.cue,
+          tgt: "MAIL"
         },
         this.verifyCb,
         true
