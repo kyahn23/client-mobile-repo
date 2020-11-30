@@ -14,12 +14,11 @@ import java.net.URLEncoder;
 @RequiredArgsConstructor
 @Controller
 public class CommonViewController {
-
     private final UserService userService;
 
     @GetMapping("/ssoproc")
     public RedirectView ssoproc(@LoginUser SessionUser user) throws UnsupportedEncodingException {
-        String redirectUrl = "http://localhost:8081";
+        String redirectUrl = "http://localhost:8080";
         String memberId = "null";
         String memberNickname = "null";
 

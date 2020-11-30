@@ -34,15 +34,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
 //                    .antMatchers("/api/auth/**").permitAll()
+                    .antMatchers("/css/**").permitAll()
+                    .antMatchers("/fonts/**").permitAll()
+                    .antMatchers("/icons/**").permitAll()
+                    .antMatchers("/images/**").permitAll()
+                    .antMatchers("/js/**").permitAll()
                     .antMatchers("/api/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .cors()
                     .and()
                 .oauth2Login()
-                    .loginPage("http://localhost:8081/#/layer/login")
+                    .loginPage("/layer/login")
                     .defaultSuccessUrl("/ssoproc")
-                    .failureUrl("http://localhost:8081/#/layer/login?notify=socialCan")
+                    .failureUrl("/layer/login?notify=socialCan")
                     .userInfoEndpoint()
                         .userService(customOAuth2UserService);
     }
@@ -51,13 +56,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://localhost:8081");
+        configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", configuration);
+        source.registerCorsConfiguration("/css/**", configuration);
+        source.registerCorsConfiguration("/fonts/**", configuration);
+        source.registerCorsConfiguration("/icons/**", configuration);
+        source.registerCorsConfiguration("/images/**", configuration);
+        source.registerCorsConfiguration("/js/**", configuration);
         return source;
     }
 

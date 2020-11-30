@@ -19,7 +19,7 @@ public class EmailService {
     @Async
     public void sendNewMemberEmail (String nickname, String email, String authKey) {
         String hashEmail = CmmnUtil.encryptSHA256(email);
-        String verifyUrl = "http://localhost:8081/#/verify?mbr=" + hashEmail + "&cue=" + authKey;
+        String verifyUrl = "http://localhost:8080/#/verify?mbr=" + hashEmail + "&cue=" + authKey;
 
         EmailUtil.sendMailAuthSSL(
                 emailProperties.getSmtpHost(),
@@ -40,7 +40,7 @@ public class EmailService {
     @Async
     public void sendFindMemberEmail (String nickname, String email, String authKey) {
         String hashEmail = CmmnUtil.encryptSHA256(email);
-        String verifyUrl = "http://localhost:8081/#/layer/reset?mbr=" + hashEmail + "&cue=" + authKey;
+        String verifyUrl = "http://localhost:8080/#/layer/reset?mbr=" + hashEmail + "&cue=" + authKey;
 
         EmailUtil.sendMailAuthSSL(
                 emailProperties.getSmtpHost(),
