@@ -63,7 +63,11 @@
                   <q-icon name="app:step1" style="font-size: 2em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-blue-9"
@@ -72,7 +76,11 @@
                   <q-icon name="app:step2" style="font-size: 2em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-blue-8"
@@ -81,7 +89,11 @@
                   <q-icon name="app:step3" style="font-size: 2em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-blue-7"
@@ -143,7 +155,11 @@
                   <q-icon name="app:step1" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -152,7 +168,11 @@
                   <q-icon name="app:step2" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -161,7 +181,11 @@
                   <q-icon name="app:step3" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -317,7 +341,11 @@
                   <q-icon name="app:step1" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-blue-9"
@@ -326,7 +354,11 @@
                   <q-icon name="app:step2" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -335,7 +367,11 @@
                   <q-icon name="app:step3" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -429,7 +465,11 @@
                   <q-icon name="app:step1" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -438,7 +478,11 @@
                   <q-icon name="app:step2" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-blue-8"
@@ -447,7 +491,11 @@
                   <q-icon name="app:step3" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -597,7 +645,11 @@
                   <q-icon name="app:step1" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -606,7 +658,11 @@
                   <q-icon name="app:step2" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-grey-7"
@@ -615,7 +671,11 @@
                   <q-icon name="app:step3" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
-                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                  <q-icon
+                    name="arrow_forward_ios"
+                    class="text-light-blue-10"
+                    style="margin-bottom: 1px;"
+                  />
                 </div>
                 <div
                   class="col q-px-xs q-py-sm bg-blue-7"
