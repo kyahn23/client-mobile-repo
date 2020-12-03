@@ -55,10 +55,67 @@
               <div class="q-mx-md text-subtitle1 text-weight-bold">
                 상담등록 절차
               </div>
-              <img
-                class="full-width text-center q-pa-sm"
-                src="images/intro-icon2.png"
-              />
+              <div class="row q-mt-md q-mx-md text-center items-center">
+                <div
+                  class="col q-px-xs q-py-sm bg-light-blue-10"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step1" style="font-size: 2em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-blue-9"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step2" style="font-size: 2em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-blue-8"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step3" style="font-size: 2em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-blue-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step4" style="font-size: 2em;" />
+                </div>
+              </div>
+              <div class="row q-px-md text-center">
+                <div class="col-auto text-caption text-weight-bold">
+                  가입유형
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  스마트폰<br />선택
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  기타<br />상담정보
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  정보<br />확인/등록
+                </div>
+              </div>
             </div>
           </div>
         </q-step>
@@ -78,12 +135,69 @@
             </div>
 
             <div class="no-margin">
-              <img
-                style="border-bottom: 2px solid lightgrey;"
-                class="full-width text-center q-pa-sm"
-                src="images/step01-img1.png"
-              />
+              <div class="row q-mt-xs q-mx-md text-center items-center">
+                <div
+                  class="col q-px-xs q-py-sm bg-light-blue-10"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step1" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step2" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step3" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step4" style="font-size: 1.6em;" />
+                </div>
+              </div>
+              <div class="row q-mb-xs text-center" style="padding: 0 20px;">
+                <div class="col-auto text-caption text-weight-bold">
+                  STEP 1
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  STEP 2
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  STEP 3
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  FINAL
+                </div>
+              </div>
             </div>
+            <q-separator class="q-mb-xs" />
             <div class="q-ma-sm">
               <div class="row q-mb-sm">
                 <div class="col-3 items-center">
@@ -195,12 +309,69 @@
               </p>
             </div>
             <div class="no-margin">
-              <img
-                style="border-bottom: 2px solid lightgrey;"
-                class="full-width text-center q-pa-sm"
-                src="images/step02-img1.png"
-              />
+              <div class="row q-mt-xs q-mx-md text-center items-center">
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step1" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-blue-9"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step2" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step3" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step4" style="font-size: 1.6em;" />
+                </div>
+              </div>
+              <div class="row q-mb-xs text-center" style="padding: 0 20px;">
+                <div class="col-auto text-caption text-weight-bold text-grey-7">
+                  STEP 1
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  STEP 2
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  STEP 3
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  FINAL
+                </div>
+              </div>
             </div>
+            <q-separator class="q-mb-xs" />
             <div class="q-ma-sm">
               <div class="row q-mb-sm">
                 <span class="col-3 text-weight-bold self-center q-pl-sm"
@@ -250,12 +421,69 @@
               </p>
             </div>
             <div class="no-margin">
-              <img
-                style="border-bottom: 2px solid lightgrey;"
-                src="images/step03-img1.png"
-                class="full-width text-center q-pa-sm"
-              />
+              <div class="row q-mt-xs q-mx-md text-center items-center">
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step1" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step2" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-blue-8"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step3" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step4" style="font-size: 1.6em;" />
+                </div>
+              </div>
+              <div class="row q-mb-xs text-center" style="padding: 0 20px;">
+                <div class="col-auto text-caption text-weight-bold text-grey-7">
+                  STEP 1
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  STEP 2
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  STEP 3
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  FINAL
+                </div>
+              </div>
             </div>
+            <q-separator class="q-mb-xs" />
             <div class="q-ma-sm">
               <div class="flex row q-ml-xs q-mb-xs fit">
                 <span class="text-weight-bold text-caption text-left"
@@ -361,12 +589,69 @@
               </p>
             </div>
             <div class="no-margin">
-              <img
-                style="border-bottom: 2px solid lightgrey;"
-                src="images/final-img1.png"
-                class="full-width text-center q-pa-sm"
-              />
+              <div class="row q-mt-xs q-mx-md text-center items-center">
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step1" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step2" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-grey-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step3" style="font-size: 1.6em;" />
+                </div>
+                <div class="col steps-line">
+                  <q-icon name="arrow_forward_ios" class="text-light-blue-10" />
+                </div>
+                <div
+                  class="col q-px-xs q-py-sm bg-blue-7"
+                  style="max-width: 45px; border-radius: 4px;"
+                >
+                  <q-icon name="app:step4" style="font-size: 1.6em;" />
+                </div>
+              </div>
+              <div class="row q-mb-xs text-center" style="padding: 0 20px;">
+                <div class="col-auto text-caption text-weight-bold text-grey-7">
+                  STEP 1
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  STEP 2
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold text-grey-7"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  STEP 3
+                </div>
+                <div class="col"></div>
+                <div
+                  class="col-auto text-caption text-weight-bold"
+                  style="padding-top: 2px; line-height: 14px;"
+                >
+                  FINAL
+                </div>
+              </div>
             </div>
+            <q-separator class="q-mb-xs" />
             <div class="q-pa-sm">
               <table style="width: 100%; border-spacing: 0px;">
                 <tr style="height: 2.5rem">
@@ -889,5 +1174,20 @@ export default {
 
 .q-textarea .q-field__native {
   padding-top: 8px;
+}
+
+.steps-line {
+  position: relative;
+}
+
+.steps-line:after {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 1px;
+  background: #01579b;
+  content: "";
+  width: 100%;
+  display: block;
 }
 </style>
