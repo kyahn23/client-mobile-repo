@@ -18,7 +18,7 @@ public class CommonViewController {
 
     @GetMapping("/ssoproc")
     public RedirectView ssoproc(@LoginUser SessionUser user) throws UnsupportedEncodingException {
-        String redirectUrl = "http://localhost:8080";
+        String redirectUrl = "/client-mobile";
         String memberId = "null";
         String memberNickname = "null";
 

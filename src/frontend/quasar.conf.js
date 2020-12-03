@@ -39,7 +39,7 @@ module.exports = function(ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       env: {
-        API: ctx.dev ? "http://localhost:8080" : ""
+        API: ctx.dev ? "http://localhost:8080/client-mobile" : "/client-mobile"
       },
       vueRouterMode: "hash", // available values: 'hash', 'history'
 
