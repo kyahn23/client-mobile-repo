@@ -32,22 +32,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .sameOrigin()
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/").permitAll()
-//                    .antMatchers("/api/auth/**").permitAll()
-                    .antMatchers("/css/**").permitAll()
-                    .antMatchers("/fonts/**").permitAll()
-                    .antMatchers("/icons/**").permitAll()
-                    .antMatchers("/images/**").permitAll()
-                    .antMatchers("/js/**").permitAll()
-                    .antMatchers("/api/**").permitAll()
+                    .antMatchers("/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .cors()
                     .and()
                 .oauth2Login()
-                    .loginPage("/layer/login")
+                    .loginPage("http://localhost:8081/#/layer/login")
                     .defaultSuccessUrl("/ssoproc")
-                    .failureUrl("/layer/login?notify=socialCan")
+                    .failureUrl("http://localhost:8081/#/layer/login?notify=socialCan")
                     .userInfoEndpoint()
                         .userService(customOAuth2UserService);
     }
@@ -62,12 +55,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration);
-        source.registerCorsConfiguration("/css/**", configuration);
-        source.registerCorsConfiguration("/fonts/**", configuration);
-        source.registerCorsConfiguration("/icons/**", configuration);
-        source.registerCorsConfiguration("/images/**", configuration);
-        source.registerCorsConfiguration("/js/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
