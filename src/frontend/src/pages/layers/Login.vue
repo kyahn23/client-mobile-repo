@@ -2,7 +2,7 @@
   <q-page class="flex column flex-center">
     <q-img
       class="q-pt-xl q-mt-lg q-pb-md"
-      src="/images/pentas_logo_320.png"
+      src="images/pentas_logo_320.png"
       style="width: 60%; max-width: 240px;"
       contain
     />

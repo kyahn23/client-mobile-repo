@@ -18,17 +18,29 @@
         >
           <div class="step1content">
             <!-- Your content goes here -->
-            <div class="intro-bg q-px-md q-py-xs">
-              <p class="text-subtitle1 text-weight-bold">
-                원하는 조건을 입력하시면
-              </p>
-              <p class="text-subtitle1 text-weight-bold">
-                <span style="color: cornflowerblue;">지역별 시세정보</span>와
-              </p>
-              <p class="text-subtitle1 text-weight-bold">
-                <span style="color: cornflowerblue;">상담</span>을 받으실 수
-                있습니다.
-              </p>
+            <div class="q-px-md q-py-xs flex justify-between">
+              <div class="col" style="overflow-x: visible; height: 132px;">
+                <div style="position: absolute;">
+                  <p class="text-subtitle1 text-weight-bold">
+                    원하는 조건을 입력하시면
+                  </p>
+                  <p class="text-subtitle1 text-weight-bold">
+                    <span style="color: cornflowerblue;">지역별 시세정보</span
+                    >와
+                  </p>
+                  <p class="text-subtitle1 text-weight-bold">
+                    <span style="color: cornflowerblue;">상담</span>을 받으실 수
+                    있습니다.
+                  </p>
+                </div>
+              </div>
+              <div class="col" style="overflow-x: visible;">
+                <q-img
+                  src="images/intro-icon1_bg.png"
+                  style="height: 132px;"
+                  contain
+                />
+              </div>
             </div>
             <div class="q-px-md">
               <p
@@ -45,7 +57,7 @@
               </div>
               <img
                 class="full-width text-center q-pa-sm"
-                src="/images/intro-icon2.png"
+                src="images/intro-icon2.png"
               />
             </div>
           </div>
@@ -69,7 +81,7 @@
               <img
                 style="border-bottom: 2px solid lightgrey;"
                 class="full-width text-center q-pa-sm"
-                src="/images/step01-img1.png"
+                src="images/step01-img1.png"
               />
             </div>
             <div class="q-ma-sm">
@@ -186,7 +198,7 @@
               <img
                 style="border-bottom: 2px solid lightgrey;"
                 class="full-width text-center q-pa-sm"
-                src="/images/step02-img1.png"
+                src="images/step02-img1.png"
               />
             </div>
             <div class="q-ma-sm">
@@ -240,7 +252,7 @@
             <div class="no-margin">
               <img
                 style="border-bottom: 2px solid lightgrey;"
-                src="/images/step03-img1.png"
+                src="images/step03-img1.png"
                 class="full-width text-center q-pa-sm"
               />
             </div>
@@ -351,7 +363,7 @@
             <div class="no-margin">
               <img
                 style="border-bottom: 2px solid lightgrey;"
-                src="/images/final-img1.png"
+                src="images/final-img1.png"
                 class="full-width text-center q-pa-sm"
               />
             </div>
@@ -860,13 +872,6 @@ export default {
 <style>
 .no-header {
   display: none;
-}
-
-.intro-bg {
-  background-image: url("/images/intro-icon1_bg.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
 }
 
 .q-stepper--horizontal .q-stepper__step-inner {

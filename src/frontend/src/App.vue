@@ -5,9 +5,9 @@
 </template>
 <script>
 const myIcons = {
-  "app:google": "img:/icons/google_logo.svg",
-  "app:naver": "img:/icons/naver_logo.svg",
-  "app:kakao": "img:/icons/kakao_logo.svg"
+  "app:google": "img:icons/google_logo.svg",
+  "app:naver": "img:icons/naver_logo.svg",
+  "app:kakao": "img:icons/kakao_logo.svg"
 };
 
 export default {
