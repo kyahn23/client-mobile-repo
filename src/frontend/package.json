@@ -1,8 +1,8 @@
 {
   "name": "frontend",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Client Mobile",
+  "description": "Penta Phone client mobile app",
+  "productName": "Penta Phone",
   "author": "afigurekim <afigurekim@gmail.com>",
   "private": true,
   "scripts": {
