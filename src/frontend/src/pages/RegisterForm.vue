@@ -569,6 +569,7 @@ export default {
         this.sigg = "all";
         this.siggOpt = [{ cdNm: "선택", cdVal: "all" }];
       } else {
+        this.sigg = "all";
         this.getSigg(newSido);
       }
     },
