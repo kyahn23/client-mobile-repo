@@ -160,7 +160,24 @@ export default {
     },
     /** 변경하기 버튼 클릭 이벤트 */
     onSubmit() {
-      if (this.isSocialLogin === false && !this.$cf.isEmpty(this.oldPassword)) {
+      if (this.isSocialLogin === false && this.$cf.isEmpty(this.oldPassword)) {
+        this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "기존 비밀번호를 입력해주세요."
+        });
+        return;
+      } else if (
+        (this.isSocialLogin === true && this.oldName === this.memberName) ||
+        (this.isSocialLogin === false &&
+          this.oldName === this.memberName &&
+          this.$cf.isEmpty(this.newPassword))
+      ) {
+        this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "변경사항이 없습니다."
+        });
         return;
       } else {
         this.$store.commit("setLoading", { isLoading: true });
