@@ -59,29 +59,14 @@
         flat
         dense
         color="black"
-        label="이용방법"
-        style="font-size: 0.8em;"
-        to="/customer/manual"
-      />
-      <q-icon
-        name="horizontal_rule"
-        color="grey"
-        style="font-size: 1.4em; transform: rotate(90deg);"
-      />
-      <q-btn
-        class="q-px-xs"
-        unelevated
-        rounded
-        flat
-        dense
-        color="black"
         label="아이디 찾기"
-        style="font-size: 0.8em;"
+        style="font-size: 1.2em;"
+        @click="findIdTemp"
       />
       <q-icon
         name="horizontal_rule"
         color="grey"
-        style="font-size: 1.4em; transform: rotate(90deg);"
+        style="font-size: 1.8em; transform: rotate(90deg);"
       />
       <q-btn
         class="q-px-xs"
@@ -91,13 +76,13 @@
         dense
         color="black"
         label="비밀번호 찾기"
-        style="font-size: 0.8em;"
+        style="font-size: 1.2em;"
         to="/layer/findpw"
       />
       <q-icon
         name="horizontal_rule"
         color="grey"
-        style="font-size: 1.4em; transform: rotate(90deg);"
+        style="font-size: 1.8em; transform: rotate(90deg);"
       />
       <q-btn
         class="q-px-xs"
@@ -107,7 +92,7 @@
         dense
         color="black"
         label="회원가입"
-        style="font-size: 0.8em;"
+        style="font-size: 1.2em;"
         to="/layer/signup"
       />
     </div>
@@ -249,8 +234,26 @@ export default {
         this.$router.push({ path: "/main" });
       }
     },
+    /** 아이디 찾기 임시 안내문 */
+    findIdTemp() {
+      this.$store.commit("setNotification", {
+        color: "warning",
+        textColor: "dark",
+        message: "아이디찾기는 준비중입니다."
+      });
+      return;
+    },
     /** 서비스별 oAuth 처리 Url */
     oAuthUrl(service) {
+      if (service === "google" && process.env.PROD) {
+        this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "구글 로그인은 준비중입니다.",
+          caption: "네이버, 카카오 로그인을 이용해주세요."
+        });
+        return;
+      }
       return process.env.API + "/oauth2/authorization/" + service;
     }
   }

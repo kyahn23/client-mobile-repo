@@ -38,22 +38,22 @@ const routes = [
         }
       },
       {
-        path: "ongoing/:dealno",
+        path: "status/ongoing/:dealno",
         component: () => import("pages/status/Ongoing.vue"),
-        props: true,
         meta: {
           requiresAuth: true,
           titleLabel: "상담현황"
-        }
+        },
+        props: true
       },
       {
-        path: "waiting/:dealno",
+        path: "status/waiting/:dealno",
         component: () => import("pages/status/Waiting.vue"),
-        props: true,
         meta: {
           requiresAuth: true,
           titleLabel: "상담현황"
-        }
+        },
+        props: true
       },
       {
         path: "layer/login",
@@ -204,7 +204,7 @@ const routes = [
   {
     path: "*",
     component: () => import("pages/Error404.vue"),
-    alias: "404"
+    alias: "/404"
   }
 ];
 

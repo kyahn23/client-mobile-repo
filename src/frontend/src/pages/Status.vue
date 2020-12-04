@@ -235,7 +235,7 @@ export default {
     },
     /** > 클릭 이벤트 */
     dealClick(dealNo) {
-      this.$router.push({ path: "/ongoing/" + dealNo });
+      this.$router.push({ path: "/status/ongoing/" + dealNo });
     },
     /** 삭제 팝업 표시 이벤트 */
     deleteClick(deal) {

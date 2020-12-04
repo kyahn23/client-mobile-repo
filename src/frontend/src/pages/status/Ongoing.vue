@@ -48,8 +48,8 @@
       active-color="primary"
       style="height: 3em;"
     >
-      <q-route-tab label="상담진행" :to="'/ongoing/' + this.dealno" />
-      <q-route-tab label="상담대기" :to="'/waiting/' + this.dealno" />
+      <q-route-tab label="상담진행" :to="'/status/ongoing/' + this.dealno" />
+      <q-route-tab label="상담대기" :to="'/status/waiting/' + this.dealno" />
     </q-tabs>
     <div class="q-px-sm q-mb-lg q-pb-xl col">
       <q-card
@@ -109,6 +109,7 @@
               label="리뷰보기"
               class="full-width"
               style="height: 3.2em; font-size: 0.8em;"
+              @click="reviewTemp"
             />
           </div>
           <div class="col">
@@ -120,6 +121,7 @@
               label="위치보기"
               class="full-width"
               style="height: 3.2em; font-size: 0.8em;"
+              @click="locationTemp"
             />
           </div>
         </q-card-section>
@@ -214,7 +216,7 @@ import { scroll } from "quasar";
 const { getScrollTarget, setScrollPosition } = scroll;
 
 export default {
-  name: "Ongoing",
+  name: "PageOngoing",
   props: {
     dealno: {
       type: String,
@@ -249,6 +251,22 @@ export default {
       const offset = ele.offsetTop - 1000;
       const duration = 200;
       setScrollPosition(target, offset, duration);
+    },
+    /** 리뷰보기 임시 이벤트 */
+    reviewTemp() {
+      this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "리뷰보기는 준비중입니다."
+        });
+    },
+    /** 위치보기 임시 이벤트 */
+    locationTemp() {
+      this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "위치보기는 준비중입니다."
+        });
     },
     /** 상담취소 버튼 클릭 이벤트 */
     clientCancelLayer(callNo, bnNo) {

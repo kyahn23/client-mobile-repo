@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpr fFf">
     <q-header class="bg-primary text-white" height-hint="98">
-      <q-toolbar>
+      <q-toolbar class="q-px-none">
         <q-btn
           :icon="leftBtnIcon"
           unelevated
@@ -27,7 +27,7 @@
         />
       </q-toolbar>
 
-      <q-tabs indicator-color="transparent" dense align="left">
+      <q-tabs indicator-color="white" dense align="left">
         <q-route-tab to="/main" label="홈" />
         <q-route-tab to="/price" label="최저가 조회" />
         <q-route-tab to="/register" label="상담등록" />
@@ -67,8 +67,16 @@
     >
       <q-card class="bg-white text-black">
         <q-bar class="bg-white">
+          <q-btn
+            v-if="isLayerBackBtn"
+            id="layerBackBtn"
+            dense
+            flat
+            icon="arrow_back_ios"
+            @click="goLayerBackBtn"
+            style="font-size: 0.8em; left:10px; top: 10px; z-index: 6000;"
+          />
           <q-space />
-
           <q-btn
             id="layerCloseBtn"
             dense
@@ -100,10 +108,13 @@ export default {
     return {
       isMain: true,
       isBackBtn: false,
+      isLayerBackBtn: false,
+      isFromLayerBackBtn: false,
       titleLabel: "펜타폰",
       loginLabel: "로그인",
       dialogFrom: "/main",
-      pageFrom: []
+      pageFrom: [],
+      layerFrom: []
     };
   },
   mounted() {
@@ -111,6 +122,9 @@ export default {
       this.$store.commit("setLayer", { isLayer: true });
     } else {
       this.$store.commit("setLayer", { isLayer: false });
+    }
+    if (this.isLogin) {
+      this.loginLabel = "로그아웃";
     }
   },
   watch: {
@@ -123,6 +137,13 @@ export default {
           !from.path.includes("/verify")
         ) {
           this.dialogFrom = from.path;
+        }
+        if (from.path.includes("/layer")) {
+          if (!this.isFromLayerBackBtn) {
+            this.isLayerBackBtn = true;
+            this.layerFrom.push(from.path);
+          }
+          this.isFromLayerBackBtn = false;
         }
       } else {
         this.$store.commit("setLayer", { isLayer: false });
@@ -140,11 +161,6 @@ export default {
           !from.path.includes("/layer") &&
           !from.path.includes("/social") &&
           !from.path.includes("/verify") &&
-          !from.path.includes("price/") &&
-          !from.path.includes("register/") &&
-          !from.path.includes("ongoing/") &&
-          !from.path.includes("waiting/") &&
-          !from.path.includes("customer/") &&
           !this.isBackBtn
         ) {
           this.pageFrom.push(from.path);
@@ -176,6 +192,12 @@ export default {
         this.$router.push({ path: this.pageFrom.pop() });
       }
     },
+    /** 레이어 백 버튼 클릭 이벤트 */
+    goLayerBackBtn() {
+      this.isFromLayerBackBtn = true;
+      this.$router.push({ path: this.layerFrom.pop() });
+      this.isLayerBackBtn = false;
+    },
     /** 로그인 토글 */
     loginToggle() {
       if (!this.isLogin) {
@@ -197,6 +219,8 @@ export default {
       this.$router.push({ path: this.dialogFrom });
       this.$store.commit("setLayer", { isLayer: false });
       this.dialogFrom = "";
+      this.isLayerBackBtn = false;
+      this.isFromLayerBackBtn = false;
     }
   },
   computed: {

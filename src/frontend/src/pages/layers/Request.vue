@@ -71,28 +71,29 @@
             <q-icon name="expand_more" :style="expandStyle" @click="onExpand" />
           </div>
         </div>
-        <div id="privacyContent" class="q-mb-xs" :style="scrollBoxStyle">
-          <q-scroll-area
-            v-if="expandToggle"
-            visible
-            class="q-py-md q-px-md bg-grey-1"
-            :thumb-style="thumbStyle"
-            style="height: 100px; font-size: 0.8em;"
-          >
-            <p class="q-mb-none" v-if="expandLoading" :style="pTextStyle">
-              ①개인정보의 수집·이용목적<br />
-              예시) 포인트 적립, 입시상담, 급여관리, ...<br /><br />
-              ②수집하려는 개인정보의 항목<br />
-              예시) 성명, 번화번호, 주소, 이메일, 학년, ...<br /><br />
-              ③개인정보의 보유 및 이용기간(근거법률)<br />
-              예시)1년, 수강기간, 퇴사후 3년, ...<br /><br />
-              거래기록<br />
-              5년(전자상거래 등에서의 소비자 보호에 관한 법률)<br />
-              ④동의를 거부할 수 있으며, 예시)동의 거부시 ○○서비스가 제공되지
-              않습니다.
-            </p>
-          </q-scroll-area>
-        </div>
+        <q-slide-transition>
+          <div id="privacyContent" v-if="expandToggle" class="q-mb-xs">
+            <q-scroll-area
+              visible
+              class="q-py-md q-px-md bg-grey-1"
+              :thumb-style="thumbStyle"
+              style="height: 100px; font-size: 0.8em;"
+            >
+              <p class="q-mb-none">
+                ①개인정보의 수집·이용목적<br />
+                예시) 포인트 적립, 입시상담, 급여관리, ...<br /><br />
+                ②수집하려는 개인정보의 항목<br />
+                예시) 성명, 번화번호, 주소, 이메일, 학년, ...<br /><br />
+                ③개인정보의 보유 및 이용기간(근거법률)<br />
+                예시)1년, 수강기간, 퇴사후 3년, ...<br /><br />
+                거래기록<br />
+                5년(전자상거래 등에서의 소비자 보호에 관한 법률)<br />
+                ④동의를 거부할 수 있으며, 예시)동의 거부시 ○○서비스가 제공되지
+                않습니다.
+              </p>
+            </q-scroll-area>
+          </div>
+        </q-slide-transition>
       </div>
 
       <div class="row q-mb-md q-col-gutter-x-xs justify-center fixed-bottom">
@@ -158,32 +159,20 @@ export default {
       /** 확장 버튼 style object */
       expandStyle: {
         fontSize: "1.6em",
-        transition: "all ease 0.8s",
+        transition: "all ease 0.4s",
         transform: ""
       },
       /** 확장 버튼 누름 여부 */
       expandToggle: false,
       /** 확장 완료 여부 */
       expandLoading: false,
-      /** 스크롤박스 style object */
-      scrollBoxStyle: {
-        transition: "all ease 0.6s",
-        opacity: 0,
-        transform: "translateY(-50%) scaleY(0.25)"
-      },
       /** 스크롤바 style object */
       thumbStyle: {
-        transition: "all ease 0.2s",
         right: "4px",
         borderRadius: "2px",
         backgroundColor: "#000000",
         width: "3px",
-        opacity: 0
-      },
-      /** 스크롤박스 텍스트 style object */
-      pTextStyle: {
-        transition: "all ease 0.2s",
-        opacity: 0
+        opacity: 0.2
       }
     };
   },
@@ -224,42 +213,10 @@ export default {
       this.privacyRead = true;
       if (!this.expandToggle) {
         this.expandToggle = !this.expandToggle;
-        this.expandLoading = !this.expandLoading;
-
         this.expandStyle.transform = "rotate( 180deg )";
-        this.scrollBoxStyle.opacity = 1;
-        this.scrollBoxStyle.transform = "";
-
-        const ele = document.getElementById("privacyContent");
-        const target = getScrollTarget(ele);
-        const offset = ele.offsetTop;
-        const duration = 1000;
-        setScrollPosition(target, offset, duration);
-
-        setTimeout(() => {
-          this.thumbStyle.opacity = 0.2;
-          this.pTextStyle.opacity = 1;
-        }, 600);
       } else {
-        this.pTextStyle.opacity = 0;
-        this.thumbStyle.opacity = 0;
-
-        const ele = document.getElementById("privacyContent");
-        const target = getScrollTarget(ele);
-        const offset =
-          ele.offsetTop - document.documentElement.clientHeight * 0.84;
-        const duration = 300;
-        setScrollPosition(target, offset, duration);
-
-        setTimeout(() => {
-          this.expandStyle.transform = "";
-          this.scrollBoxStyle.opacity = 0;
-          this.scrollBoxStyle.transform = "translateY(-50%) scaleY(0.1)";
-        }, 200);
-        setTimeout(() => {
-          this.expandLoading = !this.expandLoading;
-          this.expandToggle = !this.expandToggle;
-        }, 600);
+        this.expandStyle.transform = "";
+        this.expandToggle = !this.expandToggle;
       }
     },
     /** 취소 버튼 클릭 이벤트 */
