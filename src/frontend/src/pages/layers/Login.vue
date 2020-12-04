@@ -246,12 +246,6 @@ export default {
     /** 서비스별 oAuth 처리 Url */
     oAuthUrl(service) {
       if (service === "google" && process.env.PROD) {
-        this.$store.commit("setNotification", {
-          color: "warning",
-          textColor: "dark",
-          message: "구글 로그인은 준비중입니다.",
-          caption: "네이버, 카카오 로그인을 이용해주세요."
-        });
         return;
       }
       return process.env.API + "/oauth2/authorization/" + service;

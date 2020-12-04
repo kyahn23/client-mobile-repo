@@ -78,7 +78,6 @@
                 ,BN_NO
                 ,DEAL_NO
             )
-        <foreach collection="bnList" item="bnNo" open="" close="" separator=" UNION ALL ">
         SELECT
             (SELECT
                 (IFNULL
@@ -121,7 +120,6 @@
                 AND A.PN_STOR = (SELECT B.PN_STOR FROM TBL006 B WHERE B.DEAL_NO = #{dealNo})
                 AND A.PN_MNT_RT_NO = (SELECT B.PN_MNT_RT_NO FROM TBL006 B WHERE B.DEAL_NO = #{dealNo})
                 AND A.BN_NO = #{bnNo}
-        </foreach>
     </insert>
 
 </mapper>

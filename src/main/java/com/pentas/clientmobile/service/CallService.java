@@ -5,6 +5,7 @@ import com.pentas.clientmobile.common.module.util.DevMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,5 +19,11 @@ public class CallService {
 
     public void callClientTerminate(DevMap param) { cmmnDao.update("clientmobile.call.callClientTerminate", param); }
 
-    public void callClientNew(DevMap param) { cmmnDao.insert("clientmobile.call.callClientNew", param); }
+    public void callClientNew(DevMap param) {
+        ArrayList<String> bnList = (ArrayList<String>) param.get("bnList");
+        for (String bnNo : bnList) {
+            param.put("bnNo", bnNo);
+            cmmnDao.insert("clientmobile.call.callClientNew", param);
+        }
+    }
 }
