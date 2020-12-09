@@ -8,6 +8,7 @@ export default function() {
     state: {
       isLoading: false,
       isLayer: false,
+      quitDialog: false,
       notification: {
         group: false,
         color: "",
@@ -27,6 +28,7 @@ export default function() {
     getters: {
       isLoading: state => state.isLoading,
       isLayer: state => state.isLayer,
+      quitDialog: state => state.quitDialog,
       notification: state => state.notification,
       isAuth: state => state.isAuth,
       currentUser: state => state.currentUser,
@@ -38,6 +40,9 @@ export default function() {
       },
       setLayer(state, payload) {
         state.isLayer = payload.isLayer;
+      },
+      setQuitDialog(state, payload) {
+        state.quitDialog = payload.quitDialog;
       },
       setNotification(state, payload) {
         state.notification = {

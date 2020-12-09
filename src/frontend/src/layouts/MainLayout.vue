@@ -3,6 +3,7 @@
     <q-header class="bg-primary text-white" height-hint="98">
       <q-toolbar class="q-px-none">
         <q-btn
+          id="mainBackBtn"
           :icon="leftBtnIcon"
           unelevated
           color="standard"
@@ -92,6 +93,37 @@
             <router-view name="dialog" />
           </q-page-container>
         </q-card-section>
+      </q-card>
+    </q-dialog>
+
+    <q-dialog v-model="quitDialog" persistent>
+      <q-card style="width: 300px">
+        <q-card-section>
+          <div class="text-subtitle1 text-weight-bold">PentaPhone 종료</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          PentaPhone을 종료하시겠습니까?
+        </q-card-section>
+
+        <q-card-actions align="evenly">
+          <q-btn
+            unelevated
+            rounded
+            color="primary"
+            label="취소"
+            style="width: 48%"
+            @click="closeQuitDialog"
+          />
+          <q-btn
+            unelevated
+            rounded
+            color="primary"
+            label="종료"
+            style="width: 48%"
+            @click="quitConfirm"
+          />
+        </q-card-actions>
       </q-card>
     </q-dialog>
 
@@ -221,6 +253,14 @@ export default {
       this.dialogFrom = "";
       this.isLayerBackBtn = false;
       this.isFromLayerBackBtn = false;
+    },
+    /** 앱 종료 취소 함수 */
+    closeQuitDialog() {
+      this.$store.commit("setQuitDialog", { quitDialog: false });
+    },
+    /** 앱 종료 확인 함수 */
+    quitConfirm() {
+      PentasWebView.quitApp();
     }
   },
   computed: {
@@ -264,6 +304,11 @@ export default {
           return "primary";
         }
         return "white";
+      }
+    },
+    quitDialog: {
+      get() {
+        return this.$store.getters.quitDialog;
       }
     }
   }
