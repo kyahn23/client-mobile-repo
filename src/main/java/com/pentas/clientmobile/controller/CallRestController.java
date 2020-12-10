@@ -24,6 +24,14 @@ public class CallRestController {
         return result;
     }
 
+    @PostMapping("/cxlread")
+    public DevMap cxlread(@RequestBody DevMap param) {
+        DevMap result = new DevMap();
+        callService.callCancelRead(param);
+        result.put("success", "Y");
+        return result;
+    }
+
     @PostMapping("/delete")
     public DevMap delete(@RequestBody DevMap param) {
         DevMap result = new DevMap();

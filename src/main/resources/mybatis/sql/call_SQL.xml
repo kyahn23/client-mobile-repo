@@ -29,11 +29,26 @@
             , A.OLD_EXT_SERV_YN
             , A.OLD_ETC
             , A.CNCL_CMNT
+            , A.CNCL_READ
         FROM TBL008 A
         WHERE A.DEAL_NO = #{dealNo}
         ORDER BY BUYING_PRICE_DV ASC
         LIMIT 3
     </select>
+
+    <update id="callCancelRead" parameterType="DevMap">
+        UPDATE TBL008
+        SET CNCL_READ = 'Y'
+            , AMD_DT = SYSDATE()
+        WHERE CALL_NO = #{callNo}
+            AND CALL_ST_CD = 'E'
+            AND (SELECT CL_MBR_ID
+                FROM TBL006
+                WHERE DEAL_NO = (
+                    SELECT * FROM (SELECT B.DEAL_NO FROM TBL008 B WHERE B.CALL_NO = #{callNo}) X
+                )
+            ) = #{email}
+    </update>
 
     <update id="callClientCancel" parameterType="DevMap">
         UPDATE TBL008

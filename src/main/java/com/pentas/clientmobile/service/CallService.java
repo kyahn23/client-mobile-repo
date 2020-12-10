@@ -15,6 +15,8 @@ public class CallService {
 
     public List<DevMap> callList(DevMap param) { return cmmnDao.selectList("clientmobile.call.callList", param); }
 
+    public void callCancelRead(DevMap param) { cmmnDao.update("clientmobile.call.callCancelRead", param); }
+
     public void callClientCancel(DevMap param) { cmmnDao.update("clientmobile.call.callClientCancel", param); }
 
     public void callClientTerminate(DevMap param) { cmmnDao.update("clientmobile.call.callClientTerminate", param); }

@@ -310,7 +310,7 @@ export default {
     callListCb(result) {
       this.callList = result.callList;
       for (let n in this.callList) {
-        if (this.callList[n].callStCd === "E") {
+        if (this.callList[n].callStCd === "E" && this.callList[n].cnclRead === "N") {
           this.canceledList.push(this.callList[n]);
         }
       }
@@ -325,9 +325,26 @@ export default {
       setTimeout(() => {
         if (this.canceledList.length > 0) {
           this.canceledOne = this.canceledList.pop();
+          this.readCanceledDialog(this.canceledOne.callNo);
           this.canceledDialog = true;
         }
       }, 500);
+    },
+    /** 상담거절 사유 확인처리 함수 */
+    readCanceledDialog(callNo) {
+      this.$cf.call(
+        process.env.API + "/api/call/cxlread",
+        { 
+          callNo: callNo,
+          email: this.currentUser
+        },
+        this.readCanceledDialogCb,
+        true
+      );
+    },
+    /** 상담거절 사유 확인처리 콜백 함수 */
+    readCanceledDialogCb(result) {
+      return;
     },
     /** 상담상태 표시 함수 */
     callStatus(value) {
@@ -339,6 +356,14 @@ export default {
         return value1;
       }
       return value2;
+    }
+  },
+  computed: {
+    /** 현재 로그인 한 사용자 */
+    currentUser: {
+      get() {
+        return this.$store.getters.currentUser;
+      }
     }
   }
 };
