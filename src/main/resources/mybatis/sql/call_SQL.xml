@@ -9,7 +9,7 @@
                 FROM TBL003 B
                 WHERE B.BN_NO = A.BN_NO)
                 AS BN_NM
-            , (SELECT CAST(AVG(C.RTN) AS DEC(2,2)) BN_RTN
+            , (SELECT CAST(AVG(C.RTN) AS DEC(3,2)) BN_RTN
                 FROM TBL004 C
                 WHERE C.BN_NO = A.BN_NO)
                 AS BN_RTN
