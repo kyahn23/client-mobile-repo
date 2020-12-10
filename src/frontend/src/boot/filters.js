@@ -25,7 +25,7 @@ export default ({ Vue }) => {
   /** 값이 null 일때 (숫자, 소수점 1자리) */
   Vue.filter("ifNullNumber", value => {
     if (value) {
-      let parsed = parseInt(value, 10);
+      let parsed = parseFloat(value);
       if (!isNaN(parsed)) {
         return parsed.toFixed(1);
       }

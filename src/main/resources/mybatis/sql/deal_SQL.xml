@@ -128,7 +128,7 @@
     <select id="sellingList" parameterType="DevMap" resultType="DevMap">
         SELECT B.BN_NO
             , B.BN_NM
-            , (SELECT CAST(AVG(D.RTN) AS DEC(2,2)) BN_RTN
+            , (SELECT CAST(AVG(D.RTN) AS DEC(3,2)) BN_RTN
                 FROM TBL004 D
                 WHERE D.BN_NO = B.BN_NO)
                 AS BN_RTN

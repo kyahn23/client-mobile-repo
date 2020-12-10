@@ -101,7 +101,7 @@
               style="margin: 0 4px 0 -6px;"
             />
             </div>
-            <div class="text-primary" style="font-size: 0.8em;">
+            <div :class="setRatingClass(sellingOne.bnRtn)" style="font-size: 0.8em;">
               (<q-icon name="star_rate" /> {{ sellingOne.bnRtn | ifNullNumber }} / 5.0)
             </div>
           </div>
@@ -254,6 +254,13 @@ export default {
       const offset = ele.offsetTop - 1000;
       const duration = 200;
       setScrollPosition(target, offset, duration);
+    },
+    /** 평점 클래스 설정 함수 */
+    setRatingClass(rating) {
+      if (this.$cf.isEmpty(rating)) {
+        return 'text-grey-5'
+      }
+      return 'text-primary'
     },
     /** 리뷰보기 임시 이벤트 */
     reviewTemp() {
