@@ -255,7 +255,7 @@ export default {
         textColor: "white",
         message: "상담신청이 완료되었습니다."
       });
-      this.onClose();
+      this.$router.push({ path: "/status/ongoing/" + this.dealno });
     }
   }
 };

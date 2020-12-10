@@ -243,6 +243,14 @@ export default {
     this.$store.commit("setLoading", { isLoading: true });
     this.getDealOne();
   },
+  watch: {
+    $route(to, from) {
+      if (from.path.includes("/layer/cancel") || from.path.includes("/layer/rating")) {
+        this.$store.commit("setLoading", { isLoading: true });
+        this.getDealOne();
+      }
+    }
+  },
   methods: {
     /** 맨 위로 돌아가기 이벤트 */
     scrollTop() {
