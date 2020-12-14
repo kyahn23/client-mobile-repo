@@ -60,7 +60,7 @@
                   class="col q-px-xs q-py-sm bg-light-blue-10"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step1" style="font-size: 2em;"/>
+                  <q-icon name="app:step1" style="font-size: 2em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -73,7 +73,7 @@
                   class="col q-px-xs q-py-sm bg-blue-9"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step2" style="font-size: 2em;"/>
+                  <q-icon name="app:step2" style="font-size: 2em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -86,7 +86,7 @@
                   class="col q-px-xs q-py-sm bg-blue-8"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step3" style="font-size: 2em;"/>
+                  <q-icon name="app:step3" style="font-size: 2em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -99,7 +99,7 @@
                   class="col q-px-xs q-py-sm bg-blue-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step4" style="font-size: 2em;"/>
+                  <q-icon name="app:step4" style="font-size: 2em;" />
                 </div>
               </div>
               <div class="row q-px-md text-center">
@@ -111,21 +111,21 @@
                   class="col-auto text-caption text-weight-bold"
                   style="padding-top: 2px; line-height: 14px;"
                 >
-                  스마트폰<br/>선택
+                  스마트폰<br />선택
                 </div>
                 <div class="col"></div>
                 <div
                   class="col-auto text-caption text-weight-bold"
                   style="padding-top: 2px; line-height: 14px;"
                 >
-                  기타<br/>상담정보
+                  기타<br />상담정보
                 </div>
                 <div class="col"></div>
                 <div
                   class="col-auto text-caption text-weight-bold"
                   style="padding-top: 2px; line-height: 14px;"
                 >
-                  정보<br/>확인/등록
+                  정보<br />확인/등록
                 </div>
               </div>
             </div>
@@ -152,7 +152,7 @@
                   class="col q-px-xs q-py-sm bg-light-blue-10"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step1" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step1" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -165,7 +165,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step2" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step2" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -178,7 +178,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step3" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step3" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -191,7 +191,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step4" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step4" style="font-size: 1.6em;" />
                 </div>
               </div>
               <div class="row q-mb-xs text-center" style="padding: 0 20px;">
@@ -221,12 +221,12 @@
                 </div>
               </div>
             </div>
-            <q-separator class="q-mb-xs"/>
+            <q-separator class="q-mb-xs" />
             <div class="q-ma-sm">
               <div class="row q-mb-sm">
                 <div class="col-3 items-center">
                   <span class="text-subtitle2 text-weight-bold q-pl-sm"
-                  >가입유형</span
+                    >가입유형</span
                   >
                 </div>
                 <div class="col-9 self-center">
@@ -261,7 +261,7 @@
               </div>
               <div class="row q-mb-sm">
                 <span class="col-3 text-weight-bold self-center q-pl-sm"
-                >지원구분</span
+                  >지원구분</span
                 >
                 <q-select
                   class="col-9 self-center"
@@ -276,7 +276,7 @@
               </div>
               <div class="row q-mb-sm">
                 <span class="col-3 text-weight-bold self-center q-pl-sm"
-                >요금제</span
+                  >요금제</span
                 >
                 <q-select
                   class="col-9 self-center"
@@ -295,29 +295,29 @@
                 <li>
                   <span style="color: lightgray;">데이터 :</span>
                   <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs"
-                  >-</span
+                    >-</span
                   >
                   <span v-else class="q-pl-xs">{{
-                      selectedMntRt.pnMntData
-                    }}</span>
+                    selectedMntRt.pnMntData
+                  }}</span>
                 </li>
                 <li>
                   <span style="color: lightgray;">음성 :</span>
                   <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs"
-                  >-</span
+                    >-</span
                   >
                   <span v-else class="q-pl-xs">{{
-                      selectedMntRt.pnMntCall
-                    }}</span>
+                    selectedMntRt.pnMntCall
+                  }}</span>
                 </li>
                 <li>
                   <span style="color: lightgray;">문자 :</span>
                   <span v-if="selectedMntRt.pnMntRtNo === 'all'" class="q-pl-xs"
-                  >-</span
+                    >-</span
                   >
                   <span v-else class="q-pl-xs">{{
-                      selectedMntRt.pnMntSms
-                    }}</span>
+                    selectedMntRt.pnMntSms
+                  }}</span>
                 </li>
               </ul>
             </div>
@@ -338,7 +338,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step1" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step1" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -351,7 +351,7 @@
                   class="col q-px-xs q-py-sm bg-blue-9"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step2" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step2" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -364,7 +364,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step3" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step3" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -377,7 +377,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step4" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step4" style="font-size: 1.6em;" />
                 </div>
               </div>
               <div class="row q-mb-xs text-center" style="padding: 0 20px;">
@@ -407,11 +407,14 @@
                 </div>
               </div>
             </div>
-            <q-separator class="q-mb-xs"/>
+            <q-separator class="q-mb-xs" />
             <div class="q-ma-sm">
+              <div class="row justify-center q-my-md">
+                <q-img :src="pnMdlImg" style="width: 128px;" />
+              </div>
               <div class="row q-mb-sm">
                 <span class="col-3 text-weight-bold self-center q-pl-sm"
-                >제조사</span
+                  >제조사</span
                 >
                 <q-select
                   class="col-9 self-center"
@@ -426,7 +429,7 @@
               </div>
               <div class="row q-mb-sm">
                 <span class="col-3 text-weight-bold self-center q-pl-sm"
-                >모델명</span
+                  >모델명</span
                 >
                 <q-select
                   class="col-9 self-center"
@@ -462,7 +465,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step1" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step1" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -475,7 +478,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step2" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step2" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -488,7 +491,7 @@
                   class="col q-px-xs q-py-sm bg-blue-8"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step3" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step3" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -501,7 +504,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step4" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step4" style="font-size: 1.6em;" />
                 </div>
               </div>
               <div class="row q-mb-xs text-center" style="padding: 0 20px;">
@@ -531,11 +534,11 @@
                 </div>
               </div>
             </div>
-            <q-separator class="q-mb-xs"/>
+            <q-separator class="q-mb-xs" />
             <div class="q-ma-sm">
               <div class="flex row q-ml-xs q-mb-xs fit">
                 <span class="text-weight-bold text-caption text-left"
-                >희망 구매지역</span
+                  >희망 구매지역</span
                 >
               </div>
               <div class="flex row q-mb-md fit">
@@ -568,7 +571,7 @@
               </div>
               <div class="row q-ml-xs q-mb-xs">
                 <span class="text-weight-bold text-caption text-left"
-                >예상 구매일</span
+                  >예상 구매일</span
                 >
               </div>
               <div class="row q-mb-md">
@@ -603,7 +606,7 @@
               <div>
                 <div class="q-ml-xs">
                   <span class="text-caption text-weight-bold full-width"
-                  >기타 요청사항</span
+                    >기타 요청사항</span
                   >
                 </div>
                 <q-input
@@ -642,7 +645,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step1" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step1" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -655,7 +658,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step2" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step2" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -668,7 +671,7 @@
                   class="col q-px-xs q-py-sm bg-grey-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step3" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step3" style="font-size: 1.6em;" />
                 </div>
                 <div class="col steps-line">
                   <q-icon
@@ -681,7 +684,7 @@
                   class="col q-px-xs q-py-sm bg-blue-7"
                   style="max-width: 45px; border-radius: 4px;"
                 >
-                  <q-icon name="app:step4" style="font-size: 1.6em;"/>
+                  <q-icon name="app:step4" style="font-size: 1.6em;" />
                 </div>
               </div>
               <div class="row q-mb-xs text-center" style="padding: 0 20px;">
@@ -711,7 +714,7 @@
                 </div>
               </div>
             </div>
-            <q-separator class="q-mb-xs"/>
+            <q-separator class="q-mb-xs" />
             <div class="q-pa-sm">
               <table style="width: 100%; border-spacing: 0px;">
                 <tr style="height: 2.5rem">
@@ -772,7 +775,7 @@
 
               <div class="q-my-xs" style="margin-bottom: 40px">
                 <span class="q-mt-sm q-pl-sm text-weight-bold full-width"
-                >기타 요청사항</span
+                  >기타 요청사항</span
                 >
                 <p
                   style="height: 60px; border: 1px solid lightgrey; border-radius: 5px"
@@ -847,7 +850,7 @@
 </template>
 
 <script>
-import {date} from "quasar";
+import { date } from "quasar";
 
 export default {
   name: "PageRegisterForm",
@@ -862,57 +865,59 @@ export default {
       step: 1,
       signType: null,
       signOpts: [
-        {label: "신규가입", value: "newSign"},
-        {label: "번호이동", value: "moveCarr"},
-        {label: "기기변경", value: "chgDev"}
+        { label: "신규가입", value: "newSign" },
+        { label: "번호이동", value: "moveCarr" },
+        { label: "기기변경", value: "chgDev" }
       ],
       saleType: "all",
       saleOpts: [
-        {label: "선택", value: "all"},
-        {label: "공시지원", value: "ofclDv"},
-        {label: "요금할인", value: "ofclRt"}
+        { label: "선택", value: "all" },
+        { label: "공시지원", value: "ofclDv" },
+        { label: "요금할인", value: "ofclRt" }
       ],
-      selectedMntRt: {label: "선택", pnMntRtNo: "all"},
+      selectedMntRt: { label: "선택", pnMntRtNo: "all" },
       mntRtList: [],
       pnMkr: "all",
       pnMkrList: [
-        {label: "선택", value: "all"},
-        {label: "삼성전자", value: "SAM"},
-        {label: "LG전자", value: "LGE"},
-        {label: "애플", value: "APP"},
-        {label: "샤오미", value: "XIA"}
+        { label: "선택", value: "all" },
+        { label: "삼성전자", value: "SAM" },
+        { label: "LG전자", value: "LGE" },
+        { label: "애플", value: "APP" },
+        { label: "샤오미", value: "XIA" }
       ],
-      selected: {label: "선택", pnMdlNo: "all"},
+      pnMdlImg: "images/phone_search.png",
+      selected: { label: "선택", pnMdlNo: "all" },
       phoneList: [],
       sido: null,
       sidoOpt: [],
       sigg: null,
-      siggOpt: [{cdNm: "선택", cdVal: "all"}],
+      siggOpt: [{ cdNm: "선택", cdVal: "all" }],
       hopeDt: "",
       etc: "",
       calendarPopup: false
     };
   },
   watch: {
-    carrier: function (newValue, oldValue) {
+    carrier: function(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.step = 1;
         this.signType = null;
         this.saleType = "all";
-        this.selectedMntRt = {label: "선택", pnMntRtNo: "all"};
+        this.selectedMntRt = { label: "선택", pnMntRtNo: "all" };
         this.mntRtList = [];
         this.pnMkr = "all";
-        this.selected = {label: "선택", pnMdlNo: "all"};
+        this.pnMdlImg = "images/phone_search.png";
+        this.selected = { label: "선택", pnMdlNo: "all" };
         this.phoneList = [];
-        this.sido = null
-        this.sigg = null
-        this.siggOpt = [{cdNm: "선택", cdVal: "all"}];
+        this.sido = null;
+        this.sigg = null;
+        this.siggOpt = [{ cdNm: "선택", cdVal: "all" }];
         this.hopeDt = "";
         this.etc = "";
         this.getMntRtList();
       }
     },
-    pnMkr: function (newValue, oldValue) {
+    pnMkr: function(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.selected = {
           label: "선택",
@@ -922,7 +927,21 @@ export default {
         this.getPhoneList();
       }
     },
-    step: function (value) {
+    "selected.pnMdlNo": function(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        if (
+          newValue !== undefined &&
+          newValue !== null &&
+          newValue !== "" &&
+          newValue !== "all"
+        ) {
+          this.pnMdlImg = this.$cf.imagePath(this.selected.pnImg);
+        } else {
+          this.pnMdlImg = "images/phone_search.png";
+        }
+      }
+    },
+    step: function(value) {
       if (value === 3) {
         this.getSido();
       }
@@ -930,7 +949,7 @@ export default {
     sido(newSido) {
       if (this.sido === "all") {
         this.sigg = "all";
-        this.siggOpt = [{cdNm: "선택", cdVal: "all"}];
+        this.siggOpt = [{ cdNm: "선택", cdVal: "all" }];
       } else {
         this.sigg = "all";
         this.getSigg(newSido);
@@ -1174,7 +1193,7 @@ export default {
     getSigg(sidoCd) {
       this.$cf.call(
         process.env.API + "/api/common/sigg",
-        {sidoCd: sidoCd},
+        { sidoCd: sidoCd },
         this.siggCb,
         false
       );
@@ -1215,20 +1234,20 @@ export default {
       this.step = 1;
       this.signType = null;
       this.saleType = "all";
-      this.selectedMntRt = {label: "선택", pnMntRtNo: "all"};
+      this.selectedMntRt = { label: "선택", pnMntRtNo: "all" };
       this.mntRtList = [];
       this.pnMkr = "all";
       this.phoneList = [];
-      this.selected = {label: "선택", pnMdlNo: "all"};
+      this.selected = { label: "선택", pnMdlNo: "all" };
       this.sido = null;
       this.sidoOpt = [];
       this.sigg = null;
-      this.siggOpt = [{cdNm: "선택", cdVal: "all"}];
+      this.siggOpt = [{ cdNm: "선택", cdVal: "all" }];
       this.hopeDt = "";
       this.etc = "";
 
       // 상담등록 후 상담현황으로 이동
-      this.$router.push({path: "/status"});
+      this.$router.push({ path: "/status" });
     }
   }
 };

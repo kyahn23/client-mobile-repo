@@ -3,6 +3,9 @@
     <div id="top">
       <!-- Your content goes here -->
       <div class="full-width">
+        <div class="row justify-center q-mt-sm q-mb-lg">
+          <q-img :src="pnMdlImg" style="width: 128px;" />
+        </div>
         <div class="row q-mb-sm">
           <div class="col-3 text-weight-bold self-center">
             <span>가입유형</span>
@@ -100,10 +103,18 @@
           />
         </div>
       </div>
-      <!--      <div class="q-mb-xs">-->
-      <!--        <q-btn outline color="white" text-color="black" rounded size="sm" class="q-px-xs q-mr-xs q-py-xs" label="전체"/>-->
-      <!--        <q-btn outline color="primary" rounded size="sm" class="q-px-xs q-py-xs" label="SKT 최저가"/>-->
-      <!--      </div>-->
+      <div class="q-py-lg" v-if="priceSearched && priceList.length === 0">
+        <q-item>
+          <q-item-section class="text-grey-5">
+            <q-item-label class="self-center">
+              <q-icon name="error" size="xl" />
+            </q-item-label>
+            <q-item-label class="q-pt-sm self-center text-subtitle1">
+              해당 상품의 최저가가 없습니다
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </div>
       <div class="q-pa-xs q-mb-sm" v-if="priceList.length !== 0">
         <q-table
           class="no-shadow no-outline"
@@ -180,9 +191,11 @@ export default {
         { label: "15일", value: 15 }
       ],
       selected: { label: "선택", pnMdlNo: "all" },
+      pnMdlImg: "images/phone_search.png",
       phoneList: [],
       selectedMntRt: { label: "선택", pnMntRtNo: "all" },
       mntRtList: [],
+      priceSearched: false,
       columns: [
         {
           name: "priceDate",
@@ -212,6 +225,25 @@ export default {
     };
   },
   watch: {
+    carrier: function(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.pricePagination = {
+          sortBy: "desc",
+          descending: false,
+          page: 1,
+          rowsPerPage: 7
+        };
+        this.signType = null;
+        this.pnMkr = "all";
+        this.searchPeriod = "all";
+        this.selected = { label: "선택", pnMdlNo: "all" };
+        this.phoneList = [];
+        this.selectedMntRt = { label: "선택", pnMntRtNo: "all" };
+        this.mntRtList = [];
+        this.priceSearched = false;
+        this.priceList = [];
+      }
+    },
     pnMkr: function(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.selected = {
@@ -225,6 +257,16 @@ export default {
     },
     "selected.pnMdlNo": function(newValue, oldValue) {
       if (newValue !== oldValue) {
+        if (
+          newValue !== undefined &&
+          newValue !== null &&
+          newValue !== "" &&
+          newValue !== "all"
+        ) {
+          this.pnMdlImg = this.$cf.imagePath(this.selected.pnImg);
+        } else {
+          this.pnMdlImg = "images/phone_search.png";
+        }
         this.selectedMntRt = {
           label: "선택",
           pnMntRtNo: "all"
@@ -360,7 +402,6 @@ export default {
         pnMntRtNo: this.selectedMntRt.pnMntRtNo,
         sinceDt: sinceDate
       };
-      console.log(param);
       this.$cf.call(
         process.env.API + "/api/price/priceList",
         param,
@@ -369,6 +410,7 @@ export default {
       );
     },
     searchPriceCB(response) {
+      this.priceSearched = true;
       for (let n in response.priceList) {
         response.priceList[n].priceDate = date.formatDate(
           response.priceList[n].inpDt,
