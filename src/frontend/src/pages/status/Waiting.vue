@@ -5,7 +5,7 @@
         <q-img
           class="col-4"
           style="max-width: 100px;"
-          :src="dealOne.pnImg"
+          :src="$cf.imagePath(dealOne.pnImg)"
           contain
         />
         <q-card-section class="self-center full-width q-pl-sm">

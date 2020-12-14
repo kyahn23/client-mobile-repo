@@ -13,7 +13,7 @@
           <q-item class="q-py-md">
             <q-item-section avatar>
               <q-avatar square size="4em">
-                <img :src="dealOne.pnImg" />
+                <img :src="$cf.imagePath(dealOne.pnImg)" />
               </q-avatar>
             </q-item-section>
 

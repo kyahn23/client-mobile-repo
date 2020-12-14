@@ -19,4 +19,14 @@
         ORDER BY CD_VAL
     </select>
 
+    <select id="selectFileInfo" parameterType="string" resultType="DevMap">
+        SELECT
+            FIL_STOR_PTH_TXT
+            ,STOR_FIL_NM
+            ,ORIG_FIL_NM
+            ,FIL_SIZ_NO
+            ,FIL_TYP
+        FROM TBL014 WHERE STOR_FIL_NM = #{storFilNm}
+    </select>
+
 </mapper>

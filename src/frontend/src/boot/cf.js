@@ -136,76 +136,6 @@ export default async ({ Vue, store }) => {
     },
 
     /**
-     * 파일 업로드를 동반한 통신함수
-     * @param url
-     * @param fileList
-     * @param param
-     * @param callback
-     * @returns
-     */
-    async callWithFiles(url, fileList, param, callback) {
-      let formData = new FormData();
-      for (let i = 0; i < fileList.length; i++) {
-        formData.append("fileList", fileList[i]);
-      }
-      formData.append("param", JSON.stringify(param));
-
-      $.ajax({
-        url: g_cxt + url,
-        dataType: "json",
-        data: formData,
-        type: "POST",
-        contentType: false,
-        processData: false,
-        beforeSend: function() {
-          store.commit("setLoading", { isLoading: true });
-        },
-        success: function(data, status) {
-          store.commit("setLoading", { isLoading: false });
-          if (rsltFailArr.includes(data.rsltStat)) {
-            if (data.rsltStat == "user-error" && !cf_isEmpty(data.errMsg)) {
-              store.commit("setNotification", {
-                color: "negative",
-                textColor: "white",
-                message: data.errMsg,
-                caption: ""
-              });
-            } else {
-              store.commit("setNotification", {
-                color: "negative",
-                textColor: "white",
-                message: "업로드에 실패했습니다.",
-                caption: "관리자에게 문의하세요."
-              });
-            }
-          } else {
-            if (callback != null) {
-              callback(data);
-            }
-          }
-        },
-        error: function() {
-          store.commit("setLoading", { isLoading: false });
-          store.commit("setNotification", {
-            color: "negative",
-            textColor: "white",
-            message: "업로드에 실패했습니다.",
-            caption: "관리자에게 문의하세요."
-          });
-        }
-      });
-    },
-
-    /**
-     * 파일 다운로드 함수
-     * @param fileName
-     * @returns
-     */
-    async downloadFile(fileName) {
-      location.href = g_cxt + "/downloadFile?fileName=" + fileName;
-    },
-
-    /**
      * 해당 파라메타가 비어있는지 확인
      *
      * @param obj
@@ -228,6 +158,19 @@ export default async ({ Vue, store }) => {
         .toISOString()
         .slice(0, 19)
         .replace("T", " ");
+    },
+
+    /**
+     * 저장 이미지 명으로 저장 이미지 호출 함수
+     * @param imageName
+     * @returns
+     */
+    imagePath(imageName) {
+      if (imageName !== undefined && imageName !== null && imageName !== "") {
+        return process.env.API + "/api/common/image?filename=" + imageName;
+      } else {
+        return "";
+      }
     }
   };
 
