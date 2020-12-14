@@ -76,10 +76,10 @@
             class="row q-py-xs text-caption text-grey-5 justify-evenly"
             style="border: 1px solid gray; border-radius: 4px; font-size: 0.8em;"
           >
-            <span :class="callStatus(callOne.callStCd === 'R')">상담접수중</span>
-            <span :class="callStatus(callOne.callStCd === 'P')">방문예정</span>
-            <span :class="callStatus(callOne.callStCd === 'T')">상담완료</span>
-            <span :class="callStatus(callOne.callStCd === 'E' || callOne.callStCd === 'C')">상담취소</span>
+            <span :class="callStatus(callOne.callStCd === 'R', 'primary')">상담접수중</span>
+            <span :class="callStatus(callOne.callStCd === 'P', 'primary')">방문예정</span>
+            <span :class="callStatus(callOne.callStCd === 'T', 'primary')">상담완료</span>
+            <span :class="callStatus(callOne.callStCd === 'E' || callOne.callStCd === 'C', 'negative')">상담취소</span>
           </div>
         </q-card-section>
         <q-card-section class="q-py-sm">
@@ -355,8 +355,14 @@ export default {
       return;
     },
     /** 상담상태 표시 함수 */
-    callStatus(value) {
-      if (value) return "text-weight-bold text-primary";
+    callStatus(value, mode) {
+      if (value) {
+        if (mode === 'primary') {
+          return "text-weight-bold text-primary";
+        } else if (mode === 'negative') {
+          return "text-weight-bold text-orange";
+        }
+      }
     },
     /** 최저가 비교 함수 */
     lowestPrice(value1, value2) {
