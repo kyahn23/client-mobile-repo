@@ -179,8 +179,7 @@ const routes = [
         path: "verify",
         component: () => import("components/VerifyEmail.vue"),
         props: route => ({
-          mbr: route.query.mbr,
-          cue: route.query.cue
+          token: route.query.token
         })
       },
       {
@@ -191,8 +190,7 @@ const routes = [
         },
         props: {
           dialog: route => ({
-            mbr: route.query.mbr,
-            cue: route.query.cue
+            token: route.query.token
           })
         }
       }

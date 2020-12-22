@@ -12,14 +12,19 @@
         WHERE CL_MBR_ID = #{email}
     </select>
 
+    <select id="getPwdSalt" parameterType="string" resultType="string">
+        SELECT PWD_SALT FROM TBL001 WHERE CL_MBR_ID = #{email}
+    </select>
+
     <update id="updateUserInfo" parameterType="DevMap">
         UPDATE TBL001
         SET AMD_DT = SYSDATE()
             <if test="memberName != null">
                 ,MBR_NM = #{memberName}
             </if>
-            <if test="newPassword != null">
-                ,PWD_NO = #{newPassword}
+            <if test="newSaltedPwd != null">
+                ,PWD_NO = #{newSaltedPwd}
+                ,PWD_SALT = #{newPwdSalt}
             </if>
             <if test="memberLocationSido != null">
                 ,MBR_LOC_SIDO = #{memberLocationSido}
@@ -33,26 +38,33 @@
         WHERE CL_MBR_ID = #{email}
     </update>
 
-    <update id="setAuthKey" parameterType="DevMap">
+    <update id="setAuthToken" parameterType="DevMap">
         UPDATE TBL001
         SET AMD_DT = SYSDATE()
-            ,AUTH_KEY = #{authKey}
+            <if test="pwdNo != null">
+            ,PWD_NO = #{pwdNo}
+            ,PWD_SALT = #{pwdSalt}
+            </if>
+            ,AUTH_TOKEN = #{authToken}
+            ,AUTH_EXPIRY_DT = DATE_ADD(SYSDATE(), INTERVAL 30 MINUTE)
         WHERE CL_MBR_ID = #{email}
-            AND SNS_LOGIN_YN = 'N'
+        AND SNS_LOGIN_YN = 'N'
     </update>
 
-    <select id="getEmailByAuthKey" parameterType="string" resultType="string">
+    <select id="getEmailByAuthToken" parameterType="string" resultType="DevMap">
         SELECT CL_MBR_ID
+            <![CDATA[
+            ,(SYSDATE() > AUTH_EXPIRY_DT) AS AUTH_EXPIRY
+            ]]>
         FROM TBL001
-        WHERE AUTH_KEY = #{authKey}
-            AND SNS_LOGIN_YN = 'N'
+        WHERE AUTH_TOKEN = #{authToken}
+        AND SNS_LOGIN_YN = 'N'
     </select>
 
     <update id="verifyEmail" parameterType="string">
         UPDATE TBL001
         SET AMD_DT = SYSDATE()
             ,AUTH_YN = 'Y'
-            ,AUTH_KEY = NULL
         WHERE CL_MBR_ID = #{email}
             AND SNS_LOGIN_YN = 'N'
     </update>
@@ -99,8 +111,8 @@
         SET AMD_DT = SYSDATE()
             ,LGIN_AVL_YN = 'Y'
             ,PWERR_CNT = 0
-            ,AUTH_KEY = NULL
-            ,PWD_NO = #{newPassword}
+            ,PWD_NO = #{newSaltedPwd}
+            ,PWD_SALT = #{newPwdSalt}
         WHERE CL_MBR_ID = #{email}
             AND SNS_LOGIN_YN = 'N'
     </update>

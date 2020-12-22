@@ -2,6 +2,8 @@ package com.pentas.clientmobile.controller;
 
 import com.pentas.clientmobile.common.module.util.CmmnUtil;
 import com.pentas.clientmobile.common.module.util.DevMap;
+import com.pentas.clientmobile.common.module.util.crypt.CryptUtil;
+import com.pentas.clientmobile.common.module.util.uuid.UuidUtil;
 import com.pentas.clientmobile.dto.UserSaveRequestDto;
 import com.pentas.clientmobile.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.SecureRandom;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,12 +36,18 @@ public class UserRestController {
             rsltStat = "SUCC";
             if (isSocialLogin != 'Y') {
                 DevMap param = new DevMap();
-                String authKey = generateAuthKey();
-                param.put("authKey", authKey);
+                String authToken = generateUuid64();
+                String pwdSalt = generateUuid64();
+                String saltedPwd = CryptUtil.hashSHA256HexString(requestDto.getPasswordPin(), pwdSalt);
+                System.out.println("[AuthInfo]" + authToken + " : " + pwdSalt + " : " + saltedPwd);
+
+                param.put("authToken", authToken);
+                param.put("pwdSalt", pwdSalt);
+                param.put("pwdNo", saltedPwd);
                 param.put("email", requestDto.getMemberId());
                 param.put("nickname", requestDto.getMemberNickname());
                 int rowCount = 0;
-                rowCount = userService.setAuthKey(param, "NEW");
+                rowCount = userService.setAuthToken(param, "NEW");
                 if (rowCount <= 0) {
                     rsltStat = "FAIL";
                 }
@@ -61,7 +71,9 @@ public class UserRestController {
                 rsltStat = "DND";
             } else {
                 int errorCount = userService.getPasswordErrorCount(memberId);
-                if (userService.isLoginMatch(memberId, passwordPin)) {
+                String pwdSalt = userService.getPwdSalt(memberId);
+                String saltedPwd = CryptUtil.hashSHA256HexString(passwordPin, pwdSalt);
+                if (userService.isLoginMatch(memberId, saltedPwd)) {
                     if (userService.isEmailAuthenticated(memberId)) {
                         if (errorCount > 0) {
                             userService.resetPasswordErrorCount(memberId);
@@ -91,12 +103,14 @@ public class UserRestController {
     public DevMap verify(@RequestBody DevMap param) {
         DevMap result = new DevMap();
         String email = "";
-        String hashEmail = param.getString("mbr");
-        String authKey = param.getString("cue");
+        String successCd = "N";
+
+        String authToken = param.getString("token");
         String target = param.getString("tgt");
 
-        email = userService.getEmailByAuthKey(authKey);
-        if (hashEmail.equals(CmmnUtil.encryptSHA256(email))) {
+        DevMap authInfo = userService.getEmailByAuthToken(authToken);
+        if (authInfo.getInt("authExpiry") == 0) {
+            email = authInfo.getString("clMbrId");
             if (target.equals("MAIL")) {
                 userService.verifyEmail(email);
             } else if (target.equals("USER")) {
@@ -111,9 +125,11 @@ public class UserRestController {
                 result.put("userNm", nickname);
                 result.put("userId", email);
             }
+            successCd = "Y";
+        } else {
+            successCd = "E";
         }
-
-        result.put("success", "Y");
+        result.put("success", successCd);
         return result;
     }
 
@@ -130,10 +146,11 @@ public class UserRestController {
         String nickname = param.getString("nickname");
 
         if (userService.isIdAndNameMatch(email, nickname)) {
+            String authToken = generateUuid64();
+            param.put("authToken", authToken);
+
             int rowCount = 0;
-            String authKey = generateAuthKey();
-            param.put("authKey", authKey);
-            rowCount = userService.setAuthKey(param, "EXT");
+            rowCount = userService.setAuthToken(param, "EXT");
             if (rowCount <= 0) {
                 successCd = "N";
             }
@@ -146,6 +163,12 @@ public class UserRestController {
 
     @PostMapping("/reset")
     public DevMap reset(@RequestBody DevMap param) {
+        String newPassword = param.getString("newPassword");
+        String newPwdSalt = generateUuid64();
+        String newSaltedPwd = CryptUtil.hashSHA256HexString(newPassword, newPwdSalt);
+        param.put("newSaltedPwd", newSaltedPwd);
+        param.put("newPwdSalt", newPwdSalt);
+
         int rowCount = 0;
         String successCd = "Y";
         DevMap result = new DevMap();
@@ -170,10 +193,25 @@ public class UserRestController {
     public DevMap update(@RequestBody DevMap param) {
         String email = param.getString("email");
         Boolean sociallogin = param.getBoolean("sociallogin");
-        String password = param.getString("oldPassword");
+        String oldPassword = param.getString("oldPassword");
+        String newPassword = param.getString("newPassword");
         int rowCount = 0;
 
-        if (sociallogin || userService.isLoginMatch(email, password)) {
+        String oldPwdSalt, oldSaltedPwd = "";
+        if (!sociallogin) {
+            oldPwdSalt = userService.getPwdSalt(email);
+            oldSaltedPwd = CryptUtil.hashSHA256HexString(oldPassword, oldPwdSalt);
+        }
+
+        String newPwdSalt, newSaltedPwd = "";
+        if (newPassword != null && !newPassword.isEmpty()) {
+            newPwdSalt = generateUuid64();
+            newSaltedPwd = CryptUtil.hashSHA256HexString(newPassword, newPwdSalt);
+            param.put("newSaltedPwd", newSaltedPwd);
+            param.put("newPwdSalt", newPwdSalt);
+        }
+
+        if (sociallogin || userService.isLoginMatch(email, oldSaltedPwd)) {
             rowCount = userService.updateUserInfo(param);
         }
 
@@ -186,9 +224,12 @@ public class UserRestController {
         return result;
     }
 
-    private String generateAuthKey() {
-        String authKey = RandomStringUtils.randomAlphanumeric(8, 64);
-        authKey = CmmnUtil.encryptSHA256(authKey);
-        return authKey;
+    private String generateUuid64() {
+        String uuidInput1, uuidInput2;
+        do {
+            uuidInput1 = RandomStringUtils.randomAlphanumeric(32);
+            uuidInput2 = RandomStringUtils.randomAlphanumeric(32);
+        } while (uuidInput1.equals(uuidInput2));
+        return UuidUtil.getUuidOnlyString(uuidInput1) + UuidUtil.getUuidOnlyString(uuidInput2);
     }
 }

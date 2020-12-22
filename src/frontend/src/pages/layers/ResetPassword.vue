@@ -76,11 +76,7 @@ import sha256 from "crypto-js/sha256";
 export default {
   name: "LayerResetPassword",
   props: {
-    mbr: {
-      type: String,
-      required: true
-    },
-    cue: {
+    token: {
       type: String,
       required: true
     }
@@ -96,7 +92,7 @@ export default {
     };
   },
   mounted() {
-    if (this.cue === undefined || this.$cf.isEmpty(this.cue)) {
+    if (this.token === undefined || this.$cf.isEmpty(this.token)) {
       this.$router.push({ path: "/404" });
     } else {
       this.verifyUser();
@@ -108,8 +104,7 @@ export default {
       this.$cf.call(
         process.env.API + "/api/auth/verify",
         {
-          mbr: this.mbr,
-          cue: this.cue,
+          token: this.token,
           tgt: "USER"
         },
         this.verifyCb,
@@ -117,11 +112,25 @@ export default {
       );
     },
     verifyCb(response) {
-      if (this.$cf.isEmpty(response.userId)) {
-        this.$router.push({ path: "/404" });
-      } else {
+      if (response.success === "Y") {
         this.userId = response.userId;
         this.userNm = response.userNm;
+      } else if (response.success === "E") {
+        this.$store.commit("setNotification", {
+          color: "warning",
+          textColor: "dark",
+          message: "인증링크가 만료되었습니다.",
+          caption: "인증메일을 다시 요청해주세요."
+        });
+        this.$router.push({ path: "/layer/login" });
+      } else {
+        this.$store.commit("setNotification", {
+          color: "negative",
+          textColor: "white",
+          message: "인증에 실패했습니다.",
+          caption: "고객센터에 연락 바랍니다."
+        });
+        this.$router.push({ path: "/" });
       }
     },
     /** form submit 이벤트 함수 */

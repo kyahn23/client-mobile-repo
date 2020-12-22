@@ -18,7 +18,7 @@ public class User extends BaseTimeEntity {
     @Column(name="CL_MBR_ID")
     private String memberId;
 
-    @Column(name="PWD_NO")
+    @Column(name="PWD_NO", columnDefinition="char")
     private String passwordPin;
 
     @Column(name="PWERR_CNT")

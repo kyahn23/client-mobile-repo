@@ -58,30 +58,32 @@ public class UserService {
      */
     public DevMap getUserInfo (DevMap param) { return cmmnDao.selectOne("clientmobile.user.getUserInfo", param); }
 
+    public String getPwdSalt (String email) { return cmmnDao.selectOne("clientmobile.user.getPwdSalt", email); }
+
     public int updateUserInfo (DevMap param) { return cmmnDao.update("clientmobile.user.updateUserInfo", param); }
 
-    public int setAuthKey (DevMap param, String type) {
+    public int setAuthToken (DevMap param, String type) {
         int rowCount = 0;
-        rowCount = cmmnDao.update("clientmobile.user.setAuthKey", param);
+        rowCount = cmmnDao.update("clientmobile.user.setAuthToken", param);
         if (rowCount > 0) {
             if (type.equals("NEW")) {
                 emailService.sendNewMemberEmail(
                         param.getString("nickname"),
                         param.getString("email"),
-                        param.getString("authKey")
+                        param.getString("authToken")
                 );
             } else if (type.equals("EXT")) {
                 emailService.sendFindMemberEmail(
                         param.getString("nickname"),
                         param.getString("email"),
-                        param.getString("authKey")
+                        param.getString("authToken")
                 );
             }
         }
         return rowCount;
     }
 
-    public String getEmailByAuthKey (String authKey) { return cmmnDao.selectOne("clientmobile.user.getEmailByAuthKey", authKey); }
+    public DevMap getEmailByAuthToken (String authToken) { return cmmnDao.selectOne("clientmobile.user.getEmailByAuthToken", authToken); }
 
     public void verifyEmail (String email) { cmmnDao.update("clientmobile.user.verifyEmail", email); }
 
