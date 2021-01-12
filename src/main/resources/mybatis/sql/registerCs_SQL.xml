@@ -29,7 +29,8 @@
     </select>
 
     <insert id="registerCs" parameterType="DevMap">
-        INSERT into TBL006 values(
+        INSERT into TBL006(DEAL_NO, DEAL_ST_CD, DEAL_LOC, DEAL_DT,PN_REG_DIS, SALE_TYPE, DEAL_REQ, INP_DT,AMD_DT,
+        CL_MBR_ID, MNT_CARR, PN_MNT_RT_NO, PN_MDL_NO, PN_STOR) values(
         (SELECT CONCAT(DATE_FORMAT(SYSDATE() , '%Y%m%d'), IFNULL(LPAD(IFNULL(MAX(SUBSTR(DEAL_NO,9)),0)+1,4,0), ''))
         as DEAL_NO
         FROM TBL006 as t
